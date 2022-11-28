@@ -14,31 +14,26 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 public class TestActivity extends AppCompatActivity {
-    FirebaseStorage storage;
 
+    FirebaseStorage storage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
         ImageView im = (ImageView)findViewById(R.id.erased);
 
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+
         // Create a storage reference from our app
         StorageReference storageRef = storage.getReference();
         StorageReference imagesRef = storageRef.child("erased.jpg");
-
+//
         final long ONE_MEGABYTE = 1024 * 1024;
-        imagesRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                im.setImageBitmap(bitmap);
-            }
-
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
-            }
+        imagesRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(bytes -> {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            im.setImageBitmap(bitmap);
+        }).addOnFailureListener(exception -> {
+            // Handle any errors
         });
 
     }
