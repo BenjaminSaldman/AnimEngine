@@ -1,18 +1,25 @@
-package AnimEngine.myapplication;
+package AnimEngine.myapplication.utils;
+
+import com.google.firebase.database.DatabaseReference;
+
+import java.util.List;
 
 public class Anime {
     private String name;
     private long likes;
     private long dislikes;
     private String description;
+    private String creator;
     private int img_id;
-
-    public Anime(String name, long likes, long dislikes, String description, int img_id) {
+    private List<String> genres;
+    public Anime(String name,String creator, long likes, long dislikes, String description, int img_id,List<String> genres) {
         this.name = name;
+        this.creator=creator;
         this.likes = likes;
         this.dislikes = dislikes;
         this.description = description;
         this.img_id = img_id;
+        this.genres=genres;
     }
 
     public String getName() {
@@ -55,5 +62,23 @@ public class Anime {
         this.img_id = img_id;
     }
 
+    public List<String> getGenres() {
+        return genres;
+    }
 
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    public void setGenres(List<String> genres) {
+        this.genres = genres;
+    }
+    public void addAnime(){
+        DatabaseReference myRef= DB.getDB().getReference("Anime").child(name);
+        myRef.setValue(this);
+    }
 }

@@ -8,8 +8,20 @@
     tools:context=".home_screen">
 
     <EditText
+        android:id="@+id/mail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="87dp"
+        tools:layout_editor_absoluteY="210dp" />
+
+    <EditText
         android:id="@+id/password"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Password"
@@ -21,32 +33,38 @@
 
     <Button
         android:id="@+id/log_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="login"
+        android:text="User login"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="147dp"
         tools:layout_editor_absoluteY="343dp" />
 
-    <EditText
-        android:id="@+id/nickname"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/create_log"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Username"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="87dp"
-        tools:layout_editor_absoluteY="210dp" />
+        android:text="Creator Login " />
 
     <Button
         android:id="@+id/register"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sign Up"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="145dp"
-        tools:layout_editor_absoluteY="411dp"
-        tools:ignore="MissingConstraints" />
+        tools:layout_editor_absoluteY="411dp" />
+
+    <Button
+        android:id="@+id/signCreator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Creator? SIGN UP here" />
+
+    <Button
+        android:id="@+id/change_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="forgot password" />
 
 </LinearLayout>

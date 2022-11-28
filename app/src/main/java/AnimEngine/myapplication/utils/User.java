@@ -1,4 +1,7 @@
-package AnimEngine.myapplication;
+package AnimEngine.myapplication.utils;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +16,7 @@ public class User {
     private String nickname;
     private Map<String, Integer> genres;
     private List<Anime> likes;
-    final String[] Gen = {"Action", "Comedy", "Shonen", "Adventure", "Slice of Life", "Drama", "Fantasy", "Horror", "Magic", "Mystery",
+    final private String[] Gen = {"Action", "Comedy", "Shonen", "Adventure", "Slice of Life", "Drama", "Fantasy", "Horror", "Magic", "Mystery",
             "Sci-Fi", "Psychological", "Supernatural", "Romance", "Crime"};
 
     public User(String name, String mail, String password, String nickname) {
@@ -111,7 +114,13 @@ public class User {
     }
 
     public void addLike(String genre) {
-        int amount=this.genres.get(genre);
-        this.genres.put(genre,amount+1);
+        int amount = this.genres.get(genre);
+        this.genres.put(genre, amount + 1);
+    }
+
+    public void InsertUser() {
+        FirebaseDatabase db = DB.getDB();
+        DatabaseReference myRef = db.getReference("Users").child("clients").child(mail);
+        myRef.setValue(this);
     }
 }
