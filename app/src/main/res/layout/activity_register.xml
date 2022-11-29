@@ -5,22 +5,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    tools:context=".SignUp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Register"
+        android:text="Signup"
         android:textColor="#000000"
-        android:textSize="50dp"
+        android:textSize="40dp"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginBottom="280dp"
+        android:layout_marginBottom="450dp"
         android:text="Email"
         android:textColor="#000000"
         android:textSize="30dp"
@@ -31,19 +31,57 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginBottom="200dp"
-        android:textColor="#000000"
-        android:hint="Please enter an email!"
-        android:textColorHint="#000000"
-        android:lines="1"
+        android:layout_marginBottom="375dp"
+        android:hint="Please enter your email."
         android:inputType="textEmailAddress"
-        />
-
+        android:lines="1"
+        android:textColor="#000000"
+        android:textColorHint="#000000" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginBottom="75dp"
+        android:layout_marginBottom="270dp"
+        android:text="Name"
+        android:textColor="#000000"
+        android:textSize="30dp"
+        />
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="195dp"
+        android:hint="Please enter your name."
+        android:inputType="textEmailAddress"
+        android:lines="1"
+        android:textColor="#000000"
+        android:textColorHint="#000000" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="90dp"
+        android:text="Nickname"
+        android:textColor="#000000"
+        android:textSize="30dp"
+        />
+    <EditText
+        android:id="@+id/nickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="15dp"
+        android:hint="Please enter your nickname."
+        android:inputType="textEmailAddress"
+        android:lines="1"
+        android:textColor="#000000"
+        android:textColorHint="#000000" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="-90dp"
         android:text="Password"
         android:textColor="#000000"
         android:textSize="30dp"
@@ -54,7 +92,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="-165dp"
         android:textColor="#000000"
         android:hint="Please enter a password!"
         android:textColorHint="#000000"
@@ -62,37 +100,24 @@
         android:inputType="textPassword"
         />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginTop="140dp"
-        android:text="Confirm Password"
-        android:textColor="#000000"
-        android:textSize="30dp"
-        />
-
-    <EditText
-        android:id="@+id/ETRegisterconfirmpassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginTop="230dp"
-        android:textColor="#000000"
-        android:hint="Please confirm the password!"
-        android:textColorHint="#000000"
-        android:lines="1"
-        android:inputType="textPassword"
-        />
-
     <Button
-        android:id="@+id/ButtonRegisterSubmit"
+        android:id="@+id/register"
         app:layout_dodgeInsetEdges="bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="50dp"
-        android:text="Register"
+        android:layout_marginBottom="200dp"
+        android:text="signup"
+        android:textSize="20dp"
+        />
+    <Button
+        android:id="@+id/back"
+        app:layout_dodgeInsetEdges="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="150dp"
+        android:text="go back"
         android:textSize="20dp"
         />
 

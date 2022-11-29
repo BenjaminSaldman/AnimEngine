@@ -9,12 +9,12 @@ public class Anime {
     private long likes;
     private long dislikes;
     private String description;
-    private String creator;
+    private String creator_id;
     private int img_id;
     private List<String> genres;
-    public Anime(String name,String creator, long likes, long dislikes, String description, int img_id,List<String> genres) {
+    public Anime(String name,String creator_id, long likes, long dislikes, String description, int img_id,List<String> genres) {
         this.name = name;
-        this.creator=creator;
+        this.creator_id=creator_id;
         this.likes = likes;
         this.dislikes = dislikes;
         this.description = description;
@@ -67,11 +67,11 @@ public class Anime {
     }
 
     public String getCreator() {
-        return creator;
+        return creator_id;
     }
 
     public void setCreator(String creator) {
-        this.creator = creator;
+        this.creator_id = creator;
     }
 
     public void setGenres(List<String> genres) {

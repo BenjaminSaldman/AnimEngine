@@ -14,22 +14,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import AnimEngine.myapplication.utils.Creator;
 import AnimEngine.myapplication.utils.DB;
 import AnimEngine.myapplication.utils.User;
 
 public class Creators_SignUp extends AppCompatActivity implements View.OnClickListener {
-    FirebaseDatabase root;
-    DatabaseReference myRef;
     Button signup;
     EditText nickname, password, mail, name;
-    Boolean flag;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +32,6 @@ public class Creators_SignUp extends AppCompatActivity implements View.OnClickLi
         password = (EditText) findViewById(R.id.pass);
         mail = (EditText) findViewById(R.id.mail);
         name = (EditText) findViewById(R.id.name);
-        root = FirebaseDatabase.getInstance();
-        flag = false;
-        myRef = root.getReference("Users").child("creators");
         signup.setOnClickListener(this);
     }
 
@@ -60,8 +49,9 @@ public class Creators_SignUp extends AppCompatActivity implements View.OnClickLi
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        Creator creator = new Creator(uname, email, pass, nick);
-                        creator.InsertUser();
+                        String uid=task.getResult().getUser().getUid();
+                        User user = new User(uname, email, pass, nick,true,uid);
+                        user.InsertUser();
                         Toast.makeText(Creators_SignUp.this, "User created", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(), home_screen.class));
 

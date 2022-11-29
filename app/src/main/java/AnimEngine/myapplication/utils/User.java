@@ -14,21 +14,23 @@ public class User {
     private String mail;
     private String password;
     private String nickname;
-    private Map<String, Integer> genres;
-    private List<Anime> likes;
-    final private String[] Gen = {"Action", "Comedy", "Shonen", "Adventure", "Slice of Life", "Drama", "Fantasy", "Horror", "Magic", "Mystery",
-            "Sci-Fi", "Psychological", "Supernatural", "Romance", "Crime"};
+    private boolean creator;
+    private String id;
+//    private Map<String, Integer> genres;
+//    private List<Anime> likes;
+//    final private String[] Gen = {"Action", "Comedy", "Shonen", "Adventure", "Slice of Life", "Drama", "Fantasy", "Horror", "Magic", "Mystery",
+//            "Sci-Fi", "Psychological", "Supernatural", "Romance", "Crime"};
 
-    public User(String name, String mail, String password, String nickname) {
+
+    public User(String name, String mail, String password, String nickname, boolean creator, String id) {
         this.name = name;
         this.mail = mail;
         this.password = password;
         this.nickname = nickname;
-        genres = new HashMap<>();
-        for (int i = 0; i < Gen.length; i++) {
-            genres.put(Gen[i], 0);
-        }
-        likes = new ArrayList<>();
+        this.creator=creator;
+        //String regex="[.#$\\[\\]@]";
+        //this.id=mail.replaceAll(regex,"");
+        this.id=id;
     }
 
     public User() {
@@ -36,11 +38,7 @@ public class User {
         this.mail = "mail";
         this.password = "password";
         this.nickname = "nickname";
-        genres = new HashMap<>();
-        for (int i = 0; i < Gen.length; i++) {
-            genres.put(Gen[i], 0);
-        }
-        likes = new ArrayList<>();
+        this.creator=false;
     }
 
     public User(String name, String mail, String password, String nickname, Map<String, Integer> genres, List<Anime> likes) {
@@ -48,12 +46,6 @@ public class User {
         this.mail = mail;
         this.password = password;
         this.nickname = nickname;
-        this.genres = new HashMap<>();
-        this.likes = new ArrayList<>();
-        for (Map.Entry<String, Integer> set : genres.entrySet()) {
-            this.genres.put(set.getKey(), set.getValue());
-        }
-        this.likes.addAll(likes);
 
     }
 
@@ -61,8 +53,7 @@ public class User {
         this.name = other.getName();
         this.mail = other.getMail();
         this.password = other.getPassword();
-        this.genres = other.getGenres();
-        this.likes = other.getLikes();
+        this.creator=other.creator;
     }
 
     public String getName() {
@@ -89,13 +80,7 @@ public class User {
         this.password = password;
     }
 
-    public Map<String, Integer> getGenres() {
-        return genres;
-    }
 
-    public List<Anime> getLikes() {
-        return likes;
-    }
 
     public String getNickname() {
         return nickname;
@@ -105,22 +90,25 @@ public class User {
         this.nickname = nickname;
     }
 
-    public void setGenres(HashMap<String, Integer> genres) {
-        this.genres = genres;
+    public boolean isCreator() {
+        return creator;
     }
 
-    public void setLikes(List<Anime> likes) {
-        this.likes = likes;
+    public void setCreator(boolean creator) {
+        this.creator = creator;
     }
 
-    public void addLike(String genre) {
-        int amount = this.genres.get(genre);
-        this.genres.put(genre, amount + 1);
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void InsertUser() {
         FirebaseDatabase db = DB.getDB();
-        DatabaseReference myRef = db.getReference("Users").child("clients").child(mail);
+        DatabaseReference myRef = db.getReference("Users").child(id);
         myRef.setValue(this);
     }
 }
