@@ -49,44 +49,50 @@ public class home_screen extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view) {
         if (view.getId() == login.getId()) {
             FirebaseAuth myAuth = DB.getAU();
-            String pass = password.getText().toString().trim();
-            String email = mail.getText().toString().trim();
-            myAuth.signInWithEmailAndPassword(email, pass)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                DatabaseReference myRef=DB.getDB().getReference("Users").child(task.getResult().getUser().getUid());
-                                myRef.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        User user=snapshot.getValue(User.class);
-                                        if(user!=null)
-                                        {
-                                            Toast.makeText(home_screen.this,"Welcome back, "+user.getNickname(),Toast.LENGTH_LONG).show();
-                                            if(!user.isCreator()){
-                                                startActivity(new Intent(getApplicationContext(), Engine.class));
-                                            }else{
-                                                startActivity(new Intent(getApplicationContext(), Creators_SignUp.class));
+
+//            String pass = password.getText().toString().trim();
+//            String email = mail.getText().toString().trim();
+            String pass = password.getText().toString();
+            String email = mail.getText().toString();
+            if (pass.isEmpty() || email.isEmpty()) {
+                Toast.makeText(home_screen.this, "Please enter all the fields.", Toast.LENGTH_SHORT).show();
+            } else {
+                myAuth.signInWithEmailAndPassword(email, pass)
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    DatabaseReference myRef = DB.getDB().getReference("Users").child(task.getResult().getUser().getUid());
+                                    myRef.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            User user = snapshot.getValue(User.class);
+                                            if (user != null) {
+                                                Toast.makeText(home_screen.this, "Welcome back, " + user.getNickname(), Toast.LENGTH_LONG).show();
+                                                if (!user.isCreator()) {
+                                                    startActivity(new Intent(getApplicationContext(), Engine.class));
+                                                } else {
+                                                    startActivity(new Intent(getApplicationContext(), Creators_SignUp.class));
+                                                }
+                                            } else {
+                                                Toast.makeText(home_screen.this, "Failed to get data.", Toast.LENGTH_SHORT).show();
                                             }
-                                        }else{
-                                            Toast.makeText(home_screen.this,"Failed to get data.",Toast.LENGTH_SHORT).show();
+
                                         }
 
-                                    }
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+                                            Toast.makeText(home_screen.this, error.getMessage(), Toast.LENGTH_LONG).show();
 
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-                                        Toast.makeText(home_screen.this,error.getMessage(),Toast.LENGTH_LONG).show();
+                                        }
+                                    });
 
-                                    }
-                                });
-
-                            } else {
-                                Toast.makeText(home_screen.this, "Error " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(home_screen.this, "Error " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
                             }
-                        }
-                    });
+                        });
+            }
         }
         else if (view.getId() == signup.getId()) {
             Intent intent = new Intent(getApplicationContext(), SignUp.class);
