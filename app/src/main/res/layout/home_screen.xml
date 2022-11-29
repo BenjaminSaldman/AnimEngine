@@ -33,12 +33,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginBottom="415dp"
-        android:textColor="#000000"
         android:hint="Please enter your email!"
-        android:textColorHint="#000000"
-        android:lines="1"
         android:inputType="textEmailAddress"
-        />
+        android:lines="1"
+        android:minHeight="48dp"
+        android:textColor="#000000"
+        android:textColorHint="#000000" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -56,12 +56,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginBottom="165dp"
-        android:textColor="#000000"
         android:hint="Please enter your password!"
-        android:textColorHint="#000000"
-        android:lines="1"
         android:inputType="textPassword"
-        />
+        android:lines="1"
+        android:minHeight="48dp"
+        android:textColor="#000000"
+        android:textColorHint="#000000" />
 
     <Button
         android:id="@+id/log_btn"
