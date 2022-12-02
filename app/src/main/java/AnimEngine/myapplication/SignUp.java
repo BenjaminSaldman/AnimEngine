@@ -3,6 +3,7 @@ package AnimEngine.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,19 +29,20 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     FirebaseDatabase root;
     DatabaseReference myRef;
     Button signup, back;
-    EditText nickname, password, mail, name;
+    EditText etNickname, etPassword, etEmail, etUserName;
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        signup = (Button) findViewById(R.id.register);
+        signup = (Button) findViewById(R.id.btnSignUp);
         back = (Button) findViewById(R.id.back);
-        nickname = (EditText) findViewById(R.id.nickname);
-        password = (EditText) findViewById(R.id.pass);
-        mail = (EditText) findViewById(R.id.mail);
-        name = (EditText) findViewById(R.id.name);
+        etNickname = (EditText) findViewById(R.id.etNickname);
+        etPassword = (EditText) findViewById(R.id.etPassword);
+        etEmail = findViewById(R.id.etEmail);
+        etUserName = findViewById(R.id.etUserName);
 //        root= DB.getDB();
         signup.setOnClickListener(this);
         back.setOnClickListener(this);
@@ -49,15 +51,15 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (view.getId()==signup.getId()){
-            String uname = name.getText().toString();
-            String nick = nickname.getText().toString();
-            String pass = password.getText().toString();
-            String email = mail.getText().toString();
+            String uname = etUserName.getText().toString();
+            String nick = etNickname.getText().toString();
+            String pass = etPassword.getText().toString();
+            String email = etEmail.getText().toString();
             if (uname.isEmpty() || nick.isEmpty() || pass.isEmpty() || email.isEmpty()) {
                 Toast.makeText(SignUp.this, "Please fill all the fields!", Toast.LENGTH_SHORT).show();
             } else {
                 FirebaseAuth myAuth = DB.getAU();
-                myAuth.createUserWithEmailAndPassword(mail.getText().toString(), password.getText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                myAuth.createUserWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
