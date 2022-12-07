@@ -35,25 +35,25 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/userName"
+                android:id="@+id/Nickname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tvUserName"
+                    android:id="@+id/animeNickname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|top"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="your_name"
+                    android:text="your_nickname"
                     android:textColor="@color/black"
                     android:textSize="26dp"
                     android:textStyle="bold" />
 
                 <ImageButton
-                    android:id="@+id/ibEditUserName"
+                    android:id="@+id/ibEditNickname"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_gravity="center|top"
@@ -64,19 +64,19 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/realName"
+                android:id="@+id/RealName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tvRealName"
+                    android:id="@+id/animeRealName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|top"
                     android:layout_marginLeft="70dp"
                     android:layout_marginTop="10dp"
-                    android:text="your_name"
+                    android:text="your_nickname"
                     android:textSize="22dp"
                     />
 
@@ -102,11 +102,11 @@
         android:orientation="vertical"
         android:layout_gravity="bottom">
         <Button
-            android:id="@+id/btnFavouriteTvShow"
+            android:id="@+id/btnFavouriteAnimes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="your favourite tv shows"
+            android:text="your favourite animes"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_marginStart="15dp"

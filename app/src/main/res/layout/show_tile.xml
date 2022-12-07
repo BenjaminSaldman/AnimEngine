@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/liShow"
+    android:id="@+id/liAnime"
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:background="@drawable/white_base"
@@ -12,21 +12,13 @@
         android:src="@drawable/ic_launcher_background" />
 
     <TextView
-        android:id="@+id/tvShowName"
+        android:id="@+id/animeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginLeft="20dp"
-        android:text="tv name"
+        android:text="anime name"
         android:textColor="@color/black"
         android:textSize="28dp"
         android:textStyle="bold" />
-
-    <ImageButton
-        android:id="@+id/ibShow"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:layout_gravity="center|right"
-        android:layout_margin="20dp"
-        android:background="@drawable/ic_baseline_movie_24" />
 </FrameLayout>

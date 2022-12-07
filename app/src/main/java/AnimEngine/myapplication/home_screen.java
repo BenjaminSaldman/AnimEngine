@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,35 +26,36 @@ import AnimEngine.myapplication.utils.User;
 public class home_screen extends AppCompatActivity implements View.OnClickListener {
 
 
-    Button login, signup,creator_sign,reset;
-    EditText mail, password;
+    Button btnSignIn, btnCreator;
+    TextView tvSignUp, tvForgetPassword;
+    EditText etEmail, etPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen);
-        login = (Button) findViewById(R.id.log_btn);
-        signup = (Button) findViewById(R.id.register);
-        creator_sign = (Button) findViewById(R.id.signCreator);
-        reset= (Button) findViewById(R.id.change_btn);
-        mail = (EditText) findViewById(R.id.mail);
-        password = (EditText) findViewById(R.id.password);
-        login.setOnClickListener(this);
-        signup.setOnClickListener(this);
-        creator_sign.setOnClickListener(this);
-        reset.setOnClickListener(this);
+        btnSignIn = (Button) findViewById(R.id.btnSignIn);
+        tvSignUp = (TextView) findViewById(R.id.tvSignUp);
+        btnCreator = (Button) findViewById(R.id.btnCreator);
+        tvForgetPassword= (TextView) findViewById(R.id.tvForgetPassword);
+        etEmail = (EditText) findViewById(R.id.etEmail);
+        etPassword = (EditText) findViewById(R.id.etPassword);
+        btnSignIn.setOnClickListener(this);
+        tvSignUp.setOnClickListener(this);
+        btnCreator.setOnClickListener(this);
+        tvForgetPassword.setOnClickListener(this);
 
     }
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == login.getId()) {
+        if (view.getId() == btnSignIn.getId()) {
             FirebaseAuth myAuth = DB.getAU();
 
 //            String pass = password.getText().toString().trim();
 //            String email = mail.getText().toString().trim();
-            String pass = password.getText().toString();
-            String email = mail.getText().toString();
+            String pass = etPassword.getText().toString();
+            String email = etEmail.getText().toString();
             if (pass.isEmpty() || email.isEmpty()) {
                 Toast.makeText(home_screen.this, "Please enter all the fields.", Toast.LENGTH_SHORT).show();
             } else {
@@ -94,12 +96,12 @@ public class home_screen extends AppCompatActivity implements View.OnClickListen
                         });
             }
         }
-        else if (view.getId() == signup.getId()) {
+        else if (view.getId() == tvSignUp.getId()) {
             Intent intent = new Intent(getApplicationContext(), SignUp.class);
             startActivity(intent);
         }
 
-        else if (view == creator_sign) {
+        else if (view == btnCreator) {
             Intent intent = new Intent(getApplicationContext(), Creators_SignUp.class);
             startActivity(intent);
         }else{
