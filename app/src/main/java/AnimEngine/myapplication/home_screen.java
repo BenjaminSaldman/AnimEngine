@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,7 +52,7 @@ public class home_screen extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view) {
         if (view.getId() == btnSignIn.getId()) {
             FirebaseAuth myAuth = DB.getAU();
-
+            myAuth=FirebaseAuth.getInstance();
 //            String pass = password.getText().toString().trim();
 //            String email = mail.getText().toString().trim();
             String pass = etPassword.getText().toString();

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,9 +29,9 @@ import AnimEngine.myapplication.utils.User;
 public class SignUp extends AppCompatActivity implements View.OnClickListener {
     FirebaseDatabase root;
     DatabaseReference myRef;
-    Button signup, back;
+    Button signup;
     EditText etNickname, etPassword, etEmail, etUserName;
-
+    TextView  back;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -38,7 +39,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         signup = (Button) findViewById(R.id.btnSignUp);
-        back = (Button) findViewById(R.id.back);
+        back = (TextView) findViewById(R.id.tvSignIn);
         etNickname = (EditText) findViewById(R.id.etNickname);
         etPassword = (EditText) findViewById(R.id.etPassword);
         etEmail = findViewById(R.id.etEmail);
@@ -67,7 +68,9 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                             User user = new User(uname, email, pass, nick, false, uid);
                             user.InsertUser();
                             Toast.makeText(SignUp.this, "Welcome to AnimEngine, " + uname, Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(getApplicationContext(), home_screen.class));
+                            Intent intent=new Intent(getApplicationContext(), SelectActivity.class);
+                            intent.putExtra("uid",uid);
+                            startActivity(intent);
 
                         } else {
                             Toast.makeText(SignUp.this, "Error " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
