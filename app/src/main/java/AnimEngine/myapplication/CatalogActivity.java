@@ -52,6 +52,18 @@ public class CatalogActivity extends AppCompatActivity {
         arrayList.add(new Anime("Dragon Ball"));
         arrayList.add(new Anime("Dragon Ball"));
 
+        arrayList.add(new Anime("Dragon Ball"));
+        arrayList.add(new Anime("Dragon Ball"));
+        arrayList.add(new Anime("Dragon Ball"));
+
+        arrayList.add(new Anime("Dragon Ball"));
+        arrayList.add(new Anime("Dragon Ball"));
+        arrayList.add(new Anime("Dragon Ball"));
+
+        arrayList.add(new Anime("Dragon Ball"));
+        arrayList.add(new Anime("Dragon Ball"));
+        arrayList.add(new Anime("Dragon Ball"));
+
         CatalogRVAdapter customManufacturersRVAdapter = new CatalogRVAdapter(CatalogActivity.this, getLayoutInflater(), arrayList);
         rv.setAdapter(customManufacturersRVAdapter);
         rv.setLayoutManager(new GridLayoutManager(CatalogActivity.this,4));
