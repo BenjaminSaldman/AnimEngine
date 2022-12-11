@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import AnimEngine.myapplication.utils.Anime;
+
 public class CatalogRVAdapter extends RecyclerView.Adapter<CatalogRVAdapter.MyViewHolder> {
     //logic
     Context mContext;
@@ -45,9 +47,7 @@ public class CatalogRVAdapter extends RecyclerView.Adapter<CatalogRVAdapter.MyVi
     public void onBindViewHolder(@NonNull CatalogRVAdapter.MyViewHolder viewHolder, final int position) {
         //Picasso.get().load((this.mManufacturers.get(position)).getUrl()).fit().centerInside().into(viewHolder.imageButton);
 
-        viewHolder.imageButton.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
+        viewHolder.imageButton.setOnClickListener(v -> {
 //                final AlertDialog alertDialog = (new AlertDialog.Builder(mContext)).create();
 //                View view = layoutInflater.inflate(R.layout.dialog_manufacturers, null);
 //
@@ -64,7 +64,6 @@ public class CatalogRVAdapter extends RecyclerView.Adapter<CatalogRVAdapter.MyVi
 //                });
 //                alertDialog.setView(view);
 //                alertDialog.show();
-            }
         });
     }
 

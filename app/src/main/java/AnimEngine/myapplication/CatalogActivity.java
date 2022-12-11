@@ -10,13 +10,16 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.widget.TextView;
 
+
+
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
+
+import AnimEngine.myapplication.utils.Anime;
 
 public class CatalogActivity extends AppCompatActivity {
 
