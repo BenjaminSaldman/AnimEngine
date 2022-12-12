@@ -102,7 +102,7 @@ public class home_screen extends AppCompatActivity implements View.OnClickListen
             startActivity(intent);
         }
 
-        else if (view == btnCreator) {
+        else if (view.getId() == btnCreator.getId()) {
             Intent intent = new Intent(getApplicationContext(), Creators_SignUp.class);
             startActivity(intent);
         }else{
