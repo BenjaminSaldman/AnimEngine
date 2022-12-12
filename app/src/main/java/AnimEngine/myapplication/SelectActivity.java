@@ -34,10 +34,10 @@ public class SelectActivity extends AppCompatActivity implements View.OnClickLis
     final private String[] genres = {"Adventure Fantasy Comedy Martial-arts", "Adventure Fantasy", "Adventure Supernatural",
             "Adventure Fantasy Martial-arts", "Adventure Fantasy Martial-arts"};
     final private String[] URLs = {"https://www.giantbomb.com/a/uploads/original/3/33873/1700999-naruto.png",
-            "https://en.wikipedia.org/wiki/One_Piece#/media/File:One_Piece,_Volume_61_Cover_(Japanese).jpg",
-            "https://en.wikipedia.org/wiki/Bleach_(manga)#/media/File:Bleach_cover_01.jpg",
-            "https://en.wikipedia.org/wiki/Dragon_Ball_(manga)#/media/File:DB_Tank%C5%8Dbon.png",
-            "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter#/media/File:Hunter_x_Hunter_cover_-_vol1.jpg"};
+            "https://i.ytimg.com/vi/ha0-qytMD9k/maxresdefault.jpg",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxtWN2AF8vQ193DFg-UKViqXeu_SfHHF-AyQ&usqp=CAU",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQARjrRsYHUpOzVKsPyYX_uFo6wp10M1-GgIg&usqp=CAU",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-YxGQ0w4EZBuurlwmOQazoc7-EuoAmbMzPQ&usqp=CAU"};
     Map<String, Integer> likes;
     int index;
     String uid;

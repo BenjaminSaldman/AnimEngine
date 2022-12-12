@@ -22,6 +22,10 @@ public class Anime {
         this.genres=genres;
     }
 
+    public Anime(String name){
+        this.name=name;
+    }
+
     public String getName() {
         return name;
     }

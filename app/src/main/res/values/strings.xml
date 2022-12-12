@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">AnimEngine</string>
+    <string name="title_activity_test">TestActivity</string>
+
+    <string name="profile_page_title">Profile</string>
+    <string name="home_page_title">Home</string>
+    <string name="catalog_page_title">Catalog</string>
+
+    <string name="first_fragment_label">first_fragment_label</string>
+    <string name="second_fragment_label">second_fragment_label</string>
 </resources>
