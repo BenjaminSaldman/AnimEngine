@@ -14,35 +14,35 @@
         android:theme="@style/Theme.AnimEngine"
         tools:targetApi="31">
         <activity
-            android:name=".CreateActivity"
+            android:name=".creator.CreateActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".SelectActivity"
+            android:name=".client.SelectActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".SerieActivity"
+            android:name=".client.SerieActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".CreatorUserProfileActivity"
+            android:name=".creator.CreatorUserProfileActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".UserProfileActivity"
+            android:name=".client.UserProfileActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -56,28 +56,28 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Creators_SignUp"
+            android:name=".login.Creators_SignUp"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".SignUp"
+            android:name=".login.SignUp"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Engine"
+            android:name=".client.Engine"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".home_screen"
+            android:name=".login.home_screen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,11 +1,10 @@
-package AnimEngine.myapplication;
+package AnimEngine.myapplication.login;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +20,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import AnimEngine.myapplication.creator.CreateActivity;
+import AnimEngine.myapplication.client.Engine;
+import AnimEngine.myapplication.R;
+import AnimEngine.myapplication.change_password;
 import AnimEngine.myapplication.utils.DB;
 import AnimEngine.myapplication.utils.User;
 
@@ -52,9 +55,7 @@ public class home_screen extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view) {
         if (view.getId() == btnSignIn.getId()) {
             FirebaseAuth myAuth = DB.getAU();
-            myAuth=FirebaseAuth.getInstance();
-//            String pass = password.getText().toString().trim();
-//            String email = mail.getText().toString().trim();
+            //myAuth=FirebaseAuth.getInstance();
             String pass = etPassword.getText().toString();
             String email = etEmail.getText().toString();
             if (pass.isEmpty() || email.isEmpty()) {
@@ -75,7 +76,7 @@ public class home_screen extends AppCompatActivity implements View.OnClickListen
                                                 if (!user.isCreator()) {
                                                     startActivity(new Intent(getApplicationContext(), Engine.class));
                                                 } else {
-                                                    startActivity(new Intent(getApplicationContext(), Creators_SignUp.class));
+                                                    startActivity(new Intent(getApplicationContext(), CreateActivity.class));
                                                 }
                                             } else {
                                                 Toast.makeText(home_screen.this, "Failed to get data.", Toast.LENGTH_SHORT).show();
@@ -106,7 +107,7 @@ public class home_screen extends AppCompatActivity implements View.OnClickListen
             Intent intent = new Intent(getApplicationContext(), Creators_SignUp.class);
             startActivity(intent);
         }else{
-            startActivity(new Intent(getApplicationContext(),change_password.class));
+            startActivity(new Intent(getApplicationContext(), change_password.class));
         }
 
     }

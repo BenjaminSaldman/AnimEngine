@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 
+import AnimEngine.myapplication.login.home_screen;
 import AnimEngine.myapplication.utils.DB;
 
 public class change_password extends AppCompatActivity implements View.OnClickListener {
@@ -37,7 +38,7 @@ public class change_password extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onSuccess(Void unused) {
                 Toast.makeText(change_password.this,"Reset link sent to your email.",Toast.LENGTH_LONG).show();
-                startActivity(new Intent(getApplicationContext(),home_screen.class));
+                startActivity(new Intent(getApplicationContext(), home_screen.class));
 
             }
         }).addOnFailureListener(new OnFailureListener() {

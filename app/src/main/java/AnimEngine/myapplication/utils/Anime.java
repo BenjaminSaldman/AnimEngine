@@ -10,16 +10,30 @@ public class Anime {
     private long dislikes;
     private String description;
     private String creator_id;
-    private int img_id;
+    private String anime_id;
+    private int episodes;
+    private int seasons;
     private List<String> genres;
-    public Anime(String name,String creator_id, long likes, long dislikes, String description, int img_id,List<String> genres) {
+    public Anime(String name,String creator_id,String anime_id, long likes, long dislikes, String description, int episodes,int seasons,List<String> genres) {
         this.name = name;
         this.creator_id=creator_id;
         this.likes = likes;
         this.dislikes = dislikes;
         this.description = description;
-        this.img_id = img_id;
+        this.episodes = episodes;
+        this.seasons=seasons;
         this.genres=genres;
+        this.anime_id=anime_id;
+    }
+
+    public Anime(String name,int episodes,int seasons,String description,String creator_id,String anime_id)
+    {
+        this.name=name;
+        this.episodes=episodes;
+        this.anime_id=anime_id;
+        this.seasons=seasons;
+        this.description=description;
+        this.creator_id=creator_id;
     }
 
     public Anime(String name){
@@ -58,12 +72,12 @@ public class Anime {
         this.description = description;
     }
 
-    public int getImg_id() {
-        return img_id;
+    public int getEpisodes() {
+        return episodes;
     }
 
-    public void setImg_id(int img_id) {
-        this.img_id = img_id;
+    public void setEpisodes(int episodes) {
+        this.episodes = episodes;
     }
 
     public List<String> getGenres() {

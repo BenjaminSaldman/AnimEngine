@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".UserProfileActivity"
+    tools:context=".client.UserProfileActivity"
     android:background="@color/black">
 
     <LinearLayout

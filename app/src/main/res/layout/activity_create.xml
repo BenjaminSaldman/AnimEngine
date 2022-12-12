@@ -4,5 +4,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateActivity"
-    android:orientation="vertical"/>
+    android:orientation="vertical"
+    tools:context=".creator.CreateActivity">
+
+    <EditText
+        android:id="@+id/animeName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Anime Name"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="description" />
+
+    <EditText
+        android:id="@+id/seasons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Number of seasons"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/episodes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Number of episodes"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/genres"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Genres: " />
+
+    <Button
+        android:id="@+id/bgenres"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="choose genres" />
+
+    <Button
+        android:id="@+id/uimage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="upload image" />
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/upload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="upload anime" />
+
+
+
+</LinearLayout>

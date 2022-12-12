@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/purple_200"
     android:orientation="vertical"
-    tools:context=".SelectActivity">
+    tools:context=".client.SelectActivity">
 
     <LinearLayout
         android:id="@+id/liShowSerie"
@@ -37,7 +37,7 @@
             />
 
         <TextView
-            android:id="@+id/animeGenre"
+            android:id="@+id/seasons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
@@ -45,84 +45,84 @@
             android:text="ksdajfpasjfpasdsdjfnaasdjf"
             android:gravity="center"
             />
-        <LinearLayout
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:gravity="center">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/star1"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:src="@drawable/full_star"/>-->
+
+<!--            <Space-->
+<!--                android:layout_width="10dp"-->
+<!--                android:layout_height="20dp"/>-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/star2"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:src="@drawable/full_star"/>-->
+
+<!--            <Space-->
+<!--                android:layout_width="10dp"-->
+<!--                android:layout_height="20dp"/>-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/star3"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:src="@drawable/full_star"/>-->
+
+<!--            <Space-->
+<!--                android:layout_width="10dp"-->
+<!--                android:layout_height="20dp"/>-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/star4"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:src="@drawable/full_star"/>-->
+
+<!--            <Space-->
+<!--                android:layout_width="10dp"-->
+<!--                android:layout_height="20dp"/>-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/star5"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:src="@drawable/full_star"/>-->
+
+<!--            <Space-->
+<!--                android:layout_width="10dp"-->
+<!--                android:layout_height="20dp"/>-->
+
+<!--        </LinearLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:gravity="center">-->
+
+
+<!--        </LinearLayout>-->
+
+        <TextView
+            android:id="@+id/desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center"
-            android:gravity="center">
-
-            <ImageView
-                android:id="@+id/star1"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:src="@drawable/full_star"/>
-
-            <Space
-                android:layout_width="10dp"
-                android:layout_height="20dp"/>
-
-            <ImageView
-                android:id="@+id/star2"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:src="@drawable/full_star"/>
-
-            <Space
-                android:layout_width="10dp"
-                android:layout_height="20dp"/>
-
-            <ImageView
-                android:id="@+id/star3"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:src="@drawable/full_star"/>
-
-            <Space
-                android:layout_width="10dp"
-                android:layout_height="20dp"/>
-
-            <ImageView
-                android:id="@+id/star4"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:src="@drawable/full_star"/>
-
-            <Space
-                android:layout_width="10dp"
-                android:layout_height="20dp"/>
-
-            <ImageView
-                android:id="@+id/star5"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:src="@drawable/full_star"/>
-
-            <Space
-                android:layout_width="10dp"
-                android:layout_height="20dp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center"
-            android:gravity="center">
-
-
-            <TextView
-                android:id="@+id/tvSE"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="s1 | e1"
-                android:textColor="@color/white"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:textSize="26dp"/>
-
-        </LinearLayout>
+            android:gravity="center"
+            android:text="s1 | e1"
+            android:textColor="@color/white"
+            android:textSize="26dp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

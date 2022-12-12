@@ -1,14 +1,16 @@
-package AnimEngine.myapplication;
+package AnimEngine.myapplication.client;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class CreatorUserProfileActivity extends AppCompatActivity {
+import AnimEngine.myapplication.R;
+
+public class UserProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_creator_user_profile);
+        setContentView(R.layout.activity_user_profile);
     }
 }
