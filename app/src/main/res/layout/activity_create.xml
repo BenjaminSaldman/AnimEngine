@@ -15,14 +15,6 @@
         android:hint="Anime Name"
         android:inputType="textPersonName" />
 
-    <Button
-        android:id="@+id/description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="description" />
-
     <EditText
         android:id="@+id/seasons"
         android:layout_width="match_parent"
@@ -52,14 +44,26 @@
         android:text="choose genres" />
 
     <Button
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="description" />
+    <TextView
+        android:id="@+id/tvDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="" />
+
+    <Button
         android:id="@+id/uimage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="upload image" />
+
     <ImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="142dp" />
     <Button
         android:id="@+id/upload"
         android:layout_width="match_parent"

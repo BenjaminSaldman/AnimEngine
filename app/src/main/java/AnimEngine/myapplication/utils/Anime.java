@@ -14,6 +14,7 @@ public class Anime {
     private int episodes;
     private int seasons;
     private List<String> genres;
+
     public Anime(String name,String creator_id,String anime_id, long likes, long dislikes, String description, int episodes,int seasons,List<String> genres) {
         this.name = name;
         this.creator_id=creator_id;
@@ -26,7 +27,7 @@ public class Anime {
         this.anime_id=anime_id;
     }
 
-    public Anime(String name,int episodes,int seasons,String description,String creator_id,String anime_id)
+    public Anime(String name,int episodes,int seasons,String description,String creator_id,String anime_id,List<String> genres)
     {
         this.name=name;
         this.episodes=episodes;
@@ -34,6 +35,7 @@ public class Anime {
         this.seasons=seasons;
         this.description=description;
         this.creator_id=creator_id;
+        this.genres=genres;
     }
 
     public Anime(String name){

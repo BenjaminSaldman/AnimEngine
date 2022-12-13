@@ -33,7 +33,6 @@ public class StorageConnection implements storageInterface{
         StorageReference imgRef = this.storageRef.child(name); //create ref to the string name in the storage
 
         UploadTask uploadTask = imgRef.putBytes(img);//upload the byte[] (in the storage: from byte[] to image)
-
         uploadTask.addOnFailureListener(new OnFailureListener() { //if didn't success the upload
             @Override
             public void onFailure(@NonNull Exception exception) {
