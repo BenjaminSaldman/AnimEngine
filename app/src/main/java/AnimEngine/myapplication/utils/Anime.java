@@ -1,8 +1,16 @@
 package AnimEngine.myapplication.utils;
 
+import android.widget.Toast;
+
 import com.google.firebase.database.DatabaseReference;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+
+import AnimEngine.myapplication.StorageConnection;
+import AnimEngine.myapplication.creator.CreateActivity;
 
 public class Anime {
     private String name;
@@ -124,5 +132,31 @@ public class Anime {
     public void addAnime(){
         DatabaseReference myRef= DB.getDB().getReference("Anime").child(name);
         myRef.setValue(this);
+    }
+    public boolean upload_anime(InputStream input_stream){
+        try {
+
+            byte[]  inputData = getBytes(input_stream);
+            StorageConnection sc = new StorageConnection("images/");
+            sc.uploadImage(anime_id, inputData);
+            DB.getDB().getReference("Anime").child(anime_id).setValue(this);
+            DB.getDB().getReference("CreatorAnime").child(creator_id).child(anime_id).setValue(this);
+            return true;
+            //Toast.makeText(CreateActivity.this, "Anime added successfully.", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            return false;
+            //Toast.makeText(CreateActivity.this, "Failed to upload the anime.", Toast.LENGTH_SHORT).show();
+        }
+    }
+    private byte[] getBytes(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+        int bufferSize = 1024;
+        byte[] buffer = new byte[bufferSize];
+
+        int len = 0;
+        while ((len = inputStream.read(buffer)) != -1) {
+            byteBuffer.write(buffer, 0, len);
+        }
+        return byteBuffer.toByteArray();
     }
 }

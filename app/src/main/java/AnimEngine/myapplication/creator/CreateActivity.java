@@ -119,7 +119,7 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
             }
             String gens = gen.getText().toString();
             String d = des.getText().toString();
-            if (gens.equals("Selected: ") || d.isEmpty() || anime_name.isEmpty() || picture_to_upload.equals(null)) {
+            if (gens.equals("Selected: ") || d.isEmpty() || anime_name.isEmpty() || picture_to_upload==null) {
                 Toast.makeText(CreateActivity.this, "Please fill all fields.", Toast.LENGTH_SHORT).show();
             } else {
 
@@ -133,30 +133,24 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
                 InputStream iStream = null;
                 try {
                     iStream = getContentResolver().openInputStream(picture_to_upload);
+                    if(anime.upload_anime(iStream))
+                    {
+                        Toast.makeText(CreateActivity.this, "Anime added successfully.", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(CreateActivity.this, "Failed to upload the anime.", Toast.LENGTH_SHORT).show();
+                    }
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
+                    Toast.makeText(CreateActivity.this, "Failed to upload the anime.", Toast.LENGTH_SHORT).show();
                 }
-                byte[] inputData = null;
-                try {
-                    inputData = getBytes(iStream);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }try {
-                    StorageConnection sc = new StorageConnection("images/");
-                    sc.uploadImage(ref, inputData);
-                    DB.getDB().getReference("Anime").child(ref).setValue(anime);
-                    DB.getDB().getReference("CreatorAnime").child(creator_id).child(ref).setValue(anime);
-                    Toast.makeText(CreateActivity.this, "Anime added successfully.", Toast.LENGTH_SHORT).show();
-                }catch (Exception e){
-                    Toast.makeText(CreateActivity.this,"Failed to upload the anime.",Toast.LENGTH_SHORT).show();
-                }
+
+
             }
 
 
         }
 
     }
-
 
 
     private byte[] getBytes(InputStream inputStream) throws IOException {
