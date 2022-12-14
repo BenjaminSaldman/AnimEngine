@@ -119,18 +119,17 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
             }
             String gens = gen.getText().toString();
             String d = des.getText().toString();
-            if (gens.isEmpty() || d.isEmpty() || anime_name.isEmpty() || picture_to_upload.equals(null)) {
+            if (gens.equals("Selected: ") || d.isEmpty() || anime_name.isEmpty() || picture_to_upload.equals(null)) {
                 Toast.makeText(CreateActivity.this, "Please fill all fields.", Toast.LENGTH_SHORT).show();
             } else {
 
                 String[] splits = gens.trim().split(" ");
                 List<String> to_send = new ArrayList<>();
-                for (int i = 0; i < splits.length; i++) {
+                for (int i = 1; i < splits.length; i++) {
                     to_send.add(splits[i]);
                 }
                 String ref = DB.getDB().getReference("Anime").push().getKey();
                 Anime anime = new Anime(anime_name, ep, se, d, creator_id, ref, to_send);
-                DB.getDB().getReference("Anime").child(anime_name).setValue(anime);
                 InputStream iStream = null;
                 try {
                     iStream = getContentResolver().openInputStream(picture_to_upload);
@@ -142,10 +141,15 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
                     inputData = getBytes(iStream);
                 } catch (IOException e) {
                     e.printStackTrace();
+                }try {
+                    StorageConnection sc = new StorageConnection("images/");
+                    sc.uploadImage(ref, inputData);
+                    DB.getDB().getReference("Anime").child(ref).setValue(anime);
+                    DB.getDB().getReference("CreatorAnime").child(creator_id).child(ref).setValue(anime);
+                    Toast.makeText(CreateActivity.this, "Anime added successfully.", Toast.LENGTH_SHORT).show();
+                }catch (Exception e){
+                    Toast.makeText(CreateActivity.this,"Failed to upload the anime.",Toast.LENGTH_SHORT).show();
                 }
-                StorageConnection sc = new StorageConnection("images/");
-                sc.uploadImage(anime_name, inputData);
-                Toast.makeText(CreateActivity.this, "Anime added successfully.", Toast.LENGTH_SHORT).show();
             }
 
 

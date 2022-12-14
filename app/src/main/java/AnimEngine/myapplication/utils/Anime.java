@@ -94,6 +94,30 @@ public class Anime {
         this.creator_id = creator;
     }
 
+    public String getCreator_id() {
+        return creator_id;
+    }
+
+    public void setCreator_id(String creator_id) {
+        this.creator_id = creator_id;
+    }
+
+    public String getAnime_id() {
+        return anime_id;
+    }
+
+    public void setAnime_id(String anime_id) {
+        this.anime_id = anime_id;
+    }
+
+    public int getSeasons() {
+        return seasons;
+    }
+
+    public void setSeasons(int seasons) {
+        this.seasons = seasons;
+    }
+
     public void setGenres(List<String> genres) {
         this.genres = genres;
     }

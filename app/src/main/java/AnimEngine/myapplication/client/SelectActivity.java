@@ -22,7 +22,7 @@ import AnimEngine.myapplication.utils.DB;
 
 public class SelectActivity extends AppCompatActivity implements View.OnClickListener {
 
-    final private String[] Gen = {"Action", "Comedy", "Shonen", "Adventure", "Slice of Life", "Drama", "Fantasy", "Horror", "Magic", "Mystery",
+    String[] Gen = {"Action", "Comedy", "Shonen", "Adventure", "Slice-of-Life", "Drama", "Fantasy", "Horror", "Magic", "Mystery",
             "Sci-Fi", "Psychological", "Supernatural", "Romance", "Crime", "Superhero", "Martial-arts"};
     ImageView img;
     ImageButton like, dislike;
