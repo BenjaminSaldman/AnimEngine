@@ -229,6 +229,12 @@
             </LinearLayout>
 
         </LinearLayout>
+        <fragment
+            android:id="@+id/menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:name="AnimEngine.myapplication.MenuFragment"
+            tools:layout="@layout/fragment_menu"/>
     </LinearLayout>
 
 
