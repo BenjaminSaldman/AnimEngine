@@ -109,10 +109,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
             startActivity(intent);
              */
         } else if (view.getId() == btnLogOut.getId()) {
-//            String uid = DB.getAU().getUid();
-//            DatabaseReference drUser = FirebaseDatabase.getInstance().getReference("Users").child(uid);
-//            drUser.removeValue();
-//            Toast.makeText(this, "User is deleted", Toast.LENGTH_LONG).show();
+
             FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
             startActivity(intent);

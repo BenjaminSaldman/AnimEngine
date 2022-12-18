@@ -14,6 +14,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import AnimEngine.myapplication.R;
 import AnimEngine.myapplication.utils.DB;
@@ -53,11 +55,19 @@ public class CreatorSignUpActivity extends AppCompatActivity implements View.OnC
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            FirebaseUser user_ = FirebaseAuth.getInstance().getCurrentUser();
                             String uid = task.getResult().getUser().getUid();
-                            User user = new User(uname, email, pass, nick, true, uid);
-                            user.InsertUser();
-                            Toast.makeText(CreatorSignUpActivity.this, "Welcome to AnimEngine, "+uname, Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), SignInActivity.class));
+                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName("true").build();
+                            user_.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    User user = new User(uname, email, pass, nick, true, uid);
+                                    user.InsertUser();
+                                    Toast.makeText(CreatorSignUpActivity.this, "Welcome to AnimEngine, "+uname, Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getApplicationContext(), SignInActivity.class));
+                                }
+                            });
+
 
                         } else {
                             Toast.makeText(CreatorSignUpActivity.this, "Error " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();

@@ -38,6 +38,15 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+        if (DB.getAU().getCurrentUser()!=null){
+            String flag=DB.getAU().getCurrentUser().getDisplayName();
+            if (flag.equals("true")){
+                //startActivity(new Intent(getApplicationContext(), CreateActivity.class));
+                FirebaseAuth.getInstance().signOut();
+            }else if (flag.equals("false")){
+                startActivity(new Intent(getApplicationContext(), Engine.class));
+            }
+        }
         btnSignIn = (Button) findViewById(R.id.btnSignIn);
         tvSignUp = (TextView) findViewById(R.id.tvSignUp);
         btnCreator = (Button) findViewById(R.id.btnCreator);

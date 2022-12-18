@@ -55,7 +55,8 @@ public class SelectActivity extends AppCompatActivity implements View.OnClickLis
             likes.put(Gen[i], 0);
         }
         Bundle extra = getIntent().getExtras();
-        uid = extra.getString("uid");
+        //uid = extra.getString("uid");
+        uid=DB.getAU().getUid();
         img = (ImageView) findViewById(R.id.imageID);
         like = (ImageButton) findViewById(R.id.ibLike);
         dislike = (ImageButton) findViewById(R.id.ibUnLike);

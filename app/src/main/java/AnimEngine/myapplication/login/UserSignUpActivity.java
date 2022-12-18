@@ -16,6 +16,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -62,13 +64,22 @@ public class UserSignUpActivity extends AppCompatActivity implements View.OnClic
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            FirebaseUser user_ = FirebaseAuth.getInstance().getCurrentUser();
                             String uid = task.getResult().getUser().getUid();
-                            User user = new User(uname, email, pass, nick, false, uid);
-                            user.InsertUser();
-                            Toast.makeText(UserSignUpActivity.this, "Welcome to AnimEngine, " + uname, Toast.LENGTH_LONG).show();
-                            Intent intent=new Intent(getApplicationContext(), SelectActivity.class);
-                            intent.putExtra("uid",uid);
-                            startActivity(intent);
+                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName("false").build();
+                            user_.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    User user = new User(uname, email, pass, nick, false, uid);
+                                    user.InsertUser();
+                                    Toast.makeText(UserSignUpActivity.this, "Welcome to AnimEngine, " + uname, Toast.LENGTH_LONG).show();
+                                    Intent intent=new Intent(getApplicationContext(), SelectActivity.class);
+                                    intent.putExtra("uid",uid);
+                                    startActivity(intent);
+                                }
+                            });
+
+
 
                         } else {
                             Toast.makeText(UserSignUpActivity.this, "Error " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
