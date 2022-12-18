@@ -56,6 +56,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.My
                 @Override
                 public void onClick(View view) {
                     // todo go to anime screen - activity serie
+                    Toast.makeText(holder.getFlAnime().getContext(),"Clicked",Toast.LENGTH_SHORT).show();
                 }
             });
         }
