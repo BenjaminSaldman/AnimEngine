@@ -99,7 +99,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             }
         }
         else if (view.getId() == tvSignUp.getId()) {
-            Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+            Intent intent = new Intent(getApplicationContext(), UserSignUpActivity.class);
             startActivity(intent);
         }
 

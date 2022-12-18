@@ -16,6 +16,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import AnimEngine.myapplication.client.Engine;
+import AnimEngine.myapplication.client.SearchActivity;
 import AnimEngine.myapplication.client.SelectActivity;
 import AnimEngine.myapplication.client.UserProfileActivity;
 import AnimEngine.myapplication.login.SignInActivity;
@@ -77,19 +79,19 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
                     //Toast.makeText(home_screen.this, "Welcome back, " + user.getNickname(), Toast.LENGTH_LONG).show();
                     if (!user.isCreator()) {
                         if (mCatalog.getId() == view.getId()) {
-                            startActivity(new Intent(view.getContext(), CatalogActivity.class));
+                            startActivity(new Intent(view.getContext(), SearchActivity.class));
                         } else if (mProfile.getId() == view.getId()) {
                             startActivity(new Intent(view.getContext(), UserProfileActivity.class));
                         } else {
-                            startActivity(new Intent(view.getContext(), SelectActivity.class));
+                            startActivity(new Intent(view.getContext(), Engine.class));
                         }
                     } else {
                         if (mCatalog.getId() == view.getId()) {
-                            startActivity(new Intent(view.getContext(), CatalogActivity.class));
+                            startActivity(new Intent(view.getContext(), SearchActivity.class));
                         } else if (mProfile.getId() == view.getId()) {
                             startActivity(new Intent(view.getContext(), UserProfileActivity.class));
                         } else {
-                            startActivity(new Intent(view.getContext(), SignInActivity.class));
+                            startActivity(new Intent(view.getContext(), Engine.class));
 
                         }
 

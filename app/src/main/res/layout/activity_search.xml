@@ -60,5 +60,13 @@
             tools:ignore="TextContrastCheck"
             android:visibility="gone"/>
 
+        <fragment
+            android:id="@+id/menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:name="AnimEngine.myapplication.MenuFragment"
+            tools:layout="@layout/fragment_menu"
+            android:layout_gravity="bottom"/>
+
     </LinearLayout>
 </FrameLayout>
