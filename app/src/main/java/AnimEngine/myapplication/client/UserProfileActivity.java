@@ -1,6 +1,7 @@
 package AnimEngine.myapplication.client;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Objects;
 
 import AnimEngine.myapplication.R;
+import AnimEngine.myapplication.creator.SearchActivity;
 import AnimEngine.myapplication.utils.DB;
 import AnimEngine.myapplication.utils.User;
 
@@ -28,7 +30,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 
         TextView tvNickname, tvRealName, tvEmail;
         ImageButton ibEditNickname, ibEditRealName;
-        Button btnFavouriteAnimes;
+        Button btnFavouriteAnimes, btnSearchAnimes;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +44,11 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
             ibEditNickname = findViewById(R.id.ibEditNickname);
             ibEditRealName = findViewById(R.id.ibEditRealName);
             btnFavouriteAnimes = findViewById(R.id.btnFavouriteAnimes);
+            btnSearchAnimes = findViewById(R.id.btnSearchAnimes);
             ibEditNickname.setOnClickListener(this);
             ibEditRealName.setOnClickListener(this);
             btnFavouriteAnimes.setOnClickListener(this);
+            btnSearchAnimes.setOnClickListener(this);
 
             String uid = "";
             if(!Objects.requireNonNull(myAuth.getUid()).isEmpty() && myAuth.getUid()!=null)
@@ -103,11 +107,14 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
                     DatabaseReference ref = DB.getDB().getReference("Users").child(uid).child("name");
                     ref.setValue(realName);
                 }
-            } else { // view.getId() == btnFavouriteAnimes.getId()
+            } else if (view.getId() == btnFavouriteAnimes.getId()) {
             /*
             Intent intent = new Intent(getApplicationContext(), Favourites.class);
             startActivity(intent);
              */
+            } else { // view.getId() == btnSearchAnimes.getId()
+                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                startActivity(intent);
             }
         }
 }

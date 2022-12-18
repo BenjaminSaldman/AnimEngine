@@ -17,6 +17,8 @@ public class SearchActivity extends AppCompatActivity {
     String[] animes = {"Another", "Attack on Titan", "Erased", "Golden time", "Naruto"};
     ArrayAdapter<String> arrayAdapter;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
