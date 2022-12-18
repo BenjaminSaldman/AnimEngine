@@ -108,13 +108,13 @@ public class Anime {
         return genres;
     }
 
-    public String getCreator() {
-        return creator_id;
-    }
+//    public String getCreator() {
+//        return creator_id;
+//    }
 
-    public void setCreator(String creator) {
-        this.creator_id = creator;
-    }
+//    public void setCreator(String creator) {
+//        this.creator_id = creator;
+//    }
 
     public String getCreator_id() {
         return creator_id;

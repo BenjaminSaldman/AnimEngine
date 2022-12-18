@@ -2,6 +2,8 @@ package AnimEngine.myapplication;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -44,6 +46,11 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.My
         if (true) {
             // todo Glide.with(context).load(mList.get(position).getImageUri()).into(holder.ivImage); - when we have images
             holder.getTvName().setText(mList.get(position).getName().toString());
+            StorageConnection sc = new StorageConnection("images");
+            sc.requestFile(mList.get(position).getAnime_id(),bytes -> {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                holder.getIvImageSerie().setImageBitmap(bitmap);
+            });
 
             holder.getFlAnime().setOnClickListener(new View.OnClickListener() {
                 @Override
