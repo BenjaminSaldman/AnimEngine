@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import AnimEngine.myapplication.R;
-import AnimEngine.myapplication.login.home_screen;
+import AnimEngine.myapplication.login.SignInActivity;
 import AnimEngine.myapplication.utils.DB;
 
 public class SelectActivity extends AppCompatActivity implements View.OnClickListener {
@@ -85,7 +85,7 @@ public class SelectActivity extends AppCompatActivity implements View.OnClickLis
             DatabaseReference myRef = DB.getDB().getReference("Likes").child(uid);
             myRef.setValue(likes);
             Toast.makeText(SelectActivity.this, "Updated.", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(getApplicationContext(), home_screen.class));
+            startActivity(new Intent(getApplicationContext(), SignInActivity.class));
         }else {
             Glide.with(this).load(URLs[index]).into(img);
             anime_name.setText(anime[index]);

@@ -3,15 +3,17 @@ package AnimEngine.myapplication.utils;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import AnimEngine.myapplication.StorageConnection;
 import AnimEngine.myapplication.creator.CreateActivity;
-
+@IgnoreExtraProperties
 public class Anime {
     private String name;
     private long likes;
@@ -33,6 +35,18 @@ public class Anime {
         this.seasons=seasons;
         this.genres=genres;
         this.anime_id=anime_id;
+    }
+
+    public Anime() {
+        this.name = "name";
+        this.creator_id="id";
+        this.likes = 0;
+        this.dislikes = 0;
+        this.description = "description";
+        this.episodes = 0;
+        this.seasons=0;
+        this.genres=new ArrayList<>();
+        this.anime_id="anime_id";
     }
 
     public Anime(String name,int episodes,int seasons,String description,String creator_id,String anime_id,List<String> genres)

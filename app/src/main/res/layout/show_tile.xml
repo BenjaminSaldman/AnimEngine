@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/liAnime"
+    android:id="@+id/flAnime"
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:background="@drawable/white_base"
     android:orientation="horizontal">
 
     <ImageView
+        android:id="@+id/ivImageSerie"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/ic_launcher_background" />
 
     <TextView
-        android:id="@+id/animeName"
+        android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

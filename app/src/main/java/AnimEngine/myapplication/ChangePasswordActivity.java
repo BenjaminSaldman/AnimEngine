@@ -14,10 +14,10 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 
-import AnimEngine.myapplication.login.home_screen;
+import AnimEngine.myapplication.login.SignInActivity;
 import AnimEngine.myapplication.utils.DB;
 
-public class change_password extends AppCompatActivity implements View.OnClickListener {
+public class ChangePasswordActivity extends AppCompatActivity implements View.OnClickListener {
     Button change;
     EditText mail;
     @Override
@@ -37,14 +37,14 @@ public class change_password extends AppCompatActivity implements View.OnClickLi
         myAuth.sendPasswordResetEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                Toast.makeText(change_password.this,"Reset link sent to your email.",Toast.LENGTH_LONG).show();
-                startActivity(new Intent(getApplicationContext(), home_screen.class));
+                Toast.makeText(ChangePasswordActivity.this,"Reset link sent to your email.",Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getApplicationContext(), SignInActivity.class));
 
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(change_password.this,"Error, couldn't send a link.",Toast.LENGTH_LONG).show();
+                Toast.makeText(ChangePasswordActivity.this,"Error, couldn't send a link.",Toast.LENGTH_LONG).show();
             }
         });
     }

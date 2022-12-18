@@ -23,11 +23,11 @@ import com.google.firebase.database.ValueEventListener;
 import AnimEngine.myapplication.creator.CreateActivity;
 import AnimEngine.myapplication.client.Engine;
 import AnimEngine.myapplication.R;
-import AnimEngine.myapplication.change_password;
+import AnimEngine.myapplication.ChangePasswordActivity;
 import AnimEngine.myapplication.utils.DB;
 import AnimEngine.myapplication.utils.User;
 
-public class home_screen extends AppCompatActivity implements View.OnClickListener {
+public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     Button btnSignIn, btnCreator;
@@ -37,7 +37,7 @@ public class home_screen extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_screen);
+        setContentView(R.layout.activity_sign_in);
         btnSignIn = (Button) findViewById(R.id.btnSignIn);
         tvSignUp = (TextView) findViewById(R.id.tvSignUp);
         btnCreator = (Button) findViewById(R.id.btnCreator);
@@ -59,7 +59,7 @@ public class home_screen extends AppCompatActivity implements View.OnClickListen
             String pass = etPassword.getText().toString();
             String email = etEmail.getText().toString();
             if (pass.isEmpty() || email.isEmpty()) {
-                Toast.makeText(home_screen.this, "Please enter all the fields.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignInActivity.this, "Please enter all the fields.", Toast.LENGTH_SHORT).show();
             } else {
                 myAuth.signInWithEmailAndPassword(email, pass)
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -72,42 +72,42 @@ public class home_screen extends AppCompatActivity implements View.OnClickListen
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                                             User user = snapshot.getValue(User.class);
                                             if (user != null) {
-                                                Toast.makeText(home_screen.this, "Welcome back, " + user.getNickname(), Toast.LENGTH_LONG).show();
+                                                Toast.makeText(SignInActivity.this, "Welcome back, " + user.getNickname(), Toast.LENGTH_LONG).show();
                                                 if (!user.isCreator()) {
                                                     startActivity(new Intent(getApplicationContext(), Engine.class));
                                                 } else {
                                                     startActivity(new Intent(getApplicationContext(), CreateActivity.class));
                                                 }
                                             } else {
-                                                Toast.makeText(home_screen.this, "Failed to get data.", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(SignInActivity.this, "Failed to get data.", Toast.LENGTH_SHORT).show();
                                             }
 
                                         }
 
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError error) {
-                                            Toast.makeText(home_screen.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                                            Toast.makeText(SignInActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
 
                                         }
                                     });
 
                                 } else {
-                                    Toast.makeText(home_screen.this, "Error " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SignInActivity.this, "Error " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
             }
         }
         else if (view.getId() == tvSignUp.getId()) {
-            Intent intent = new Intent(getApplicationContext(), SignUp.class);
+            Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
             startActivity(intent);
         }
 
         else if (view.getId() == btnCreator.getId()) {
-            Intent intent = new Intent(getApplicationContext(), Creators_SignUp.class);
+            Intent intent = new Intent(getApplicationContext(), CreatorSignUpActivity.class);
             startActivity(intent);
         }else{
-            startActivity(new Intent(getApplicationContext(), change_password.class));
+            startActivity(new Intent(getApplicationContext(), ChangePasswordActivity.class));
         }
 
     }

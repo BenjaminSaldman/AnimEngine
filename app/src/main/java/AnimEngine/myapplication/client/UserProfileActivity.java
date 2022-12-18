@@ -22,7 +22,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Objects;
 
 import AnimEngine.myapplication.R;
-import AnimEngine.myapplication.creator.SearchActivity;
 import AnimEngine.myapplication.utils.DB;
 import AnimEngine.myapplication.utils.User;
 
@@ -82,10 +81,6 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         }
 
         @Override
-        /**
-         * Interface definition for a callback to be invoked when a view is clicked
-         * Called when a view has been clicked
-         */
         public void onClick(View view) {
             if (view.getId() == ibEditNickname.getId()) {
                 String nickname = tvNickname.getText().toString();
@@ -112,7 +107,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
             Intent intent = new Intent(getApplicationContext(), Favourites.class);
             startActivity(intent);
              */
-            } else { // view.getId() == btnSearchAnimes.getId()
+            } else if(view.getId() == btnSearchAnimes.getId()){ // view.getId() == btnSearchAnimes.getId()
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
                 startActivity(intent);
             }

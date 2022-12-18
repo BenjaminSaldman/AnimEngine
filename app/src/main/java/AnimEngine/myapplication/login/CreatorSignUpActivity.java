@@ -19,7 +19,7 @@ import AnimEngine.myapplication.R;
 import AnimEngine.myapplication.utils.DB;
 import AnimEngine.myapplication.utils.User;
 
-public class Creators_SignUp extends AppCompatActivity implements View.OnClickListener {
+public class CreatorSignUpActivity extends AppCompatActivity implements View.OnClickListener {
     Button signup,back;
     EditText nickname, password, mail, name;
 
@@ -46,7 +46,7 @@ public class Creators_SignUp extends AppCompatActivity implements View.OnClickLi
             String pass = password.getText().toString();
             String email = mail.getText().toString();
             if (uname.isEmpty() || nick.isEmpty() || pass.isEmpty() || email.isEmpty()) {
-                Toast.makeText(Creators_SignUp.this, "Please fill all the fields!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreatorSignUpActivity.this, "Please fill all the fields!", Toast.LENGTH_SHORT).show();
             } else {
                 FirebaseAuth myAuth = DB.getAU();
                 myAuth.createUserWithEmailAndPassword(mail.getText().toString(), password.getText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -56,17 +56,17 @@ public class Creators_SignUp extends AppCompatActivity implements View.OnClickLi
                             String uid = task.getResult().getUser().getUid();
                             User user = new User(uname, email, pass, nick, true, uid);
                             user.InsertUser();
-                            Toast.makeText(Creators_SignUp.this, "Welcome to AnimEngine, "+uname, Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), home_screen.class));
+                            Toast.makeText(CreatorSignUpActivity.this, "Welcome to AnimEngine, "+uname, Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(), SignInActivity.class));
 
                         } else {
-                            Toast.makeText(Creators_SignUp.this, "Error " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CreatorSignUpActivity.this, "Error " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
             }
         }else{
-            startActivity(new Intent(getApplicationContext(), home_screen.class));
+            startActivity(new Intent(getApplicationContext(), SignInActivity.class));
         }
 
     }

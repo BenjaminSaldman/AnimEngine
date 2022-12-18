@@ -11,17 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
-import AnimEngine.myapplication.client.Engine;
 import AnimEngine.myapplication.client.SelectActivity;
 import AnimEngine.myapplication.client.UserProfileActivity;
-import AnimEngine.myapplication.creator.CreateActivity;
-import AnimEngine.myapplication.login.home_screen;
+import AnimEngine.myapplication.login.SignInActivity;
 import AnimEngine.myapplication.utils.DB;
 import AnimEngine.myapplication.utils.User;
 
@@ -92,7 +89,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
                         } else if (mProfile.getId() == view.getId()) {
                             startActivity(new Intent(view.getContext(), UserProfileActivity.class));
                         } else {
-                            startActivity(new Intent(view.getContext(), home_screen.class));
+                            startActivity(new Intent(view.getContext(), SignInActivity.class));
 
                         }
 
