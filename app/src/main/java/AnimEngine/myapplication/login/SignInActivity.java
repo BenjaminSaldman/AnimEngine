@@ -41,8 +41,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         if (DB.getAU().getCurrentUser()!=null){
             String flag=DB.getAU().getCurrentUser().getDisplayName();
             if (flag.equals("true")){
-                //startActivity(new Intent(getApplicationContext(), CreateActivity.class));
-                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getApplicationContext(), CreateActivity.class));
+                //FirebaseAuth.getInstance().signOut();
             }else if (flag.equals("false")){
                 startActivity(new Intent(getApplicationContext(), Engine.class));
             }
