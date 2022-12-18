@@ -75,7 +75,7 @@
                     android:layout_gravity="center|top"
                     android:layout_marginLeft="70dp"
                     android:layout_marginTop="10dp"
-                    android:text="your_name"
+                    android:text="your_real_name"
                     android:textSize="22dp"
                     />
 
@@ -105,7 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="add anime"
+            android:text="create new anime"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_marginStart="15dp"
