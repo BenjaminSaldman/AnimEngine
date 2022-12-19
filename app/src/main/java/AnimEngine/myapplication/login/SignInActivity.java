@@ -72,30 +72,38 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    DatabaseReference myRef = DB.getDB().getReference("Users").child(task.getResult().getUser().getUid());
-                                    myRef.addValueEventListener(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            User user = snapshot.getValue(User.class);
-                                            if (user != null) {
-                                                Toast.makeText(SignInActivity.this, "Welcome back, " + user.getNickname(), Toast.LENGTH_LONG).show();
-                                                if (!user.isCreator()) {
-                                                    startActivity(new Intent(getApplicationContext(), Engine.class));
-                                                } else {
-                                                    startActivity(new Intent(getApplicationContext(), CreateActivity.class));
-                                                }
-                                            } else {
-                                                Toast.makeText(SignInActivity.this, "Failed to get data.", Toast.LENGTH_SHORT).show();
-                                            }
-
-                                        }
-
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
-                                            Toast.makeText(SignInActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
-
-                                        }
-                                    });
+                                    boolean isCreator=FirebaseAuth.getInstance().getCurrentUser().getDisplayName().equals("true");
+                                    Toast.makeText(SignInActivity.this, "Welcome back", Toast.LENGTH_LONG).show();
+                                    if (!isCreator) {
+                                        startActivity(new Intent(getApplicationContext(), Engine.class));
+                                    } else {
+                                        startActivity(new Intent(getApplicationContext(), CreateActivity.class));
+                                    }
+//                                    DatabaseReference myRef = DB.getDB().getReference("Users").child(task.getResult().getUser().getUid());
+//                                    myRef.addValueEventListener(new ValueEventListener() {
+//                                        @Override
+//                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                            User user = snapshot.getValue(User.class);
+//
+//                                            if (user != null) {
+//                                                Toast.makeText(SignInActivity.this, "Welcome back, " + user.getNickname(), Toast.LENGTH_LONG).show();
+//                                                if (!user.isCreator()) {
+//                                                    startActivity(new Intent(getApplicationContext(), Engine.class));
+//                                                } else {
+//                                                    startActivity(new Intent(getApplicationContext(), CreateActivity.class));
+//                                                }
+//                                            } else {
+//                                                Toast.makeText(SignInActivity.this, "Failed to get data.", Toast.LENGTH_SHORT).show();
+//                                            }
+//
+//                                        }
+//
+//                                        @Override
+//                                        public void onCancelled(@NonNull DatabaseError error) {
+//                                            Toast.makeText(SignInActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+//
+//                                        }
+//                                    });
 
                                 } else {
                                     Toast.makeText(SignInActivity.this, "Error " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();

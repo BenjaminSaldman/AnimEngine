@@ -32,6 +32,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     Button signup;
     EditText etNickname, etPassword, etEmail, etUserName;
     TextView back;
+    boolean isCreator;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -44,6 +45,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         etPassword = (EditText) findViewById(R.id.etPassword);
         etEmail = findViewById(R.id.etEmail);
         etUserName = findViewById(R.id.etUserName);
+        isCreator=false;
+        Bundle extra = getIntent().getExtras();
+        try {
+            isCreator = extra.getBoolean("Creator");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 //        root= DB.getDB();
         signup.setOnClickListener(this);
         back.setOnClickListener(this);
@@ -51,13 +59,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        if (view.getId()==signup.getId()){
+        if (view.getId() == signup.getId()) {
             String uname = etUserName.getText().toString();
             String nick = etNickname.getText().toString();
             String pass = etPassword.getText().toString();
             String email = etEmail.getText().toString();
-            Bundle extra = getIntent().getExtras();
-            boolean isCreator=extra.getBoolean("Creator");
+
             if (uname.isEmpty() || nick.isEmpty() || pass.isEmpty() || email.isEmpty()) {
                 Toast.makeText(SignUpActivity.this, "Please fill all the fields!", Toast.LENGTH_SHORT).show();
             } else {
@@ -68,32 +75,31 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         if (task.isSuccessful()) {
                             FirebaseUser user_ = FirebaseAuth.getInstance().getCurrentUser();
                             String uid = task.getResult().getUser().getUid();
-                            if(!isCreator){
-                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName("false").build();
-                            user_.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    User user = new User(uname, email, pass, nick, false, uid);
-                                    user.InsertUser();
-                                    Toast.makeText(SignUpActivity.this, "Welcome to AnimEngine, " + uname, Toast.LENGTH_LONG).show();
-                                    Intent intent=new Intent(getApplicationContext(), SelectActivity.class);
-                                    intent.putExtra("uid",uid);
-                                    startActivity(intent);
-                                }
-                            });
-                            }else{
+                            if (!isCreator) {
+                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName("false").build();
+                                user_.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        User user = new User(uname, email, pass, nick, false, uid);
+                                        user.InsertUser();
+                                        Toast.makeText(SignUpActivity.this, "Welcome to AnimEngine, " + uname, Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(getApplicationContext(), SelectActivity.class);
+                                        intent.putExtra("uid", uid);
+                                        startActivity(intent);
+                                    }
+                                });
+                            } else {
                                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName("true").build();
                                 user_.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         User user = new User(uname, email, pass, nick, true, uid);
                                         user.InsertUser();
-                                        Toast.makeText(SignUpActivity.this, "Welcome to AnimEngine, "+uname, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(SignUpActivity.this, "Welcome to AnimEngine, " + uname, Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(getApplicationContext(), SignInActivity.class));
                                     }
                                 });
                             }
-
 
 
                         } else {
@@ -103,7 +109,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 });
             }
 
-        }else{
+        } else {
             startActivity(new Intent(getApplicationContext(), SignInActivity.class));
         }
 
