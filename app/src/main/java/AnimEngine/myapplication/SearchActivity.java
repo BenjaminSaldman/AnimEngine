@@ -1,4 +1,4 @@
-package AnimEngine.myapplication.client;
+package AnimEngine.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,7 +39,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private DatabaseReference creatorAnimeRoot = FirebaseDatabase.getInstance().getReference("CreatorAnime").child(DB.getAU().getUid());
 
 
-    public static String MODE_OF_SEARCH = "סנן לפי";
+    public static String MODE_OF_SEARCH = "filter by";
     public static String WORD_SEARCH;
 
     @Override
@@ -68,26 +68,51 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 adapter = new SearchListAdapter(this, list);
                 recyclerView.setAdapter(adapter);
 
-                animeRoot.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        list.clear();
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            Anime model = dataSnapshot.getValue(Anime.class);
-                            if (WORD_SEARCH.isEmpty() || model.getName().contains(WORD_SEARCH)) {
-                                list.add(model);
+                boolean isCreator = FirebaseAuth.getInstance().getCurrentUser().getDisplayName().equals("true");
 
+                if (isCreator) {
+                    creatorAnimeRoot.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            list.clear();
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                Anime model = dataSnapshot.getValue(Anime.class);
+                                if (WORD_SEARCH.isEmpty() || model.getName().contains(WORD_SEARCH)) {
+                                    list.add(model);
+
+                                }
                             }
+                            adapter.notifyDataSetChanged();
                         }
-                        adapter.notifyDataSetChanged();
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
-                    }
-                });
-                break;
+                        }
+                    });
+                    break;
+                } else {
+                    animeRoot.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            list.clear();
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                Anime model = dataSnapshot.getValue(Anime.class);
+                                if (WORD_SEARCH.isEmpty() || model.getName().contains(WORD_SEARCH)) {
+                                    list.add(model);
+
+                                }
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                    break;
+                }
         }
     }
 

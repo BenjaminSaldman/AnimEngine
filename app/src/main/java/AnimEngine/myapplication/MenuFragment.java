@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -13,19 +12,11 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 
 import AnimEngine.myapplication.client.Engine;
-import AnimEngine.myapplication.client.SearchActivity;
-import AnimEngine.myapplication.client.SelectActivity;
 import AnimEngine.myapplication.client.UserProfileActivity;
 import AnimEngine.myapplication.creator.CreateActivity;
 import AnimEngine.myapplication.creator.CreatorProfileActivity;
-import AnimEngine.myapplication.login.SignInActivity;
-import AnimEngine.myapplication.utils.DB;
-import AnimEngine.myapplication.utils.User;
 
 public class MenuFragment extends Fragment implements View.OnClickListener {
 

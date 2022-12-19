@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".login.UserSignUpActivity"
+    tools:context=".login.SignUpActivity"
     android:background="@color/black"
     >
 
@@ -120,7 +120,7 @@
                     android:id="@+id/tvSignIn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Have user? sign in"
+                    android:text="Already have a user? Sign in here"
                     android:textColor="@color/black"
                     android:gravity="center"
                     android:textStyle="bold"
@@ -131,14 +131,7 @@
                     android:layout_height="3dp"
                     android:layout_margin="2dp"/>
 
-                <TextView
-                    android:id="@+id/tvForgetPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="forget password"
-                    android:textColor="@color/black"
-                    android:gravity="center"
-                    />
+
 
 
 

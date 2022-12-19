@@ -26,18 +26,18 @@ import AnimEngine.myapplication.client.SelectActivity;
 import AnimEngine.myapplication.utils.DB;
 import AnimEngine.myapplication.utils.User;
 
-public class UserSignUpActivity extends AppCompatActivity implements View.OnClickListener {
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
     FirebaseDatabase root;
     DatabaseReference myRef;
     Button signup;
     EditText etNickname, etPassword, etEmail, etUserName;
-    TextView  back;
+    TextView back;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_sign_up);
         signup = (Button) findViewById(R.id.btnSignUp);
         back = (TextView) findViewById(R.id.tvSignIn);
         etNickname = (EditText) findViewById(R.id.etNickname);
@@ -56,8 +56,10 @@ public class UserSignUpActivity extends AppCompatActivity implements View.OnClic
             String nick = etNickname.getText().toString();
             String pass = etPassword.getText().toString();
             String email = etEmail.getText().toString();
+            Bundle extra = getIntent().getExtras();
+            boolean isCreator=extra.getBoolean("Creator");
             if (uname.isEmpty() || nick.isEmpty() || pass.isEmpty() || email.isEmpty()) {
-                Toast.makeText(UserSignUpActivity.this, "Please fill all the fields!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignUpActivity.this, "Please fill all the fields!", Toast.LENGTH_SHORT).show();
             } else {
                 FirebaseAuth myAuth = DB.getAU();
                 myAuth.createUserWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -66,23 +68,36 @@ public class UserSignUpActivity extends AppCompatActivity implements View.OnClic
                         if (task.isSuccessful()) {
                             FirebaseUser user_ = FirebaseAuth.getInstance().getCurrentUser();
                             String uid = task.getResult().getUser().getUid();
+                            if(!isCreator){
                             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName("false").build();
                             user_.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     User user = new User(uname, email, pass, nick, false, uid);
                                     user.InsertUser();
-                                    Toast.makeText(UserSignUpActivity.this, "Welcome to AnimEngine, " + uname, Toast.LENGTH_LONG).show();
+                                    Toast.makeText(SignUpActivity.this, "Welcome to AnimEngine, " + uname, Toast.LENGTH_LONG).show();
                                     Intent intent=new Intent(getApplicationContext(), SelectActivity.class);
                                     intent.putExtra("uid",uid);
                                     startActivity(intent);
                                 }
                             });
+                            }else{
+                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName("true").build();
+                                user_.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        User user = new User(uname, email, pass, nick, true, uid);
+                                        user.InsertUser();
+                                        Toast.makeText(SignUpActivity.this, "Welcome to AnimEngine, "+uname, Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(getApplicationContext(), SignInActivity.class));
+                                    }
+                                });
+                            }
 
 
 
                         } else {
-                            Toast.makeText(UserSignUpActivity.this, "Error " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(SignUpActivity.this, "Error " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                 });

@@ -31,33 +31,30 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
 
     Button btnSignIn, btnCreator;
-    TextView tvSignUp, tvForgetPassword;
+    TextView tvSignUp;
     EditText etEmail, etPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-        if (DB.getAU().getCurrentUser()!=null){
+        if (DB.getAU().getCurrentUser() != null){
             String flag=DB.getAU().getCurrentUser().getDisplayName();
             if (flag.equals("true")){
                 startActivity(new Intent(getApplicationContext(), CreateActivity.class));
                 //FirebaseAuth.getInstance().signOut();
-            }else if (flag.equals("false")){
+            } else if (flag.equals("false")){
                 startActivity(new Intent(getApplicationContext(), Engine.class));
             }
         }
         btnSignIn = (Button) findViewById(R.id.btnSignIn);
         tvSignUp = (TextView) findViewById(R.id.tvSignUp);
         btnCreator = (Button) findViewById(R.id.btnCreator);
-        tvForgetPassword= (TextView) findViewById(R.id.tvForgetPassword);
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPassword = (EditText) findViewById(R.id.etPassword);
         btnSignIn.setOnClickListener(this);
         tvSignUp.setOnClickListener(this);
         btnCreator.setOnClickListener(this);
-        tvForgetPassword.setOnClickListener(this);
-
     }
 
     @Override
@@ -108,18 +105,17 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             }
         }
         else if (view.getId() == tvSignUp.getId()) {
-            Intent intent = new Intent(getApplicationContext(), UserSignUpActivity.class);
+            Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+            intent.putExtra("Creator",false);
             startActivity(intent);
         }
 
         else if (view.getId() == btnCreator.getId()) {
-            Intent intent = new Intent(getApplicationContext(), CreatorSignUpActivity.class);
+            Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+            intent.putExtra("Creator",true);
             startActivity(intent);
         }else{
             startActivity(new Intent(getApplicationContext(), ChangePasswordActivity.class));
         }
-
     }
-
 }
-
