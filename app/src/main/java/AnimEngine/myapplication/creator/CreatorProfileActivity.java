@@ -1,9 +1,11 @@
 package AnimEngine.myapplication.creator;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,7 +42,8 @@ public class CreatorProfileActivity extends AppCompatActivity implements View.On
     TextView tvNickname, tvRealName, tvEmail;
     ImageButton ibEditNickname, ibEditRealName;
     Button btnLogOut,btnChangePassword;
-    EditText oldPassword,newPassword,newPassword2;
+    EditText oldPassword,newPassword,newPassword2, etNickname, etRealName;
+    AlertDialog adNickname, adRealName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,44 @@ public class CreatorProfileActivity extends AppCompatActivity implements View.On
         ibEditNickname.setOnClickListener(this);
         ibEditRealName.setOnClickListener(this);
         btnLogOut.setOnClickListener(this);
+        adNickname = new AlertDialog.Builder(this).create();
+        adRealName = new AlertDialog.Builder(this).create();
+        etNickname = new EditText(this);
+        etRealName = new EditText(this);
+
+        adNickname.setTitle("Edit nickname");
+        adNickname.setView(etNickname);
+
+        adRealName.setTitle("Edit real name");
+        adRealName.setView(etRealName);
+
+        adNickname.setButton(DialogInterface.BUTTON_POSITIVE, "SAVE NICKNAME", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                tvNickname.setText(etNickname.getText());
+            }
+        });
+        ibEditNickname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                etNickname.setText(tvNickname.getText());
+                adNickname.show();
+            }
+        });
+
+        adRealName.setButton(DialogInterface.BUTTON_POSITIVE, "SAVE REAL NAME", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                tvRealName.setText(etRealName.getText());
+            }
+        });
+        ibEditRealName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                etRealName.setText(tvRealName.getText());
+                adRealName.show();
+            }
+        });
 
         String uid = "";
         if (!Objects.requireNonNull(myAuth.getUid()).isEmpty() && myAuth.getUid() != null)
