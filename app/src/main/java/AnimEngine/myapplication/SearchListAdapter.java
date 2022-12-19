@@ -65,8 +65,8 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.My
                     Toast.makeText(holder.getFlAnime().getContext(),"Clicked",Toast.LENGTH_SHORT).show();
                     Intent intent=new Intent(context, SerieActivity.class);
                     intent.putExtra("animeID", mList.get(position).getAnime_id());
-                    intent.putExtra("seasons", mList.get(position).getSeasons());
-                    intent.putExtra("episodes", mList.get(position).getEpisodes());
+                    intent.putExtra("seasons", mList.get(position).getSeasons()+"");
+                    intent.putExtra("episodes", mList.get(position).getEpisodes()+"");
                     String gens="Genres: ";
                     for (String i:mList.get(position).getGenres())
                         gens+=i+" ";
