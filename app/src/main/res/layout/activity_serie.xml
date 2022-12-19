@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:text="ksdajfpasjfpasdsdjfnaasdjf"
+            android:text="genres"
             android:gravity="center"
             />
 
@@ -103,7 +103,7 @@
             android:id="@+id/animeShortText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ojfsnjosdnfsnffdiokandsofjnsofajnasdofjnsdojnsadojvnadsojvnadfojv"
+            android:text="animesummary"
             android:textColor="@color/white"
             android:padding="10dp"
             />
