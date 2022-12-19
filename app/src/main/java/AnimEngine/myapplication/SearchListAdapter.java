@@ -2,8 +2,11 @@ package AnimEngine.myapplication;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,10 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import AnimEngine.myapplication.client.SerieActivity;
 import AnimEngine.myapplication.utils.Anime;
 
 public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.MyViewHolder> implements RecyclerView.OnItemTouchListener {
@@ -55,12 +60,25 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.My
             holder.getFlAnime().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     // todo go to anime screen - activity serie
                     Toast.makeText(holder.getFlAnime().getContext(),"Clicked",Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent(context, SerieActivity.class);
+                    intent.putExtra("animeID", mList.get(position).getAnime_id());
+                    intent.putExtra("seasons", mList.get(position).getSeasons());
+                    intent.putExtra("episodes", mList.get(position).getEpisodes());
+                    String gens="Genres: ";
+                    for (String i:mList.get(position).getGenres())
+                        gens+=i+" ";
+                    intent.putExtra("name", mList.get(position).getName());
+                    intent.putExtra("gens", gens.trim());
+                    intent.putExtra("desc",mList.get(position).getDescription());
+                    context.startActivity(intent);
                 }
             });
         }
     }
+
 
     @Override
     public int getItemCount() {
