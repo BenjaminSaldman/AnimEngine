@@ -51,15 +51,6 @@
             android:scaleType="fitXY"
             />
 
-        <Button
-            android:id="@+id/btnAdd1"
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:background="@color/white"
-            android:text="הוסף עוד (עם קוד מנהל בלבד)"
-            tools:ignore="TextContrastCheck"
-            android:visibility="gone"/>
-
         <fragment
             android:id="@+id/menu"
             android:layout_width="match_parent"

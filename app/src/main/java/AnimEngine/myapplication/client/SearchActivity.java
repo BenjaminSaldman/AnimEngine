@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import AnimEngine.myapplication.R;
 import AnimEngine.myapplication.SearchListAdapter;
 import AnimEngine.myapplication.utils.Anime;
+import AnimEngine.myapplication.utils.DB;
 
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
@@ -33,7 +35,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     ImageButton ibSearch;
     EditText etSearch;
 
-    private DatabaseReference root = FirebaseDatabase.getInstance().getReference("Anime");
+    private DatabaseReference animeRoot = FirebaseDatabase.getInstance().getReference("Anime");
+    private DatabaseReference creatorAnimeRoot = FirebaseDatabase.getInstance().getReference("CreatorAnime").child(DB.getAU().getUid());
 
 
     public static String MODE_OF_SEARCH = "סנן לפי";
@@ -65,7 +68,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 adapter = new SearchListAdapter(this, list);
                 recyclerView.setAdapter(adapter);
 
-                root.addValueEventListener(new ValueEventListener() {
+                animeRoot.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         list.clear();
@@ -115,25 +118,49 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         adapter = new SearchListAdapter(this, list);
         recyclerView.setAdapter(adapter);
 
-        root.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                list.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Anime model = dataSnapshot.getValue(Anime.class);
+        boolean isCreator = FirebaseAuth.getInstance().getCurrentUser().getDisplayName().equals("true");
 
-                    if (WORD_SEARCH.isEmpty() || model.getName().contains(WORD_SEARCH)) {
-                        list.add(model);
+        if (isCreator) {
+            creatorAnimeRoot.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    list.clear();
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        Anime model = dataSnapshot.getValue(Anime.class);
+
+                        if (WORD_SEARCH.isEmpty() || model.getName().contains(WORD_SEARCH)) {
+                            list.add(model);
+                        }
                     }
+                    adapter.notifyDataSetChanged();
                 }
-                adapter.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+        } else {
+            animeRoot.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    list.clear();
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        Anime model = dataSnapshot.getValue(Anime.class);
+
+                        if (WORD_SEARCH.isEmpty() || model.getName().contains(WORD_SEARCH)) {
+                            list.add(model);
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
     }
 
 }

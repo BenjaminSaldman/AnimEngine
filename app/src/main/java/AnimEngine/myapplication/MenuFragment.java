@@ -91,7 +91,6 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
                     startActivity(new Intent(view.getContext(), CreatorProfileActivity.class));
                 } else {
                     startActivity(new Intent(view.getContext(), CreateActivity.class));
-
                 }
 
             }
