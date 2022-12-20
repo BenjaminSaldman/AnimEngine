@@ -1,5 +1,6 @@
 package AnimEngine.myapplication.client;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,21 +13,32 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import AnimEngine.myapplication.CatalogActivity;
 import AnimEngine.myapplication.R;
 import AnimEngine.myapplication.StorageConnection;
 import AnimEngine.myapplication.utils.Anime;
+import AnimEngine.myapplication.utils.DB;
 
 public class UserSerieActivity extends AppCompatActivity {
     ImageView animeImage;
     TextView animeName;
     ListView animeDetails;
-    Anime anime;
+
+    Button add_to_favorites;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +47,8 @@ public class UserSerieActivity extends AppCompatActivity {
         animeImage=findViewById(R.id.animeImage);
         animeName=findViewById(R.id.animeNameSeries);
         animeDetails=findViewById(R.id.lvEpisode);
+        add_to_favorites=findViewById(R.id.btnFavourite);
+
         Bundle extra = getIntent().getExtras();
         try {
 //            intent.putExtra("animeID", mList.get(position).getAnime_id());
@@ -106,6 +120,37 @@ public class UserSerieActivity extends AppCompatActivity {
                 alert.setCanceledOnTouchOutside(true);
                 alert.show();
 
+            }
+        });
+        add_to_favorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               String anime_id=extra.getString("animeID");
+                //DB.getDB().getReference("Favorites").child(DB.getAU().getUid())
+               DB.getDB().getReference("Favourites").child(DB.getAU().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                   @Override
+                   public void onDataChange(@NonNull DataSnapshot snapshot) {
+                       boolean flag=true;
+                       for (DataSnapshot child:snapshot.getChildren()){
+                           if(anime_id.equals(child.getKey())){
+                               flag=false;
+                               //Toast.makeText(UserSerieActivity.this,"Nope",Toast.LENGTH_SHORT).show();
+                           }
+                       }
+                       if (flag){
+                           DB.getDB().getReference("Favourites").child(DB.getAU().getUid()).child(anime_id).setValue(anime_id);
+                           Toast.makeText(UserSerieActivity.this,"Added to your favourites",Toast.LENGTH_SHORT).show();
+                           //return;
+                       }else{
+                           Toast.makeText(UserSerieActivity.this,"Already liked",Toast.LENGTH_SHORT).show();
+                       }
+                   }
+
+                   @Override
+                   public void onCancelled(@NonNull DatabaseError error) {
+
+                   }
+               });
             }
         });
 
