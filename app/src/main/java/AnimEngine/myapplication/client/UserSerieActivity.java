@@ -27,6 +27,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import AnimEngine.myapplication.CatalogActivity;
 import AnimEngine.myapplication.R;
 import AnimEngine.myapplication.StorageConnection;
@@ -140,6 +143,11 @@ public class UserSerieActivity extends AppCompatActivity {
                        if (flag){
                            DB.getDB().getReference("Favourites").child(DB.getAU().getUid()).child(anime_id).setValue(anime_id);
                            Toast.makeText(UserSerieActivity.this,"Added to your favourites",Toast.LENGTH_SHORT).show();
+                           long likes=extra.getLong("likes")+1;
+                           Map<String,Object> m=new HashMap<>();
+                           m.put("likes",likes);
+                           DB.getDB().getReference("Anime").child(anime_id).updateChildren(m);
+
                            //return;
                        }else{
                            Toast.makeText(UserSerieActivity.this,"Already liked",Toast.LENGTH_SHORT).show();

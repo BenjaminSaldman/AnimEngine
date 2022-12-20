@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -82,11 +83,21 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             list.clear();
                             for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                Anime model = dataSnapshot.getValue(Anime.class);
-                                if (WORD_SEARCH.isEmpty() || model.getName().contains(WORD_SEARCH)) {
-                                    list.add(model);
+                                String id=dataSnapshot.getValue(String.class);
+                                DB.getDB().getReference("Anime").child(id).addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        Anime model = snapshot.getValue(Anime.class);
+                                        if (WORD_SEARCH.isEmpty() || model.getName().contains(WORD_SEARCH)) {
+                                            list.add(model);
+                                        }
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
 
-                                }
+                                    }
+                                });
+
                             }
                             adapter.notifyDataSetChanged();
                         }
@@ -152,16 +163,30 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         boolean isCreator = FirebaseAuth.getInstance().getCurrentUser().getDisplayName().equals("true");
 
         if (isCreator) {
+            Log.d("Got her?","12345");
             creatorAnimeRoot.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     list.clear();
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        Anime model = dataSnapshot.getValue(Anime.class);
+                        String id=dataSnapshot.getValue(String.class);
+                        DB.getDB().getReference("Anime").child(id).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                Anime model = snapshot.getValue(Anime.class);
+                                Log.d("Got her?","12345");
+                                if (WORD_SEARCH.isEmpty() || model.getName().contains(WORD_SEARCH)) {
+                                    list.add(model);
+                                    adapter.notifyDataSetChanged();
+                                }
+                            }
 
-                        if (WORD_SEARCH.isEmpty() || model.getName().contains(WORD_SEARCH)) {
-                            list.add(model);
-                        }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
                     }
                     adapter.notifyDataSetChanged();
                 }

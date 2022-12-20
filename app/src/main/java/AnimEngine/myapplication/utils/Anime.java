@@ -154,7 +154,8 @@ public class Anime {
             StorageConnection sc = new StorageConnection("images/");
             sc.uploadImage(anime_id, inputData);
             DB.getDB().getReference("Anime").child(anime_id).setValue(this);
-            DB.getDB().getReference("CreatorAnime").child(creator_id).child(anime_id).setValue(this);
+            DB.getDB().getReference("CreatorAnime").child(creator_id).child(anime_id).setValue(anime_id);
+            //DB.getDB().getReference("CreatorAnime").child(creator_id).child(anime_id).setValue(this);
             return true;
             //Toast.makeText(CreateActivity.this, "Anime added successfully.", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
