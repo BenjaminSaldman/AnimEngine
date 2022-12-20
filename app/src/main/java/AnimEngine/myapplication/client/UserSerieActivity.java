@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,7 +22,7 @@ import AnimEngine.myapplication.R;
 import AnimEngine.myapplication.StorageConnection;
 import AnimEngine.myapplication.utils.Anime;
 
-public class SerieActivity extends AppCompatActivity {
+public class UserSerieActivity extends AppCompatActivity {
     ImageView animeImage;
     TextView animeName;
     ListView animeDetails;
@@ -32,7 +31,7 @@ public class SerieActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_serie);
+        setContentView(R.layout.activity_user_serie);
         animeImage=findViewById(R.id.animeImage);
         animeName=findViewById(R.id.animeNameSeries);
         animeDetails=findViewById(R.id.lvEpisode);
@@ -64,15 +63,15 @@ public class SerieActivity extends AppCompatActivity {
             ArrayAdapter<String> arr=new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,objects);
             animeDetails.setAdapter(arr);
         }catch (Exception e){
-            Toast.makeText(SerieActivity.this,"Error",Toast.LENGTH_SHORT).show();
+            Toast.makeText(UserSerieActivity.this,"Error",Toast.LENGTH_SHORT).show();
         }
         animeDetails.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(SerieActivity.this);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(UserSerieActivity.this);
                 dialog.setCancelable(true);
                 String text=((TextView)view).getText().toString();
-                TextView tv=new TextView(SerieActivity.this);
+                TextView tv=new TextView(UserSerieActivity.this);
                 if (i==1) {
                     String[] genres = new String[text.split(" ").length - 1];
                     boolean[] choices = new boolean[genres.length];
