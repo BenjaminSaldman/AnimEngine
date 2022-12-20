@@ -145,7 +145,7 @@ public class EditAnimeActivity extends AppCompatActivity implements View.OnClick
                 for (int i = 1; i < splits.length; i++) {
                     to_send.add(splits[i]);
                 }
-                //String ref = DB.getDB().getReference("Anime").push().getKey();
+                String ref = DB.getDB().getReference("Anime").push().getKey();
                 Anime anime = new Anime(anime_name, ep, se, d, creator_id, given_anime_id, to_send);
                 InputStream iStream = null;
                 try {
@@ -249,5 +249,4 @@ public class EditAnimeActivity extends AppCompatActivity implements View.OnClick
         alert.show();
 
     }
-
 }
