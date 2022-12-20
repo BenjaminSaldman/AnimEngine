@@ -135,6 +135,28 @@ public class UserSerieActivity extends AppCompatActivity {
                                 Map<String,Object> m=new HashMap<>();
                                 m.put("likes",likes);
                                 DB.getDB().getReference("Anime").child(anime_id).updateChildren(m);
+                                DB.getDB().getReference("Likes").child(DB.getAU().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        Map<String,Object> m=new HashMap<>();
+                                        for(DataSnapshot dataSnapshot:snapshot.getChildren()){
+                                            m.put(dataSnapshot.getKey(),dataSnapshot.getValue());
+                                        }
+                                        String[]sp=gens.split(" ");
+                                        for (int i=1;i<sp.length;i++)
+                                        {
+
+                                            m.put(sp[i],((Long)m.get(sp[i]))+1);
+                                        }
+                                        DB.getDB().getReference("Likes").child(DB.getAU().getUid()).updateChildren(m);
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
 
                             }else{
                                 Toast.makeText(UserSerieActivity.this,"Already liked",Toast.LENGTH_SHORT).show();
