@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import AnimEngine.myapplication.client.UserSerieActivity;
+import AnimEngine.myapplication.client.UserSerieActivity;
 import AnimEngine.myapplication.utils.Anime;
 
 public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.MyViewHolder> implements RecyclerView.OnItemTouchListener {
