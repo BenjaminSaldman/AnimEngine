@@ -82,7 +82,20 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         adNickname.setButton(DialogInterface.BUTTON_POSITIVE, "SAVE NICKNAME", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                tvNickname.setText(etNickname.getText());
+                String nick = etNickname.getText().toString().trim();
+                if (nick.isEmpty()) {
+                    Toast.makeText(UserProfileActivity.this, "Nickname should not be empty", Toast.LENGTH_SHORT).show();
+                } else {
+                    tvNickname.setText(etNickname.getText());
+                    Map<String,Object> m=new HashMap<>();
+                    m.put("nickname", nick);
+                    DB.getDB().getReference("Users").child(DB.getAU().getUid()).updateChildren(m).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(UserProfileActivity.this, "Nickname Successfully Modified", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         });
         ibEditNickname.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +109,20 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         adRealName.setButton(DialogInterface.BUTTON_POSITIVE, "SAVE REAL NAME", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                tvRealName.setText(etRealName.getText());
+                String real = etRealName.getText().toString().trim();
+                if (real.isEmpty()) {
+                    Toast.makeText(UserProfileActivity.this, "Name should not be empty", Toast.LENGTH_SHORT).show();
+                } else {
+                    tvRealName.setText(etRealName.getText());
+                    Map<String,Object> m=new HashMap<>();
+                    m.put("name", real);
+                    DB.getDB().getReference("Users").child(DB.getAU().getUid()).updateChildren(m).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(UserProfileActivity.this, "Real Name Successfully Modified", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         });
         ibEditRealName.setOnClickListener(new View.OnClickListener() {
