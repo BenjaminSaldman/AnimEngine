@@ -249,4 +249,5 @@ public class EditAnimeActivity extends AppCompatActivity implements View.OnClick
         alert.show();
 
     }
+
 }
