@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import AnimEngine.myapplication.client.SerieActivity;
+import AnimEngine.myapplication.client.UserSerieActivity;
 import AnimEngine.myapplication.utils.Anime;
 
 public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.MyViewHolder> implements RecyclerView.OnItemTouchListener {
@@ -62,7 +62,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.My
 
                     // todo go to anime screen - activity serie
                     Toast.makeText(holder.getFlAnime().getContext(), "Clicked", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(context, SerieActivity.class);
+                    Intent intent = new Intent(context, UserSerieActivity.class);
                     intent.putExtra("animeID", mList.get(position).getAnime_id());
                     intent.putExtra("seasons", mList.get(position).getSeasons() + "");
                     intent.putExtra("episodes", mList.get(position).getEpisodes() + "");
