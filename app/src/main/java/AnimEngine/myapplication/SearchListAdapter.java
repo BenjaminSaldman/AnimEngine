@@ -37,7 +37,6 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.My
     }
 
 
-
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -52,7 +51,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.My
             // todo Glide.with(context).load(mList.get(position).getImageUri()).into(holder.ivImage); - when we have images
             holder.getTvName().setText(mList.get(position).getName().toString());
             StorageConnection sc = new StorageConnection("images");
-            sc.requestFile(mList.get(position).getAnime_id(),bytes -> {
+            sc.requestFile(mList.get(position).getAnime_id(), bytes -> {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 holder.getIvImageSerie().setImageBitmap(bitmap);
             });
@@ -62,17 +61,19 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.My
                 public void onClick(View view) {
 
                     // todo go to anime screen - activity serie
-                    Toast.makeText(holder.getFlAnime().getContext(),"Clicked",Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(context, SerieActivity.class);
+                    Toast.makeText(holder.getFlAnime().getContext(), "Clicked", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, SerieActivity.class);
                     intent.putExtra("animeID", mList.get(position).getAnime_id());
-                    intent.putExtra("seasons", mList.get(position).getSeasons()+"");
-                    intent.putExtra("episodes", mList.get(position).getEpisodes()+"");
-                    String gens="Genres: ";
-                    for (String i:mList.get(position).getGenres())
-                        gens+=i+" ";
+                    intent.putExtra("seasons", mList.get(position).getSeasons() + "");
+                    intent.putExtra("episodes", mList.get(position).getEpisodes() + "");
+                    String gens = "Genres: ";
+                    for (String i : mList.get(position).getGenres())
+                        gens += i + " ";
                     intent.putExtra("name", mList.get(position).getName());
                     intent.putExtra("gens", gens.trim());
-                    intent.putExtra("desc",mList.get(position).getDescription());
+                    intent.putExtra("desc", mList.get(position).getDescription());
+                    intent.putExtra("likes", mList.get(position).getLikes());
+                    intent.putExtra("dislikes", mList.get(position).getDislikes());
                     context.startActivity(intent);
                 }
             });
@@ -92,7 +93,6 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.My
         TextView tvName;
 
 
-
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             flAnime = (FrameLayout) itemView.findViewById(R.id.flAnime);
@@ -100,9 +100,9 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.My
             ivImageSerie = (ImageView) itemView.findViewById(R.id.ivImageSerie);
         }
 
-       public FrameLayout getFlAnime() {
+        public FrameLayout getFlAnime() {
             return flAnime;
-       }
+        }
 
         public ImageView getIvImageSerie() {
             return ivImageSerie;
