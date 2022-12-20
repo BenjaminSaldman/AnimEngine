@@ -54,14 +54,6 @@ public class UserSerieActivity extends AppCompatActivity {
 
         Bundle extra = getIntent().getExtras();
         try {
-//            intent.putExtra("animeID", mList.get(position).getAnime_id());
-//            intent.putExtra("seasons", mList.get(position).getSeasons());
-//            intent.putExtra("episodes", mList.get(position).getEpisodes());
-//            String gens="";
-//            for (String i:mList.get(position).getGenres())
-//                gens+=i+" ";
-//            intent.putExtra("name", mList.get(position).getName());
-//            intent.putExtra("gens", gens.trim());
             String name=extra.getString("name");
             String seasons="Seasons: "+extra.getString("seasons");
             String episodes="Episodes: "+extra.getString("episodes");
@@ -70,7 +62,6 @@ public class UserSerieActivity extends AppCompatActivity {
             String desc=extra.getString("desc");
             long likes=extra.getLong("likes");
             long dislikes=extra.getLong("dislikes");
-            //anime= (Anime) extra.get("anime");
             new StorageConnection("images").requestFile(anime_id, bytes -> {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 animeImage.setImageBitmap(bitmap);
@@ -79,88 +70,89 @@ public class UserSerieActivity extends AppCompatActivity {
             String[] objects={"Description: "+desc,gens,seasons,episodes,"Likes: "+likes,"Dislikes: "+dislikes};
             ArrayAdapter<String> arr=new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,objects);
             animeDetails.setAdapter(arr);
-        }catch (Exception e){
-            Toast.makeText(UserSerieActivity.this,"Error",Toast.LENGTH_SHORT).show();
-        }
-        animeDetails.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(UserSerieActivity.this);
-                dialog.setCancelable(true);
-                String text=((TextView)view).getText().toString();
-                TextView tv=new TextView(UserSerieActivity.this);
-                if (i==1) {
-                    String[] genres = new String[text.split(" ").length - 1];
-                    boolean[] choices = new boolean[genres.length];
-                    for (int k = 1; k < text.split(" ").length; k++) {
-                        genres[k-1] = text.split(" ")[k];
-                        choices[k-1] = false;
-                    }
+            animeDetails.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(UserSerieActivity.this);
+                    dialog.setCancelable(true);
+                    String text=((TextView)view).getText().toString();
+                    if (i==1) {
+                        String[] genres = new String[text.split(" ").length - 1];
+                        boolean[] choices = new boolean[genres.length];
+                        for (int k = 1; k < text.split(" ").length; k++) {
+                            genres[k-1] = text.split(" ")[k];
+                            choices[k-1] = false;
+                        }
 
-                    dialog.setTitle("Genres");
-                    dialog.setItems(genres, new DialogInterface.OnClickListener() {
+                        dialog.setTitle("Genres");
+                        dialog.setItems(genres, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+                    }else {
+                        dialog.setMessage(text);
+                    }
+                    dialog.setPositiveButton("back", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
+                            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                @Override
+                                public void onDismiss(DialogInterface dialogInterface) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                        }
+                    });
+                    AlertDialog alert = dialog.create();
+                    alert.setCanceledOnTouchOutside(true);
+                    alert.show();
+
+                }
+            });
+            add_to_favorites.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String anime_id=extra.getString("animeID");
+                    //DB.getDB().getReference("Favorites").child(DB.getAU().getUid())
+                    DB.getDB().getReference("Favourites").child(DB.getAU().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            boolean flag=true;
+                            for (DataSnapshot child:snapshot.getChildren()){
+                                if(anime_id.equals(child.getKey())){
+                                    flag=false;
+                                    break;
+                                }
+                            }
+                            if (flag){
+                                DB.getDB().getReference("Favourites").child(DB.getAU().getUid()).child(anime_id).setValue(anime_id);
+                                Toast.makeText(UserSerieActivity.this,"Added to your favourites",Toast.LENGTH_SHORT).show();
+                                long likes=extra.getLong("likes")+1;
+                                Log.d("likesCheck",likes-1+"");
+                                Log.d("likesCheck",likes+"");
+                                Map<String,Object> m=new HashMap<>();
+                                m.put("likes",likes);
+                                DB.getDB().getReference("Anime").child(anime_id).updateChildren(m);
+
+                            }else{
+                                Toast.makeText(UserSerieActivity.this,"Already liked",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
                         }
                     });
-                }else {
-                    dialog.setView(tv);
-                    tv.setText(text);
                 }
-                dialog.setPositiveButton("back", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                            @Override
-                            public void onDismiss(DialogInterface dialogInterface) {
-                                dialogInterface.dismiss();
-                            }
-                        });
-                    }
-                });
-                AlertDialog alert = dialog.create();
-                alert.setCanceledOnTouchOutside(true);
-                alert.show();
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+            Toast.makeText(UserSerieActivity.this,"Error",Toast.LENGTH_SHORT).show();
+        }
 
-            }
-        });
-        add_to_favorites.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               String anime_id=extra.getString("animeID");
-                //DB.getDB().getReference("Favorites").child(DB.getAU().getUid())
-               DB.getDB().getReference("Favourites").child(DB.getAU().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                   @Override
-                   public void onDataChange(@NonNull DataSnapshot snapshot) {
-                       boolean flag=true;
-                       for (DataSnapshot child:snapshot.getChildren()){
-                           if(anime_id.equals(child.getKey())){
-                               flag=false;
-                               //Toast.makeText(UserSerieActivity.this,"Nope",Toast.LENGTH_SHORT).show();
-                           }
-                       }
-                       if (flag){
-                           DB.getDB().getReference("Favourites").child(DB.getAU().getUid()).child(anime_id).setValue(anime_id);
-                           Toast.makeText(UserSerieActivity.this,"Added to your favourites",Toast.LENGTH_SHORT).show();
-                           long likes=extra.getLong("likes")+1;
-                           Map<String,Object> m=new HashMap<>();
-                           m.put("likes",likes);
-                           DB.getDB().getReference("Anime").child(anime_id).updateChildren(m);
-
-                           //return;
-                       }else{
-                           Toast.makeText(UserSerieActivity.this,"Already liked",Toast.LENGTH_SHORT).show();
-                       }
-                   }
-
-                   @Override
-                   public void onCancelled(@NonNull DatabaseError error) {
-
-                   }
-               });
-            }
-        });
 
 
     }

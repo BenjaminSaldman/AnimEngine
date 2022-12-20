@@ -20,11 +20,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 
 import AnimEngine.myapplication.client.UserSerieActivity;
 import AnimEngine.myapplication.client.UserSerieActivity;
+import AnimEngine.myapplication.creator.CreatorSerieActivity;
 import AnimEngine.myapplication.utils.Anime;
+import AnimEngine.myapplication.utils.DB;
 
 public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.MyViewHolder> implements RecyclerView.OnItemTouchListener {
 
@@ -62,20 +66,46 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.My
                 public void onClick(View view) {
 
                     // todo go to anime screen - activity serie
-                    Toast.makeText(holder.getFlAnime().getContext(), "Clicked", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(context, UserSerieActivity.class);
-                    intent.putExtra("animeID", mList.get(position).getAnime_id());
-                    intent.putExtra("seasons", mList.get(position).getSeasons() + "");
-                    intent.putExtra("episodes", mList.get(position).getEpisodes() + "");
-                    String gens = "Genres: ";
-                    for (String i : mList.get(position).getGenres())
-                        gens += i + " ";
-                    intent.putExtra("name", mList.get(position).getName());
-                    intent.putExtra("gens", gens.trim());
-                    intent.putExtra("desc", mList.get(position).getDescription());
-                    intent.putExtra("likes", mList.get(position).getLikes());
-                    intent.putExtra("dislikes", mList.get(position).getDislikes());
-                    context.startActivity(intent);
+                    //Toast.makeText(holder.getFlAnime().getContext(), "Clicked", Toast.LENGTH_SHORT).show();
+                    Intent intent=null;
+                    if(FirebaseAuth.getInstance().getCurrentUser().getDisplayName().equals("false"))
+                    {
+                        intent = new Intent(context, UserSerieActivity.class);
+                    }else{
+                        intent = new Intent(context, CreatorSerieActivity.class);
+                    }if(intent!=null){
+                        intent.putExtra("animeID", mList.get(position).getAnime_id());
+                        intent.putExtra("seasons", mList.get(position).getSeasons() + "");
+                        intent.putExtra("episodes", mList.get(position).getEpisodes() + "");
+                        String gens = "Genres: ";
+                        for (String i : mList.get(position).getGenres())
+                            gens += i + " ";
+                        intent.putExtra("name", mList.get(position).getName());
+                        intent.putExtra("gens", gens.trim());
+                        intent.putExtra("desc", mList.get(position).getDescription());
+                        intent.putExtra("likes", mList.get(position).getLikes());
+                        intent.putExtra("dislikes", mList.get(position).getDislikes());
+                        context.startActivity(intent);
+                    }
+//                    if(FirebaseAuth.getInstance().getCurrentUser().getDisplayName().equals("false"))
+//                    {
+//                        Intent intent = new Intent(context, UserSerieActivity.class);
+//                        intent.putExtra("animeID", mList.get(position).getAnime_id());
+//                        intent.putExtra("seasons", mList.get(position).getSeasons() + "");
+//                        intent.putExtra("episodes", mList.get(position).getEpisodes() + "");
+//                        String gens = "Genres: ";
+//                        for (String i : mList.get(position).getGenres())
+//                            gens += i + " ";
+//                        intent.putExtra("name", mList.get(position).getName());
+//                        intent.putExtra("gens", gens.trim());
+//                        intent.putExtra("desc", mList.get(position).getDescription());
+//                        intent.putExtra("likes", mList.get(position).getLikes());
+//                        intent.putExtra("dislikes", mList.get(position).getDislikes());
+//                        context.startActivity(intent);
+//                    }else{
+//                        Intent intent = new Intent(context, CreatorSerieActivity.class);
+//                        context.startActivity(intent);
+//                    }
                 }
             });
         }
