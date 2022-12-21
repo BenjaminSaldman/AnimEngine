@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AnimEngine"
         tools:targetApi="31">
+
         <activity
             android:name=".creator.EditAnimeActivity"
             android:exported="false">

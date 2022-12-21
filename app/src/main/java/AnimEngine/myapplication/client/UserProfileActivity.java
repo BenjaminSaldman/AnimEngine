@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import AnimEngine.myapplication.R;
+import AnimEngine.myapplication.SearchActivity;
 import AnimEngine.myapplication.creator.CreatorProfileActivity;
 import AnimEngine.myapplication.login.SignInActivity;
 import AnimEngine.myapplication.utils.DB;
@@ -186,10 +187,9 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
                 ref.setValue(realName);
             }
         } else if (view.getId() == btnFavouriteAnimes.getId()) {
-            /*
-            Intent intent = new Intent(getApplicationContext(), Favourites.class);
+            Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+            intent.putExtra("FROM", "PROFILE");
             startActivity(intent);
-             */
         } else if (view.getId() == btnLogOut.getId()) {
 
             FirebaseAuth.getInstance().signOut();

@@ -1,22 +1,16 @@
 package AnimEngine.myapplication;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,8 +22,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import AnimEngine.myapplication.R;
-import AnimEngine.myapplication.SearchListAdapter;
 import AnimEngine.myapplication.utils.Anime;
 import AnimEngine.myapplication.utils.DB;
 
@@ -43,6 +35,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     EditText etSearch;
 
     private DatabaseReference animeRoot = FirebaseDatabase.getInstance().getReference("Anime");
+    private DatabaseReference favouritesRoot = FirebaseDatabase.getInstance().getReference("Favourites").child(DB.getAU().getUid());
     private DatabaseReference creatorAnimeRoot = FirebaseDatabase.getInstance().getReference("CreatorAnime").child(DB.getAU().getUid());
 
 
@@ -91,6 +84,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                                         if (WORD_SEARCH.isEmpty() || model.getName().contains(WORD_SEARCH)) {
                                             list.add(model);
                                         }
+                                        adapter.notifyDataSetChanged();
                                     }
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError error) {
@@ -108,30 +102,65 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                         }
                     });
                     break;
-                } else {
-                    animeRoot.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            list.clear();
-                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                Anime model = dataSnapshot.getValue(Anime.class);
-                                if (WORD_SEARCH.isEmpty() || model.getName().contains(WORD_SEARCH)) {
-                                    list.add(model);
+                } else { // User
+                    Bundle extra = getIntent().getExtras();
+                    String result = extra.getString("FROM");
+                    if (result.equals("CATALOG")) {
+                        animeRoot.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                list.clear();
+                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                    Anime model = dataSnapshot.getValue(Anime.class);
+                                    if (WORD_SEARCH.isEmpty() || model.getName().contains(WORD_SEARCH)) {
+                                        list.add(model);
 
+                                    }
                                 }
+                                adapter.notifyDataSetChanged();
                             }
-                            adapter.notifyDataSetChanged();
-                        }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
 
-                        }
-                    });
+                            }
+                        });
+                    } else { // "PROFILE"
+                        favouritesRoot.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                list.clear();
+                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                    String id=dataSnapshot.getValue(String.class);
+                                    DB.getDB().getReference("Anime").child(id).addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            Anime model = snapshot.getValue(Anime.class);
+                                            if (WORD_SEARCH.isEmpty() || model.getName().contains(WORD_SEARCH)) {
+                                                list.add(model);
+                                            }
+                                            adapter.notifyDataSetChanged();
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+                                }
+                                adapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    } // else "PROFILE"
                     break;
-                }
-        }
-    }
+                } // else "User"
+        } // switch
+    } // onClick()
 
 
     @Override
@@ -179,6 +208,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                                     list.add(model);
                                     adapter.notifyDataSetChanged();
                                 }
+                                adapter.notifyDataSetChanged();
                             }
 
                             @Override
@@ -196,28 +226,64 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
                 }
             });
-        } else {
-            animeRoot.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    list.clear();
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        Anime model = dataSnapshot.getValue(Anime.class);
-
-                        if (WORD_SEARCH.isEmpty() || model.getName().contains(WORD_SEARCH)) {
-                            list.add(model);
+        } else { // User
+            Bundle extra = getIntent().getExtras();
+            String result = extra.getString("FROM");
+            if (result.equals("CATALOG")) {
+                animeRoot.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        list.clear();
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            Anime model = dataSnapshot.getValue(Anime.class);
+                            if (WORD_SEARCH.isEmpty() || model.getName().contains(WORD_SEARCH)) {
+                                list.add(model);
+                                adapter.notifyDataSetChanged();
+                            }
                         }
+                        adapter.notifyDataSetChanged();
                     }
-                    adapter.notifyDataSetChanged();
-                }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                }
-            });
-        }
-    }
+                    }
+                });
+            } else { // "PROFILE"
+                favouritesRoot.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        list.clear();
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            String id=dataSnapshot.getValue(String.class);
+                            DB.getDB().getReference("Anime").child(id).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    Anime model = snapshot.getValue(Anime.class);
+                                    if (WORD_SEARCH.isEmpty() || model.getName().contains(WORD_SEARCH)) {
+                                        list.add(model);
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                    adapter.notifyDataSetChanged();
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        }
+                        adapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            } // else "PROFILE"
+        } // else "User"
+    } //showAnimes()
 
 
-}
+} // Activity

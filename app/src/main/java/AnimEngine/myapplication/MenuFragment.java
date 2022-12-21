@@ -69,7 +69,9 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
             //Toast.makeText(home_screen.this, "Welcome back, " + user.getNickname(), Toast.LENGTH_LONG).show();
             if (!isCreator) {
                 if (mCatalog.getId() == view.getId()) {
-                    startActivity(new Intent(view.getContext(), SearchActivity.class));
+                    Intent intent = new Intent(view.getContext(), SearchActivity.class);
+                    intent.putExtra("FROM", "CATALOG");
+                    startActivity(intent);
                 } else if (mProfile.getId() == view.getId()) {
                     startActivity(new Intent(view.getContext(), UserProfileActivity.class));
                 } else {
