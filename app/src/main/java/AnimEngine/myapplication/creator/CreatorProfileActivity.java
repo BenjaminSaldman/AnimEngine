@@ -83,7 +83,11 @@ public class CreatorProfileActivity extends AppCompatActivity implements View.On
                 String nick = etNickname.getText().toString().trim();
                 if (nick.isEmpty()) {
                     Toast.makeText(CreatorProfileActivity.this, "Nickname should not be empty", Toast.LENGTH_SHORT).show();
-                } else {
+                }
+                else if (nick.length() > 12) {
+                    Toast.makeText(CreatorProfileActivity.this, "Nickname too long", Toast.LENGTH_SHORT).show();
+                }
+                else {
                     tvNickname.setText(etNickname.getText());
                     Map<String,Object> m=new HashMap<>();
                     m.put("nickname", nick);
@@ -111,7 +115,11 @@ public class CreatorProfileActivity extends AppCompatActivity implements View.On
                 String real = etRealName.getText().toString().trim();
                 if (real.isEmpty()) {
                     Toast.makeText(CreatorProfileActivity.this, "Name should not be empty", Toast.LENGTH_SHORT).show();
-                } else {
+                }
+                else if (real.length() > 12) {
+                    Toast.makeText(CreatorProfileActivity.this, "Name too long", Toast.LENGTH_SHORT).show();
+                }
+                else {
                     tvRealName.setText(etRealName.getText());
                     Map<String,Object> m=new HashMap<>();
                     m.put("name", real);
