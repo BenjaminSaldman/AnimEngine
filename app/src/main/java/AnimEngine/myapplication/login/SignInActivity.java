@@ -20,6 +20,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import AnimEngine.myapplication.creator.CreateActivity;
 import AnimEngine.myapplication.client.Engine;
 import AnimEngine.myapplication.R;
@@ -44,7 +49,24 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(new Intent(getApplicationContext(), CreateActivity.class));
                 //FirebaseAuth.getInstance().signOut();
             } else if (flag.equals("false")){
-                startActivity(new Intent(getApplicationContext(), Engine.class));
+                DB.getDB().getReference("Likes").child(DB.getAU().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Map<String,Object> m=new HashMap<>();
+                        for (DataSnapshot dataSnapshot:snapshot.getChildren()){
+                            m.put(dataSnapshot.getKey(),dataSnapshot.getValue());
+                        }
+                        Intent intent=new Intent(getApplicationContext(), Engine.class);
+                        intent.putExtra("Likes", new JSONObject(m).toString());
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
             }
         }
         btnSignIn = (Button) findViewById(R.id.btnSignIn);
@@ -77,7 +99,23 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                     if (!isCreator) {
                                         startActivity(new Intent(getApplicationContext(), Engine.class));
                                     } else {
-                                        startActivity(new Intent(getApplicationContext(), CreateActivity.class));
+                                        DB.getDB().getReference("Likes").child(DB.getAU().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                Map<String,Object> m=new HashMap<>();
+                                                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
+                                                    m.put(dataSnapshot.getKey(),dataSnapshot.getValue());
+                                                }
+                                                Intent intent=new Intent(getApplicationContext(), Engine.class);
+                                                intent.putExtra("Likes", new JSONObject(m).toString());
+                                                startActivity(intent);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
                                     }
                                 } else {
                                     Toast.makeText(SignInActivity.this, "Error " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();

@@ -1,5 +1,7 @@
 package AnimEngine.myapplication.utils;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -14,7 +16,7 @@ import java.util.List;
 import AnimEngine.myapplication.StorageConnection;
 import AnimEngine.myapplication.creator.CreateActivity;
 @IgnoreExtraProperties
-public class Anime {
+public class Anime implements Parcelable {
     private String name;
     private long likes;
     private long dislikes;
@@ -63,6 +65,30 @@ public class Anime {
     public Anime(String name){
         this.name=name;
     }
+
+    protected Anime(Parcel in) {
+        name = in.readString();
+        likes = in.readLong();
+        dislikes = in.readLong();
+        description = in.readString();
+        creator_id = in.readString();
+        anime_id = in.readString();
+        episodes = in.readInt();
+        seasons = in.readInt();
+        genres = in.createStringArrayList();
+    }
+
+    public static final Creator<Anime> CREATOR = new Creator<Anime>() {
+        @Override
+        public Anime createFromParcel(Parcel in) {
+            return new Anime(in);
+        }
+
+        @Override
+        public Anime[] newArray(int size) {
+            return new Anime[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -190,5 +216,24 @@ public class Anime {
             byteBuffer.write(buffer, 0, len);
         }
         return byteBuffer.toByteArray();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
+        parcel.writeString(name);
+        parcel.writeLong(likes);
+        parcel.writeLong(dislikes);
+        parcel.writeString(description);
+        parcel.writeString(creator_id);
+        parcel.writeString(anime_id);
+        parcel.writeInt(episodes);
+        parcel.writeInt(seasons);
+        parcel.writeStringList(genres);
     }
 }
