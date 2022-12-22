@@ -32,9 +32,9 @@ import AnimEngine.myapplication.utils.Anime;
 import AnimEngine.myapplication.utils.DB;
 
 public class EditAnimeActivity extends AppCompatActivity implements View.OnClickListener {
-    EditText name, seasons, episodes;
-    TextView gen, des;
-    Button desc, upload, upload_image, genres;
+    EditText name, seasons, episodes, des;
+    TextView gen;
+    Button upload, upload_image, genres;
     ImageView img;
     CharSequence[] Gen = {"Action", "Comedy", "Shonen", "Adventure", "Slice-of-Life", "Drama", "Fantasy", "Horror", "Magic", "Mystery",
             "Sci-Fi", "Psychological", "Supernatural", "Romance", "Crime", "Superhero", "Martial-arts"};
@@ -70,13 +70,11 @@ public class EditAnimeActivity extends AppCompatActivity implements View.OnClick
             seasons = (EditText) findViewById(R.id.seasons);
             episodes = (EditText) findViewById(R.id.episodes);
             gen = (TextView) findViewById(R.id.genres);
-            des = (TextView) findViewById(R.id.tvDesc);
-            desc = (Button) findViewById(R.id.description);
+            des = findViewById(R.id.tvDesc);
             genres = (Button) findViewById(R.id.bgenres);
             upload = (Button) findViewById(R.id.upload);
             upload_image = (Button) findViewById(R.id.uimage);
             img = (ImageView) findViewById(R.id.image);
-            desc.setOnClickListener(this);
             genres.setOnClickListener(this);
             upload.setOnClickListener(this);
             upload_image.setOnClickListener(this);
@@ -119,8 +117,6 @@ public class EditAnimeActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View view) {
         if (view.getId() == genres.getId()) {
             chooseGenres();
-        } else if (view.getId() == desc.getId()) {
-            insertDescription();
         } else if (view.getId() == upload_image.getId()) {
             mGetContent.launch("image/*");
         } else if (view.getId() == upload.getId()) {

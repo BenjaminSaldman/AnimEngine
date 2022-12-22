@@ -43,9 +43,9 @@ import AnimEngine.myapplication.utils.Anime;
 import AnimEngine.myapplication.utils.DB;
 
 public class CreateActivity extends AppCompatActivity implements View.OnClickListener {
-    EditText name, seasons, episodes;
-    TextView gen, des;
-    Button desc, upload, upload_image, genres;
+    EditText name, seasons, episodes, des;
+    TextView gen;
+    Button upload, upload_image, genres;
     ImageView img;
     CharSequence[] Gen = {"Action", "Comedy", "Shonen", "Adventure", "Slice-of-Life", "Drama", "Fantasy", "Horror", "Magic", "Mystery",
             "Sci-Fi", "Psychological", "Supernatural", "Romance", "Crime", "Superhero", "Martial-arts"};
@@ -75,14 +75,12 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
         seasons = (EditText) findViewById(R.id.seasons);
         episodes = (EditText) findViewById(R.id.episodes);
         gen = (TextView) findViewById(R.id.genres);
-        des = (TextView) findViewById(R.id.tvDesc);
-        desc = (Button) findViewById(R.id.description);
+        des = findViewById(R.id.tvDesc);
         genres = (Button) findViewById(R.id.bgenres);
         upload = (Button) findViewById(R.id.upload);
         upload_image = (Button) findViewById(R.id.uimage);
 
         img = (ImageView) findViewById(R.id.image);
-        desc.setOnClickListener(this);
         genres.setOnClickListener(this);
         upload.setOnClickListener(this);
         upload_image.setOnClickListener(this);
@@ -102,8 +100,6 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         if (view.getId() == genres.getId()) {
             chooseGenres();
-        } else if (view.getId() == desc.getId()) {
-            insertDescription();
         } else if (view.getId() == upload_image.getId()) {
             mGetContent.launch("image/*");
         } else if (view.getId() == upload.getId()) {
@@ -166,30 +162,30 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
-    private void insertDescription() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(CreateActivity.this);
-        dialog.setCancelable(true);
-        dialog.setTitle("Enter the anime description");
-        final EditText description = new EditText(CreateActivity.this);
-        dialog.setView(description);
-        dialog.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                descript = description.getText().toString();
-                des.setText(descript);
-                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialogInterface) {
-                        dialogInterface.dismiss();
-                    }
-                });
-            }
-        });
-        AlertDialog alert = dialog.create();
-        alert.setCanceledOnTouchOutside(true);
-        alert.show();
-
-    }
+//    private void insertDescription() {
+//        AlertDialog.Builder dialog = new AlertDialog.Builder(CreateActivity.this);
+//        dialog.setCancelable(true);
+//        dialog.setTitle("Enter the anime description");
+//        final EditText description = new EditText(CreateActivity.this);
+//        dialog.setView(description);
+//        dialog.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                descript = description.getText().toString();
+//                des.setText(descript);
+//                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+//                    @Override
+//                    public void onDismiss(DialogInterface dialogInterface) {
+//                        dialogInterface.dismiss();
+//                    }
+//                });
+//            }
+//        });
+//        AlertDialog alert = dialog.create();
+//        alert.setCanceledOnTouchOutside(true);
+//        alert.show();
+//
+//    }
 
     public String itemsToString() {
         String ans = "Selected: ";
