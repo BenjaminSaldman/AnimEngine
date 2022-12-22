@@ -60,15 +60,13 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="58dp">
+                android:layout_height="58dp"
+                android:layout_margin="5dp">
 
                 <EditText
                     android:id="@+id/seasons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
                     android:backgroundTint="@color/white"
                     android:hint="Number of seasons"
                     android:inputType="number"
