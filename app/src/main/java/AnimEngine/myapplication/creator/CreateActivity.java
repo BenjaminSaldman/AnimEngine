@@ -132,6 +132,7 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
                     if(anime.upload_anime(iStream))
                     {
                         Toast.makeText(CreateActivity.this, "Anime added successfully.", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(),CreateActivity.class));
                     }else{
                         Toast.makeText(CreateActivity.this, "Failed to upload the anime.", Toast.LENGTH_SHORT).show();
                     }

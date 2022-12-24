@@ -102,15 +102,31 @@ public class Engine extends AppCompatActivity implements View.OnClickListener {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     queue = new PriorityQueue<>(comparator);
                 }
-                DB.getDB().getReference("Favourites").child(DB.getAU().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                DB.getDB().getReference("Favourites").child(DB.getAU().getUid()).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                             favourites.add(dataSnapshot.getKey());
                         }
-                        Log.d("misspiggy", "I hate android");
-                        receiver();
-                        update_views();
+                        DB.getDB().getReference("Disliked").child(DB.getAU().getUid()).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                    disliked.add(dataSnapshot.getKey());
+
+                                }
+                                receiver();
+                                update_views();
+                            }
+
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+
 
                     }
 
@@ -120,21 +136,7 @@ public class Engine extends AppCompatActivity implements View.OnClickListener {
 
                     }
                 });
-                DB.getDB().getReference("Disliked").child(DB.getAU().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            disliked.add(dataSnapshot.getKey());
-                        }
 
-                    }
-
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
 
             }
 
@@ -151,6 +153,8 @@ public class Engine extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View view) {
         if (!(current_anime == null)) {
             Log.d("KABOOM",likes+"");
+            Log.d("KABOOM",disliked+"");
+            Log.d("KABOOM",favourites+"");
             if (view.getId() == like.getId()) {
                 if (!likes.isEmpty() && !favourites.contains(current_anime.getAnime_id())) {
                     Log.d("KABOOM", likes + "");
@@ -185,11 +189,14 @@ public class Engine extends AppCompatActivity implements View.OnClickListener {
                     Map<String, Object> m2 = new HashMap<>();
                     m2.put(current_anime.getAnime_id(),current_anime.getAnime_id());
                     comparator.setLikes(likes);
-                    Log.d("KABOOM",m2+"");
+                    Log.d("KABOOMBOOM",m2+"");
+                    Log.d("KABOOMBOOM",current_anime.getAnime_id()+" "+current_anime.getName());
+                    disliked.add(current_anime.getAnime_id());
                     DB.getDB().getReference("Disliked").child(DB.getAU().getUid()).updateChildren(m2);
                 }
-                if (!disliked_anime.contains(current_anime)) {
+                if (!disliked_anime.contains(current_anime) && !favourites.contains(current_anime.getAnime_id())) {
                     disliked_anime.add(current_anime);
+                    Log.d("MAKARPO?", "WTF?");
                 }
             }
             update_views();
@@ -263,13 +270,13 @@ public class Engine extends AppCompatActivity implements View.OnClickListener {
                         Log.d("PIPIUNDKAKI", queue + "");
                     } else if (queue.isEmpty() && (!disliked_anime.isEmpty() || !disliked.isEmpty())) {
                         if (!disliked_anime.isEmpty()) {
-                            queue.add(disliked_anime.remove(0));
+                            //queue.add(disliked_anime.remove(0));
                         } else {
-                            Anime anime2 = dataSnapshot.getValue(Anime.class);
-                            if (disliked.contains(anime.getAnime_id())) {
-                                disliked.remove(anime.getAnime_id());
-                                queue.add(anime2);
-                            }
+//                            Anime anime2 = dataSnapshot.getValue(Anime.class);
+//                            if (disliked.contains(anime.getAnime_id())) {
+//                                disliked.remove(anime.getAnime_id());
+//                                queue.add(anime2);
+//                            }
                         }
 
                     }
