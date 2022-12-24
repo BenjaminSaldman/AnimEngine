@@ -97,8 +97,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                     boolean isCreator=FirebaseAuth.getInstance().getCurrentUser().getDisplayName().equals("true");
                                     Toast.makeText(SignInActivity.this, "Welcome back", Toast.LENGTH_LONG).show();
                                     if (!isCreator) {
-                                        startActivity(new Intent(getApplicationContext(), Engine.class));
-                                    } else {
                                         DB.getDB().getReference("Likes").child(DB.getAU().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -116,6 +114,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
                                             }
                                         });
+
+                                    } else {
+                                        startActivity(new Intent(getApplicationContext(), CreateActivity.class));
                                     }
                                 } else {
                                     Toast.makeText(SignInActivity.this, "Error " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();

@@ -22,14 +22,17 @@ public class AnimeComperator implements Comparator<Anime> {
     @Override
     public int compare(Anime anime1, Anime anime2) {
         int sum1=0,sum2=0;
-        Log.d("OKWTF?",likes+"");
-        for (String i: anime1.getGenres()){
-            sum1+=likes.get(i);
-        }
-        for (String i: anime2.getGenres()){
-            sum2+=likes.get(i);
-        }
+        if(!likes.isEmpty()){
+            Log.d("OKWTF?",likes+"");
+            for (String i: anime1.getGenres()){
+                sum1+=likes.get(i);
+            }
+            for (String i: anime2.getGenres()){
+                sum2+=likes.get(i);
+            }
 
-        return  (sum1-sum2);
+            return  (sum1-sum2);
+        }
+        return 0;
     }
 }

@@ -18,9 +18,11 @@ import android.widget.TextView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.util.JsonMapper;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -58,7 +60,7 @@ public class Engine extends AppCompatActivity implements View.OnClickListener {
         description = (TextView) findViewById(R.id.desc);
         seasons = (TextView) findViewById(R.id.seasons);
         sharedPreferences = getApplicationContext().getSharedPreferences("MySharedPref", MODE_PRIVATE);
-        Log.d("KABBOOOM", "123");
+
 
         likes = new HashMap<>();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -69,6 +71,22 @@ public class Engine extends AppCompatActivity implements View.OnClickListener {
         comparator = new AnimeComperator();
         disliked = new ArrayList<>();
         disliked_anime = new ArrayList<>();
+        likes=new HashMap<>();
+        Bundle extras=getIntent().getExtras();
+        if (extras!=null){
+            String likes2= extras.getString("Likes");
+            try {
+
+                Map<String,Object>m= JsonMapper.parseJson(likes2);
+                for(String i:m.keySet()){
+                    likes.put(i, (Integer) m.get(i));
+                }
+                Log.d("KABBOOOM", "123");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
         Log.d("KABBOOOM", "456");
         DB.getDB().getReference("Likes").child(DB.getAU().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
