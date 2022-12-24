@@ -71,14 +71,14 @@ public class Engine extends AppCompatActivity implements View.OnClickListener {
         comparator = new AnimeComperator();
         disliked = new ArrayList<>();
         disliked_anime = new ArrayList<>();
-        likes=new HashMap<>();
-        Bundle extras=getIntent().getExtras();
-        if (extras!=null){
-            String likes2= extras.getString("Likes");
+        likes = new HashMap<>();
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String likes2 = extras.getString("Likes");
             try {
 
-                Map<String,Object>m= JsonMapper.parseJson(likes2);
-                for(String i:m.keySet()){
+                Map<String, Object> m = JsonMapper.parseJson(likes2);
+                for (String i : m.keySet()) {
                     likes.put(i, (Integer) m.get(i));
                 }
                 Log.d("KABBOOOM", "123");
@@ -150,8 +150,10 @@ public class Engine extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (!(current_anime == null)) {
+            Log.d("KABOOM",likes+"");
             if (view.getId() == like.getId()) {
-                if (!favourites.contains(current_anime.getAnime_id())) {
+                if (!likes.isEmpty() && !favourites.contains(current_anime.getAnime_id())) {
+                    Log.d("KABOOM", likes + "");
                     Long like_update = current_anime.getLikes() + 1;
                     favourites.add(current_anime.getAnime_id());
                     for (String i : current_anime.getGenres()) {
@@ -169,7 +171,8 @@ public class Engine extends AppCompatActivity implements View.OnClickListener {
                     DB.getDB().getReference("Favourites").child(DB.getAU().getUid()).updateChildren(m2);
                 }
             } else {
-                if (!disliked.contains(current_anime.getAnime_id())) {
+                Log.d("KABOOM","????");
+                if (!likes.isEmpty() && !disliked.contains(current_anime.getAnime_id())) {
                     Long like_update = current_anime.getLikes() + 1;
                     for (String i : current_anime.getGenres()) {
                         likes.put(i, likes.get(i) - 1);
@@ -180,10 +183,9 @@ public class Engine extends AppCompatActivity implements View.OnClickListener {
                     DB.getDB().getReference("Anime").child(current_anime.getAnime_id()).updateChildren(m);
                     DB.getDB().getReference("Likes").child(DB.getAU().getUid()).updateChildren(new HashMap<>(likes));
                     Map<String, Object> m2 = new HashMap<>();
-                    for (String i : disliked) {
-                        m2.put(i, i);
-                    }
+                    m2.put(current_anime.getAnime_id(),current_anime.getAnime_id());
                     comparator.setLikes(likes);
+                    Log.d("KABOOM",m2+"");
                     DB.getDB().getReference("Disliked").child(DB.getAU().getUid()).updateChildren(m2);
                 }
                 if (!disliked_anime.contains(current_anime)) {
@@ -309,13 +311,14 @@ public class Engine extends AppCompatActivity implements View.OnClickListener {
                     new StorageConnection("images").requestFile(current_anime.getAnime_id(), bytes -> {
                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                         img.setImageBitmap(bitmap);
-                        seasons.setText("SE: "+current_anime.getSeasons()+" EP: "+current_anime.getEpisodes());
+                        seasons.setText("SE: " + current_anime.getSeasons() + " EP: " + current_anime.getEpisodes());
                         anime_name.setText(current_anime.getName());
                         description.setText("OK?");
                         description.setText(current_anime.getDescription());
-                        like.setOnClickListener(this);
-                        dislike.setOnClickListener(this);
+
                     });
+                    like.setOnClickListener(this);
+                    dislike.setOnClickListener(this);
                 }
             }
         }
