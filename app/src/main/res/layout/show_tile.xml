@@ -16,7 +16,7 @@
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="left|center"
         android:layout_marginLeft="20dp"
         android:text="anime name"
         android:textColor="@color/black"
