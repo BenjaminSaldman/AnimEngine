@@ -163,31 +163,6 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
-//    private void insertDescription() {
-//        AlertDialog.Builder dialog = new AlertDialog.Builder(CreateActivity.this);
-//        dialog.setCancelable(true);
-//        dialog.setTitle("Enter the anime description");
-//        final EditText description = new EditText(CreateActivity.this);
-//        dialog.setView(description);
-//        dialog.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//                descript = description.getText().toString();
-//                des.setText(descript);
-//                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-//                    @Override
-//                    public void onDismiss(DialogInterface dialogInterface) {
-//                        dialogInterface.dismiss();
-//                    }
-//                });
-//            }
-//        });
-//        AlertDialog alert = dialog.create();
-//        alert.setCanceledOnTouchOutside(true);
-//        alert.show();
-//
-//    }
-
     public String itemsToString() {
         String ans = "Selected: ";
         for (int i = 0; i < Gen.length; i++) {

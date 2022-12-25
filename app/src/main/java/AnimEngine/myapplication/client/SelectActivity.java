@@ -31,7 +31,7 @@ public class SelectActivity extends AppCompatActivity implements View.OnClickLis
             "Sci-Fi", "Psychological", "Supernatural", "Romance", "Crime", "Superhero", "Martial-arts"};
     ImageView img;
     ImageButton like, dislike;
-    TextView anime_name, description, seasons;
+    TextView anime_name;
     final private String[] anime = {"Naruto", "One Piece", "Bleach", "Dragon Ball", "Hunter x Hunter"};
     final private String[] genres = {"Adventure Fantasy Comedy Martial-arts", "Adventure Fantasy", "Adventure Supernatural",
             "Adventure Fantasy Martial-arts", "Adventure Fantasy Martial-arts"};
@@ -61,21 +61,14 @@ public class SelectActivity extends AppCompatActivity implements View.OnClickLis
         for (int i = 0; i < Gen.length; i++) {
             likes.put(Gen[i], 0);
         }
-        Bundle extra = getIntent().getExtras();
-        //uid = extra.getString("uid");
         uid=DB.getAU().getUid();
         img = (ImageView) findViewById(R.id.imageID);
         like = (ImageButton) findViewById(R.id.ibLike);
         dislike = (ImageButton) findViewById(R.id.ibUnLike);
         anime_name = (TextView) findViewById(R.id.animeNameSeries);
         attributes=findViewById(R.id.attributes);
-//        description = (TextView) findViewById(R.id.desc);
-//        seasons = (TextView) findViewById(R.id.seasons);
         Glide.with(this).load(URLs[index]).into(img);
         anime_name.setText(anime[index]);
-
-//        description.setText(descriptions[index]);
-//        seasons.setText(len[index]);
         like.setOnClickListener(this);
         dislike.setOnClickListener(this);
         update_views();
@@ -99,54 +92,6 @@ public class SelectActivity extends AppCompatActivity implements View.OnClickLis
             startActivity(new Intent(getApplicationContext(), SignInActivity.class));
         }else {
             update_views();
-//            Glide.with(this).load(URLs[index]).into(img);
-//            String[] objects={"Description: "+descriptions[index],genres[index],len[index]};
-//            ArrayAdapter<String> arr=new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,objects);
-//            attributes.setAdapter(arr);
-//            attributes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                    AlertDialog.Builder dialog = new AlertDialog.Builder(SelectActivity.this);
-//                    dialog.setCancelable(true);
-//                    String text=((TextView)view).getText().toString();
-//                    if (i==1) {
-//                        String[] genres = new String[text.split(" ").length - 1];
-//                        boolean[] choices = new boolean[genres.length];
-//                        for (int k = 1; k < text.split(" ").length; k++) {
-//                            genres[k-1] = text.split(" ")[k];
-//                            choices[k-1] = false;
-//                        }
-//
-//                        dialog.setTitle("Genres");
-//                        dialog.setItems(genres, new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//
-//                            }
-//                        });
-//                    }else {
-//                        dialog.setMessage(text);
-//                    }
-//                    dialog.setPositiveButton("back", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialogInterface, int i) {
-//                            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-//                                @Override
-//                                public void onDismiss(DialogInterface dialogInterface) {
-//                                    dialogInterface.dismiss();
-//                                }
-//                            });
-//                        }
-//                    });
-//                    AlertDialog alert = dialog.create();
-//                    alert.setCanceledOnTouchOutside(true);
-//                    alert.show();
-//
-//                }
-//            });
-//            anime_name.setText(anime[index]);
-//            description.setText(descriptions[index]);
-//            seasons.setText(len[index]);
         }
     }
     public void update_views(){

@@ -89,39 +89,5 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
             }
         }
 
-//        DB.getDB().getReference("Users").child(DB.getAU().getUid()).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                User user = snapshot.getValue(User.class);
-//                if (user != null) {
-//                    //Toast.makeText(home_screen.this, "Welcome back, " + user.getNickname(), Toast.LENGTH_LONG).show();
-//                    if (!user.isCreator()) {
-//                        if (mCatalog.getId() == view.getId()) {
-//                            startActivity(new Intent(view.getContext(), SearchActivity.class));
-//                        } else if (mProfile.getId() == view.getId()) {
-//                            startActivity(new Intent(view.getContext(), UserProfileActivity.class));
-//                        } else {
-//                            startActivity(new Intent(view.getContext(), Engine.class));
-//                        }
-//                    } else {
-//                        if (mCatalog.getId() == view.getId()) {
-//                            startActivity(new Intent(view.getContext(), SearchActivity.class));
-//                        } else if (mProfile.getId() == view.getId()) {
-//                            startActivity(new Intent(view.getContext(), UserProfileActivity.class));
-//                        } else {
-//                            startActivity(new Intent(view.getContext(), Engine.class));
-//
-//                        }
-//
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//
-//        });
     }
 }

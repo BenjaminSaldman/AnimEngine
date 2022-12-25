@@ -23,7 +23,6 @@ public class AnimeComperator implements Comparator<Anime> {
     public int compare(Anime anime1, Anime anime2) {
         int sum1=0,sum2=0;
         if(!likes.isEmpty()){
-            Log.d("OKWTF?",likes+"");
             for (String i: anime1.getGenres()){
                 sum1+=likes.get(i);
             }

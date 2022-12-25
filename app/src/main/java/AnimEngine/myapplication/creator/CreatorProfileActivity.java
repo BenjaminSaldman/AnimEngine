@@ -198,7 +198,6 @@ public class CreatorProfileActivity extends AppCompatActivity implements View.On
             startActivity(intent);
         }else if(view.getId()==btnChangePassword.getId())
         {
-            Log.d("BUGG","??");
             String old_pass=oldPassword.getText().toString();
             String newPass=newPassword.getText().toString();
             String newPass2=newPassword2.getText().toString();

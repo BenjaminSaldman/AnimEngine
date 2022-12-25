@@ -169,10 +169,7 @@ public class Anime implements Parcelable {
     public void setGenres(List<String> genres) {
         this.genres = genres;
     }
-    public void addAnime(){
-        DatabaseReference myRef= DB.getDB().getReference("Anime").child(name);
-        myRef.setValue(this);
-    }
+
     public boolean upload_anime(InputStream input_stream){
         try {
 
@@ -181,31 +178,12 @@ public class Anime implements Parcelable {
             sc.uploadImage(anime_id, inputData);
             DB.getDB().getReference("Anime").child(anime_id).setValue(this);
             DB.getDB().getReference("CreatorAnime").child(creator_id).child(anime_id).setValue(anime_id);
-            //DB.getDB().getReference("CreatorAnime").child(creator_id).child(anime_id).setValue(this);
             return true;
-            //Toast.makeText(CreateActivity.this, "Anime added successfully.", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             return false;
-            //Toast.makeText(CreateActivity.this, "Failed to upload the anime.", Toast.LENGTH_SHORT).show();
         }
     }
-//    public boolean update_anime(InputStream input_stream){
-//        try {
-//
-//            byte[]  inputData = getBytes(input_stream);
-//            StorageConnection sc = new StorageConnection("images/");
-//            sc.uploadImage(anime_id, inputData);
-//            DB.getDB().getReference("Anime").child(anime_id).setValue(this);
-//            DB.getDB().getReference("CreatorAnime").child(creator_id).child(anime_id).setValue(anime_id);
-//            //DB.getDB().getReference("CreatorAnime").child(creator_id).child(anime_id).setValue(this);
-//            return true;
-//            //Toast.makeText(CreateActivity.this, "Anime added successfully.", Toast.LENGTH_SHORT).show();
-//        } catch (Exception e) {
-//            return false;
-//            //Toast.makeText(CreateActivity.this, "Failed to upload the anime.", Toast.LENGTH_SHORT).show();
-//        }
-//
-//    }
+
     private byte[] getBytes(InputStream inputStream) throws IOException {
         ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
         int bufferSize = 1024;

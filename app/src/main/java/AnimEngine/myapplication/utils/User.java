@@ -16,10 +16,7 @@ public class User {
     private String nickname;
     private boolean creator;
     private String id;
-//    private Map<String, Integer> genres;
-//    private List<Anime> likes;
-//    final private String[] Gen = {"Action", "Comedy", "Shonen", "Adventure", "Slice of Life", "Drama", "Fantasy", "Horror", "Magic", "Mystery",
-//            "Sci-Fi", "Psychological", "Supernatural", "Romance", "Crime"};
+
 
 
     public User(String name, String mail, String password, String nickname, boolean creator, String id) {
@@ -28,8 +25,6 @@ public class User {
         this.password = password;
         this.nickname = nickname;
         this.creator=creator;
-        //String regex="[.#$\\[\\]@]";
-        //this.id=mail.replaceAll(regex,"");
         this.id=id;
     }
 

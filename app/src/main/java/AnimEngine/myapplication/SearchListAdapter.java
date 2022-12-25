@@ -87,25 +87,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.My
                         intent.putExtra("dislikes", mList.get(position).getDislikes());
                         context.startActivity(intent);
                     }
-//                    if(FirebaseAuth.getInstance().getCurrentUser().getDisplayName().equals("false"))
-//                    {
-//                        Intent intent = new Intent(context, UserSerieActivity.class);
-//                        intent.putExtra("animeID", mList.get(position).getAnime_id());
-//                        intent.putExtra("seasons", mList.get(position).getSeasons() + "");
-//                        intent.putExtra("episodes", mList.get(position).getEpisodes() + "");
-//                        String gens = "Genres: ";
-//                        for (String i : mList.get(position).getGenres())
-//                            gens += i + " ";
-//                        intent.putExtra("name", mList.get(position).getName());
-//                        intent.putExtra("gens", gens.trim());
-//                        intent.putExtra("desc", mList.get(position).getDescription());
-//                        intent.putExtra("likes", mList.get(position).getLikes());
-//                        intent.putExtra("dislikes", mList.get(position).getDislikes());
-//                        context.startActivity(intent);
-//                    }else{
-//                        Intent intent = new Intent(context, CreatorSerieActivity.class);
-//                        context.startActivity(intent);
-//                    }
+
                 }
             });
         }
