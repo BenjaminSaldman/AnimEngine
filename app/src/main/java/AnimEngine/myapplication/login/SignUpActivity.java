@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import AnimEngine.myapplication.R;
 import AnimEngine.myapplication.client.SelectActivity;
+import AnimEngine.myapplication.creator.CreatorProfileActivity;
 import AnimEngine.myapplication.utils.DB;
 import AnimEngine.myapplication.utils.User;
 
@@ -67,7 +68,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
             if (uname.isEmpty() || nick.isEmpty() || pass.isEmpty() || email.isEmpty()) {
                 Toast.makeText(SignUpActivity.this, "Please fill all the fields!", Toast.LENGTH_SHORT).show();
-            } else {
+            }
+            else if (nick.length() > 12) {
+                Toast.makeText(SignUpActivity.this, "Nickname too long", Toast.LENGTH_SHORT).show();
+            }
+            else if (uname.length() > 12) {
+                Toast.makeText(SignUpActivity.this, "Name too long", Toast.LENGTH_SHORT).show();
+            }
+            else {
                 FirebaseAuth myAuth = DB.getAU();
                 myAuth.createUserWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
