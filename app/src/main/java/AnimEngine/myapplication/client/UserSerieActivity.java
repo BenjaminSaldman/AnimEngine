@@ -67,6 +67,7 @@ public class UserSerieActivity extends AppCompatActivity {
                 animeImage.setImageBitmap(bitmap);
             });
             animeName.setText(name);
+            String[]titles={"Description","Genres","Seasons","Episodes","Likes","Dislikes"};
             String[] objects={"Description: "+desc,gens,seasons,episodes,"Likes: "+likes,"Dislikes: "+dislikes};
             ArrayAdapter<String> arr=new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,objects);
             animeDetails.setAdapter(arr);
@@ -92,6 +93,7 @@ public class UserSerieActivity extends AppCompatActivity {
                             }
                         });
                     }else {
+                        dialog.setTitle(titles[i]);
                         dialog.setMessage(text);
                     }
                     dialog.setPositiveButton("back", new DialogInterface.OnClickListener() {

@@ -21,6 +21,9 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import AnimEngine.myapplication.R;
 import AnimEngine.myapplication.client.SelectActivity;
 import AnimEngine.myapplication.utils.DB;
@@ -33,7 +36,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     EditText etNickname, etPassword, etEmail, etUserName;
     TextView back;
     boolean isCreator;
-
+    String[] Gen = {"Action", "Comedy", "Shonen", "Adventure", "Slice-of-Life", "Drama", "Fantasy", "Horror", "Magic", "Mystery",
+            "Sci-Fi", "Psychological", "Supernatural", "Romance", "Crime", "Superhero", "Martial-arts"};
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +86,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                     public void onComplete(@NonNull Task<Void> task) {
                                         User user = new User(uname, email, pass, nick, false, uid);
                                         user.InsertUser();
+                                        Map<String,Integer>likes = new HashMap<>();
+                                        for (int i = 0; i < Gen.length; i++) {
+                                            likes.put(Gen[i], 0);
+                                        }
+                                        DatabaseReference myRef = DB.getDB().getReference("Likes").child(uid);
+                                        myRef.setValue(likes);
                                         Toast.makeText(SignUpActivity.this, "Welcome to AnimEngine, " + uname, Toast.LENGTH_LONG).show();
                                         Intent intent = new Intent(getApplicationContext(), SelectActivity.class);
                                         intent.putExtra("uid", uid);

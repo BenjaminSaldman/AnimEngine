@@ -36,7 +36,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
 
     Button btnSignIn, btnCreator;
-    TextView tvSignUp;
+    TextView tvSignUp,forgot_password;
     EditText etEmail, etPassword;
 
     @Override
@@ -73,10 +73,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         tvSignUp = (TextView) findViewById(R.id.tvSignUp);
         btnCreator = (Button) findViewById(R.id.btnCreator);
         etEmail = (EditText) findViewById(R.id.etEmail);
+        forgot_password=(TextView)findViewById(R.id.tvForgetPassword);
         etPassword = (EditText) findViewById(R.id.etPassword);
         btnSignIn.setOnClickListener(this);
         tvSignUp.setOnClickListener(this);
         btnCreator.setOnClickListener(this);
+        forgot_password.setOnClickListener(this);
     }
 
     @Override

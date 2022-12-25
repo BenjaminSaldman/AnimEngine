@@ -54,6 +54,7 @@ public class CreatorSerieActivity extends AppCompatActivity {
             String[] objects={"Likes: "+likes,"Dislikes: "+dislikes,"Description: "+desc,gens,seasons,episodes};
             ArrayAdapter<String> arr=new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,objects);
             animeDetails.setAdapter(arr);
+            String[]titles={"Likes","Dislikes","Description","Genres","Seasons","Episodes"};
             animeDetails.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -76,6 +77,7 @@ public class CreatorSerieActivity extends AppCompatActivity {
                             }
                         });
                     }else {
+                        dialog.setTitle(titles[i]);
                         dialog.setMessage(text);
                     }
                     dialog.setPositiveButton("back", new DialogInterface.OnClickListener() {

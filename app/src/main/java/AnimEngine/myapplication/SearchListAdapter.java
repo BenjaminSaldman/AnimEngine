@@ -52,7 +52,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.My
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         boolean create = true;
-        if (true) {
+        if (true && !(mList.get(position) ==null)) {
             // todo Glide.with(context).load(mList.get(position).getImageUri()).into(holder.ivImage); - when we have images
             holder.getTvName().setText(mList.get(position).getName().toString());
             StorageConnection sc = new StorageConnection("images");

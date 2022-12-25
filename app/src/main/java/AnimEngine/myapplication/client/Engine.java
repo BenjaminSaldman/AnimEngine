@@ -1,9 +1,11 @@
 package AnimEngine.myapplication.client;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,8 +13,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -48,6 +53,7 @@ public class Engine extends AppCompatActivity implements View.OnClickListener {
     ImageButton like, dislike;
     TextView anime_name, description, seasons;
     SharedPreferences sharedPreferences;
+    ListView attributes;
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -58,8 +64,9 @@ public class Engine extends AppCompatActivity implements View.OnClickListener {
         like = (ImageButton) findViewById(R.id.ibLike);
         dislike = (ImageButton) findViewById(R.id.ibUnLike);
         anime_name = (TextView) findViewById(R.id.animeNameSeries);
-        description = (TextView) findViewById(R.id.desc);
-        seasons = (TextView) findViewById(R.id.seasons);
+//        description = (TextView) findViewById(R.id.desc);
+//        seasons = (TextView) findViewById(R.id.seasons);
+        attributes=(ListView)findViewById(R.id.attributes);
         sharedPreferences = getApplicationContext().getSharedPreferences("MySharedPref", MODE_PRIVATE);
 
 
@@ -320,10 +327,61 @@ public class Engine extends AppCompatActivity implements View.OnClickListener {
                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                         //img.setImageBitmap(bitmap);
                         Glide.with(this).load(bitmap).into(img);
-                        seasons.setText("SE: " + current_anime.getSeasons() + " EP: " + current_anime.getEpisodes());
+                        //seasons.setText("SE: " + current_anime.getSeasons() + " EP: " + current_anime.getEpisodes());
+                        String gens="Genres: ";
+                        for(String i:current_anime.getGenres()){
+                            gens+=i+" ";
+                        }
                         anime_name.setText(current_anime.getName());
+                        String[] objects={"Description: "+current_anime.getDescription(),gens.trim(),"Seasons: "+current_anime.getSeasons(),
+                                "Episodes: "+current_anime.getEpisodes(),"Likes: "+current_anime.getLikes(),"Dislikes: "+current_anime.getDislikes()};
+                        ArrayAdapter<String> arr=new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,objects);
+                        attributes.setAdapter(arr);
+                        String[]titles={"Description","Genres","Seasons","Episodes","Likes","Dislikes"};
+                        attributes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                AlertDialog.Builder dialog = new AlertDialog.Builder(Engine.this);
+                                dialog.setCancelable(true);
+                                String text=((TextView)view).getText().toString();
+                                if (i==1) {
+                                    String[] genres = new String[text.split(" ").length - 1];
+                                    boolean[] choices = new boolean[genres.length];
+                                    for (int k = 1; k < text.split(" ").length; k++) {
+                                        genres[k-1] = text.split(" ")[k];
+                                        choices[k-1] = false;
+                                    }
+
+                                    dialog.setTitle("Genres");
+                                    dialog.setItems(genres, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                                        }
+                                    });
+                                }else {
+                                    dialog.setTitle(titles[i]);
+                                    dialog.setMessage(text);
+                                }
+                                dialog.setPositiveButton("back", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                            @Override
+                                            public void onDismiss(DialogInterface dialogInterface) {
+                                                dialogInterface.dismiss();
+                                            }
+                                        });
+                                    }
+                                });
+                                AlertDialog alert = dialog.create();
+                                alert.setCanceledOnTouchOutside(true);
+                                alert.show();
+
+                            }
+                        });
                         //description.setText("OK?");
-                        description.setText(current_anime.getDescription());
+                       // description.setText(current_anime.getDescription());
 //                        like.setOnClickListener(this);
 //                        dislike.setOnClickListener(this);
 

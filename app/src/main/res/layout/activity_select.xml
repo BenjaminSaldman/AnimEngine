@@ -13,10 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/big_white_base"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:layout_marginBottom="250dp"
+        android:layout_marginBottom="200dp"
         android:orientation="vertical">
 
         <ImageView
@@ -36,15 +36,21 @@
             android:gravity="center"
             />
 
-        <TextView
-            android:id="@+id/seasons"
+        <ListView
+            android:id="@+id/attributes"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:text="ksdajfpasjfpasdsdjfnaasdjf"
-            android:gravity="center"
-            />
+            android:layout_height="match_parent"
+            android:background="@color/white"/>
+
+        <!--        <TextView-->
+<!--            android:id="@+id/seasons"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textStyle="bold"-->
+<!--            android:text="ksdajfpasjfpasdsdjfnaasdjf"-->
+<!--            android:gravity="center"-->
+<!--            />-->
 <!--        <LinearLayout-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="wrap_content"-->
@@ -114,15 +120,16 @@
 
 <!--        </LinearLayout>-->
 
-        <TextView
-            android:id="@+id/desc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="s1 | e1"
-            android:textColor="@color/white"
-            android:textSize="26dp"
-            android:textStyle="bold" />
+<!--        <TextView-->
+<!--            android:id="@+id/desc"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            android:text="s1 | e1"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="26dp"-->
+<!--            android:textStyle="bold" />-->
+
 
 
     </LinearLayout>
