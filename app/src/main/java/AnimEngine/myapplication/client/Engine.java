@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -151,7 +152,7 @@ public class Engine extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        if (!(current_anime == null)) {
+        if (!(current_anime == null) && !(current_anime.getAnime_id().equals("anime_id"))) {
             Log.d("KABOOM",likes+"");
             Log.d("KABOOM",disliked+"");
             Log.d("KABOOM",favourites+"");
@@ -317,15 +318,19 @@ public class Engine extends AppCompatActivity implements View.OnClickListener {
                     dislike.setOnClickListener(null);
                     new StorageConnection("images").requestFile(current_anime.getAnime_id(), bytes -> {
                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                        img.setImageBitmap(bitmap);
+                        //img.setImageBitmap(bitmap);
+                        Glide.with(this).load(bitmap).into(img);
                         seasons.setText("SE: " + current_anime.getSeasons() + " EP: " + current_anime.getEpisodes());
                         anime_name.setText(current_anime.getName());
-                        description.setText("OK?");
+                        //description.setText("OK?");
                         description.setText(current_anime.getDescription());
+//                        like.setOnClickListener(this);
+//                        dislike.setOnClickListener(this);
 
                     });
                     like.setOnClickListener(this);
                     dislike.setOnClickListener(this);
+
                 }
             }
         }
