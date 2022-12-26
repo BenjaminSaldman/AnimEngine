@@ -251,7 +251,6 @@ public class Engine extends AppCompatActivity implements View.OnClickListener {
                     like.setOnClickListener(null);
                     dislike.setOnClickListener(null);
                     new StorageConnection("images").requestFile(current_anime.getAnime_id(), bytes -> {
-                        Log.d("IMHERE","1");
                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                         //img.setImageBitmap(bitmap);
                         img.setVisibility(View.INVISIBLE);
