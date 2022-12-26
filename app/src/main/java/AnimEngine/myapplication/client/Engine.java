@@ -52,13 +52,14 @@ public class Engine extends AppCompatActivity implements View.OnClickListener {
     ImageButton like, dislike;
     TextView anime_name;
     ListView attributes;
+    boolean flag;
 
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select);
-
+        flag=false;
         img = (ImageView) findViewById(R.id.imageID);
         like = (ImageButton) findViewById(R.id.ibLike);
         dislike = (ImageButton) findViewById(R.id.ibUnLike);
@@ -198,6 +199,7 @@ public class Engine extends AppCompatActivity implements View.OnClickListener {
 
                 }
             }
+            flag=false;
             update_views();
         }
     }
@@ -239,8 +241,9 @@ public class Engine extends AppCompatActivity implements View.OnClickListener {
 
     public void update_views() {
 
-        if (!queue.isEmpty()) {
+        if (!queue.isEmpty() && !flag) {
             current_anime = queue.poll();
+            flag=true;
             if (!(current_anime == null)) {
                 if (current_anime.getAnime_id().equals("anime_id")) {
 
@@ -248,6 +251,7 @@ public class Engine extends AppCompatActivity implements View.OnClickListener {
                     like.setOnClickListener(null);
                     dislike.setOnClickListener(null);
                     new StorageConnection("images").requestFile(current_anime.getAnime_id(), bytes -> {
+                        Log.d("IMHERE","1");
                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                         //img.setImageBitmap(bitmap);
                         img.setVisibility(View.INVISIBLE);
