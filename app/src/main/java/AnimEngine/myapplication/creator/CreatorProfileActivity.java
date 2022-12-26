@@ -116,7 +116,7 @@ public class CreatorProfileActivity extends AppCompatActivity implements View.On
                 if (real.isEmpty()) {
                     Toast.makeText(CreatorProfileActivity.this, "Name should not be empty", Toast.LENGTH_SHORT).show();
                 }
-                else if (real.length() > 12) {
+                else if (real.length() > 16) {
                     Toast.makeText(CreatorProfileActivity.this, "Name too long", Toast.LENGTH_SHORT).show();
                 }
                 else {

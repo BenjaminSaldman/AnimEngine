@@ -76,7 +76,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             else if (nick.length() > 12) {
                 Toast.makeText(SignUpActivity.this, "Nickname too long", Toast.LENGTH_SHORT).show();
             }
-            else if (uname.length() > 12) {
+            else if (uname.length() > 16) {
                 Toast.makeText(SignUpActivity.this, "Name too long", Toast.LENGTH_SHORT).show();
             }
             else {

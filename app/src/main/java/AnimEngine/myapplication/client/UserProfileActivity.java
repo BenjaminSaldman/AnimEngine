@@ -118,7 +118,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
                 if (real.isEmpty()) {
                     Toast.makeText(UserProfileActivity.this, "Name should not be empty", Toast.LENGTH_SHORT).show();
                 }
-                else if (real.length() > 12) {
+                else if (real.length() > 16) {
                     Toast.makeText(UserProfileActivity.this, "Name too long", Toast.LENGTH_SHORT).show();
                 }
                 else {
