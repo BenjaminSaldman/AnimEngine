@@ -150,4 +150,5 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             startActivity(new Intent(getApplicationContext(), ChangePasswordActivity.class));
         }
     }
+
 }
