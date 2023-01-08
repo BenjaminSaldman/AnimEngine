@@ -25,6 +25,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import AnimEngine.myapplication.client.UserProfileActivity;
 import AnimEngine.myapplication.creator.CreateActivity;
 import AnimEngine.myapplication.client.Engine;
 import AnimEngine.myapplication.R;
@@ -96,30 +97,38 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    boolean isCreator=FirebaseAuth.getInstance().getCurrentUser().getDisplayName().equals("true");
-                                    Toast.makeText(SignInActivity.this, "Welcome back", Toast.LENGTH_LONG).show();
-                                    if (!isCreator) {
-                                        DB.getDB().getReference("Likes").child(DB.getAU().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                Map<String,Object> m=new HashMap<>();
-                                                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
-                                                    m.put(dataSnapshot.getKey(),dataSnapshot.getValue());
-                                                }
-                                                Intent intent=new Intent(getApplicationContext(), Engine.class);
-                                                intent.putExtra("Likes", new JSONObject(m).toString());
-                                                startActivity(intent);
+                                    Map<String,Object> m=new HashMap<>();
+                                    m.put("password",pass);
+                                    DB.getDB().getReference("Users").child(DB.getAU().getUid()).updateChildren(m).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            boolean isCreator=FirebaseAuth.getInstance().getCurrentUser().getDisplayName().equals("true");
+                                            Toast.makeText(SignInActivity.this, "Welcome back", Toast.LENGTH_LONG).show();
+                                            if (!isCreator) {
+                                                DB.getDB().getReference("Likes").child(DB.getAU().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                        Map<String,Object> m=new HashMap<>();
+                                                        for (DataSnapshot dataSnapshot:snapshot.getChildren()){
+                                                            m.put(dataSnapshot.getKey(),dataSnapshot.getValue());
+                                                        }
+                                                        Intent intent=new Intent(getApplicationContext(), Engine.class);
+                                                        intent.putExtra("Likes", new JSONObject(m).toString());
+                                                        startActivity(intent);
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                                    }
+                                                });
+
+                                            } else {
+                                                startActivity(new Intent(getApplicationContext(), CreateActivity.class));
                                             }
+                                        }
+                                    });
 
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
-
-                                    } else {
-                                        startActivity(new Intent(getApplicationContext(), CreateActivity.class));
-                                    }
                                 } else {
                                     Toast.makeText(SignInActivity.this, "Error " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
