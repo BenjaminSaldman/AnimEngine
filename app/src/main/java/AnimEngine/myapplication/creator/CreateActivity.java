@@ -115,55 +115,17 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
             }
             String gens = gen.getText().toString();
             String d = des.getText().toString();
-            if (gens.equals("Selected: ") || d.isEmpty() || anime_name.isEmpty() || picture_to_upload==null) {
+            if (gens.equals("Selected: ") || d.isEmpty() || anime_name.isEmpty() || picture_to_upload == null) {
                 Toast.makeText(CreateActivity.this, "Please fill all fields.", Toast.LENGTH_SHORT).show();
             } else {
-
-                String[] splits = gens.trim().split(" ");
-                List<String> to_send = new ArrayList<>();
-                for (int i = 1; i < splits.length; i++) {
-                    to_send.add(splits[i]);
-                }
-                String ref = DB.getDB().getReference("Anime").push().getKey();
-                Anime anime = new Anime(anime_name, ep, se, d, creator_id, ref, to_send);
-                InputStream iStream = null;
-                try {
-                    iStream = getContentResolver().openInputStream(picture_to_upload);
-                    if(anime.upload_anime(iStream))
-                    {
-                        Toast.makeText(CreateActivity.this, "Anime added successfully.", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(),CreateActivity.class));
-                    }else{
-                        Toast.makeText(CreateActivity.this, "Failed to upload the anime.", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                    Toast.makeText(CreateActivity.this, "Failed to upload the anime.", Toast.LENGTH_SHORT).show();
-                }
-
-
+                DB.upload(anime_name, ep, se, d, creator_id, gens, picture_to_upload, CreateActivity.this);
             }
-
-
         }
 
     }
 
 
-    private byte[] getBytes(InputStream inputStream) throws IOException {
-        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
-        int bufferSize = 1024;
-        byte[] buffer = new byte[bufferSize];
-
-        int len = 0;
-        while ((len = inputStream.read(buffer)) != -1) {
-            byteBuffer.write(buffer, 0, len);
-        }
-        return byteBuffer.toByteArray();
-    }
-
-
-    public String itemsToString() {
+    private String itemsToString() {
         String ans = "Selected: ";
         for (int i = 0; i < Gen.length; i++) {
             if (selected[i]) {

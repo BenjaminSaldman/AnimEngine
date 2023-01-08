@@ -170,19 +170,7 @@ public class Anime implements Parcelable {
         this.genres = genres;
     }
 
-    public boolean upload_anime(InputStream input_stream){
-        try {
 
-            byte[]  inputData = getBytes(input_stream);
-            StorageConnection sc = new StorageConnection("images/");
-            sc.uploadImage(anime_id, inputData);
-            DB.getDB().getReference("Anime").child(anime_id).setValue(this);
-            DB.getDB().getReference("CreatorAnime").child(creator_id).child(anime_id).setValue(anime_id);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
 
     private byte[] getBytes(InputStream inputStream) throws IOException {
         ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();

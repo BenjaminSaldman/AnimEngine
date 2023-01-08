@@ -1,8 +1,6 @@
 package AnimEngine.myapplication.client;
 
 import android.os.Build;
-import android.util.Log;
-import android.util.*;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -23,7 +21,7 @@ import AnimEngine.myapplication.utils.Anime;
 import AnimEngine.myapplication.utils.AnimeComperator;
 import AnimEngine.myapplication.utils.DB;
 
-public class Engine_controller extends ViewModel {
+public class EngineController extends ViewModel {
     Map<String, Integer> likes;
     ArrayList<String> favourites;
     ArrayList<String> disliked;
@@ -34,7 +32,7 @@ public class Engine_controller extends ViewModel {
     private MutableLiveData<Anime> shared_anime;
 
 
-    public Engine_controller() {
+    public EngineController() {
         likes = new HashMap<>();
         favourites = new ArrayList<>();
         disliked = new ArrayList<>();

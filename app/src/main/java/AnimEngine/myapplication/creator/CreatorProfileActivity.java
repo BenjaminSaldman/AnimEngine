@@ -206,35 +206,7 @@ public class CreatorProfileActivity extends AppCompatActivity implements View.On
             }else if(!newPass.equals(newPass2)){
                 Toast.makeText(CreatorProfileActivity.this, "Password's don't match!", Toast.LENGTH_SHORT).show();
             }else{
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                final String email = user.getEmail();
-                AuthCredential credential = EmailAuthProvider.getCredential(email, old_pass);
-                user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            user.updatePassword(newPass).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (!task.isSuccessful()) {
-                                        Toast.makeText(CreatorProfileActivity.this, "Something went wrong. Please try again later", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Map<String,Object> m=new HashMap<>();
-                                        m.put("password",newPass);
-                                        DB.getDB().getReference("Users").child(user.getUid()).updateChildren(m).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                Toast.makeText(CreatorProfileActivity.this, "Password Successfully Modified", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-                                    }
-                                }
-                            });
-                        } else {
-                            Toast.makeText(CreatorProfileActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                DB.update_password(CreatorProfileActivity.this, old_pass, newPass);
 
             }
         }

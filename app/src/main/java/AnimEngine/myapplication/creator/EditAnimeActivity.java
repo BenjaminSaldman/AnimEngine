@@ -24,6 +24,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import AnimEngine.myapplication.R;
@@ -61,11 +62,12 @@ public class EditAnimeActivity extends AppCompatActivity implements View.OnClick
                     }
                 }
             });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
-        try{
+        try {
             name = (EditText) findViewById(R.id.animeName);
             seasons = (EditText) findViewById(R.id.seasons);
             episodes = (EditText) findViewById(R.id.episodes);
@@ -84,30 +86,30 @@ public class EditAnimeActivity extends AppCompatActivity implements View.OnClick
             }
             descript = "";
             picture_to_upload_flag = false;
-            picture_to_upload=null;
+            picture_to_upload = null;
             Bundle extra = getIntent().getExtras();
-            String anime_name=extra.getString("name");
-            String given_seasons=extra.getString("seasons");
-            String given_episodes=extra.getString("episodes");
-            given_anime_id=extra.getString("animeID");
-            String given_gens=extra.getString("gens");
-            String given_desc=extra.getString("desc");
-            ep=Integer.parseInt(given_episodes);
-            se=Integer.parseInt(given_seasons);
+            String anime_name = extra.getString("name");
+            String given_seasons = extra.getString("seasons");
+            String given_episodes = extra.getString("episodes");
+            given_anime_id = extra.getString("animeID");
+            String given_gens = extra.getString("gens");
+            String given_desc = extra.getString("desc");
+            ep = Integer.parseInt(given_episodes);
+            se = Integer.parseInt(given_seasons);
             name.setText(anime_name);
             des.setText(given_desc);
-            seasons.setText(se+"");
-            episodes.setText(ep+"");
+            seasons.setText(se + "");
+            episodes.setText(ep + "");
             gen.setText(given_gens);
-            picture=null;
+            picture = null;
             new StorageConnection("images").requestFile(given_anime_id, bytes -> {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 img.setImageBitmap(bitmap);
-                picture=bytes;
-                picture_to_upload_flag=true;
+                picture = bytes;
+                picture_to_upload_flag = true;
             });
             upload.setText("Update anime");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(EditAnimeActivity.this, "error", Toast.LENGTH_SHORT).show();
         }
@@ -132,28 +134,24 @@ public class EditAnimeActivity extends AppCompatActivity implements View.OnClick
             }
             String gens = gen.getText().toString();
             String d = des.getText().toString();
-            if (gens.equals("Selected: ") || d.isEmpty() || anime_name.isEmpty() || (picture_to_upload==null) && !picture_to_upload_flag) {
+            if (gens.equals("Selected: ") || d.isEmpty() || anime_name.isEmpty() || (picture_to_upload == null) && !picture_to_upload_flag) {
                 Toast.makeText(EditAnimeActivity.this, "Please fill all fields.", Toast.LENGTH_SHORT).show();
             } else {
 
                 String[] splits = gens.trim().split(" ");
-                List<String> to_send = new ArrayList<>();
-                for (int i = 1; i < splits.length; i++) {
-                    to_send.add(splits[i]);
-                }
-                String ref = DB.getDB().getReference("Anime").push().getKey();
+                List<String> to_send = new ArrayList<>(Arrays.asList(splits).subList(1, splits.length));
                 Anime anime = new Anime(anime_name, ep, se, d, creator_id, given_anime_id, to_send);
                 InputStream iStream = null;
                 try {
-                    if (picture_to_upload!=null) {
+                    if (picture_to_upload != null) {
                         iStream = getContentResolver().openInputStream(picture_to_upload);
-                    }else{
-                        iStream=new ByteArrayInputStream(picture);
+                    } else {
+                        iStream = new ByteArrayInputStream(picture);
                     }
-                    if(anime.upload_anime(iStream))
-                    {
+                    //DB.upload(anime_name, ep, se, d, creator_id, gens, picture_to_upload, EditAnimeActivity.this);
+                    if (DB.upload_anime(anime, iStream)) {
                         Toast.makeText(EditAnimeActivity.this, "Anime added successfully.", Toast.LENGTH_SHORT).show();
-                    }else{
+                    } else {
                         Toast.makeText(EditAnimeActivity.this, "Failed to upload the anime.", Toast.LENGTH_SHORT).show();
                     }
                 } catch (FileNotFoundException e) {
@@ -170,44 +168,6 @@ public class EditAnimeActivity extends AppCompatActivity implements View.OnClick
     }
 
 
-    private byte[] getBytes(InputStream inputStream) throws IOException {
-        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
-        int bufferSize = 1024;
-        byte[] buffer = new byte[bufferSize];
-
-        int len = 0;
-        while ((len = inputStream.read(buffer)) != -1) {
-            byteBuffer.write(buffer, 0, len);
-        }
-        return byteBuffer.toByteArray();
-    }
-
-
-    private void insertDescription() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(EditAnimeActivity.this);
-        dialog.setCancelable(true);
-        dialog.setTitle("Enter the anime description");
-        final EditText description = new EditText(EditAnimeActivity.this);
-        dialog.setView(description);
-        dialog.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                descript = description.getText().toString();
-                des.setText(descript);
-                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialogInterface) {
-                        dialogInterface.dismiss();
-                    }
-                });
-            }
-        });
-        AlertDialog alert = dialog.create();
-        alert.setCanceledOnTouchOutside(true);
-        alert.show();
-
-    }
-
     public String itemsToString() {
         String ans = "Selected: ";
         for (int i = 0; i < Gen.length; i++) {
@@ -222,23 +182,10 @@ public class EditAnimeActivity extends AppCompatActivity implements View.OnClick
         AlertDialog.Builder dialog = new AlertDialog.Builder(EditAnimeActivity.this);
         dialog.setCancelable(true);
         dialog.setTitle("Choose the genres");
-        dialog.setMultiChoiceItems(Gen, selected, new DialogInterface.OnMultiChoiceClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                selected[which] = isChecked;
-            }
-        });
-        dialog.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                gen.setText(itemsToString());
-                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialogInterface) {
-                        dialogInterface.dismiss();
-                    }
-                });
-            }
+        dialog.setMultiChoiceItems(Gen, selected, (dialog1, which, isChecked) -> selected[which] = isChecked);
+        dialog.setPositiveButton("Confirm", (dialogInterface, i) -> {
+            gen.setText(itemsToString());
+            dialog.setOnDismissListener(DialogInterface::dismiss);
         });
         AlertDialog alert = dialog.create();
         alert.setCanceledOnTouchOutside(true);

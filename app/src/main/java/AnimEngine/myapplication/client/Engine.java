@@ -1,16 +1,13 @@
 package AnimEngine.myapplication.client;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,24 +19,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.util.JsonMapper;
-
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.PriorityQueue;
 
 import AnimEngine.myapplication.R;
 import AnimEngine.myapplication.StorageConnection;
 import AnimEngine.myapplication.utils.Anime;
-import AnimEngine.myapplication.utils.AnimeComperator;
-import AnimEngine.myapplication.utils.DB;
 
 public class Engine extends AppCompatActivity implements View.OnClickListener {
     Anime current_anime;
@@ -48,7 +31,7 @@ public class Engine extends AppCompatActivity implements View.OnClickListener {
     TextView anime_name;
     ListView attributes;
     boolean flag;
-    Engine_controller controller;
+    EngineController controller;
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -61,7 +44,7 @@ public class Engine extends AppCompatActivity implements View.OnClickListener {
         dislike = (ImageButton) findViewById(R.id.ibUnLike);
         anime_name = (TextView) findViewById(R.id.animeNameSeries);
         attributes = (ListView) findViewById(R.id.attributes);
-        controller = new ViewModelProvider(this).get(Engine_controller.class);
+        controller = new ViewModelProvider(this).get(EngineController.class);
         current_anime = controller.getCurrent_anime();
         controller.getUsers().observe(this, anime -> {
             current_anime = anime;
