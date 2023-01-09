@@ -2,9 +2,7 @@ package AnimEngine.myapplication.utils;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.io.ByteArrayOutputStream;
@@ -13,8 +11,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import AnimEngine.myapplication.StorageConnection;
-import AnimEngine.myapplication.creator.CreateActivity;
 @IgnoreExtraProperties
 public class Anime implements Parcelable {
     private String name;
@@ -202,4 +198,6 @@ public class Anime implements Parcelable {
         parcel.writeInt(seasons);
         parcel.writeStringList(genres);
     }
+
+
 }

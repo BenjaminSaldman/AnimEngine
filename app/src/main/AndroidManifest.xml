@@ -24,7 +24,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".SearchActivity"
+            android:name=".utils.SearchActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -73,7 +73,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ChangePasswordActivity"
+            android:name=".login.ChangePasswordActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

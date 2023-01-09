@@ -1,4 +1,4 @@
-package AnimEngine.myapplication.client;
+package AnimEngine.myapplication.logics;
 
 import android.os.Build;
 
@@ -19,7 +19,6 @@ import java.util.PriorityQueue;
 
 import AnimEngine.myapplication.utils.Anime;
 import AnimEngine.myapplication.utils.AnimeComperator;
-import AnimEngine.myapplication.utils.DB;
 
 public class EngineController extends ViewModel {
     Map<String, Integer> likes;
@@ -111,14 +110,17 @@ public class EngineController extends ViewModel {
     }
 
     public void listen_to_anime() {
-        System.out.println("IMHERE");
         DB.getDB().getReference("Anime").addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 comparator.setLikes(likes);
-                System.out.println("IMHERE");
-
+                PriorityQueue<Anime> q=new PriorityQueue<>();
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                     q=new PriorityQueue<>(comparator);
+                }
+                q.addAll(queue);
+                queue=new PriorityQueue<>(q);
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
                     Anime anime = dataSnapshot.getValue(Anime.class);

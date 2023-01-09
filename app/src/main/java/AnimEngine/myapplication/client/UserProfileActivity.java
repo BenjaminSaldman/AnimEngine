@@ -16,16 +16,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
@@ -33,18 +27,17 @@ import java.util.Map;
 import java.util.Objects;
 
 import AnimEngine.myapplication.R;
-import AnimEngine.myapplication.SearchActivity;
-import AnimEngine.myapplication.creator.CreatorProfileActivity;
+import AnimEngine.myapplication.utils.SearchActivity;
 import AnimEngine.myapplication.login.SignInActivity;
-import AnimEngine.myapplication.utils.DB;
+import AnimEngine.myapplication.logics.DB;
 import AnimEngine.myapplication.utils.User;
 
 public class UserProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView tvNickname, tvRealName, tvEmail;
     ImageButton ibEditNickname, ibEditRealName;
-    Button btnFavouriteAnimes, btnLogOut,btnChangePassword;
-    EditText etNickname, etRealName,oldPassword,newPassword,newPassword2;
+    Button btnFavouriteAnimes, btnLogOut, btnChangePassword;
+    EditText etNickname, etRealName, oldPassword, newPassword, newPassword2;
     AlertDialog adNickname, adRealName;
 
     @Override
@@ -60,10 +53,10 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         ibEditRealName = findViewById(R.id.ibEditRealName);
         btnFavouriteAnimes = findViewById(R.id.btnFavouriteAnimes);
         btnLogOut = findViewById(R.id.btnLogOut);
-        btnChangePassword=findViewById(R.id.btnChangePassword);
-        oldPassword=findViewById(R.id.etLastPassword);
-        newPassword=findViewById(R.id.etNewPassword);
-        newPassword2=findViewById(R.id.etNewPasswordAuth);
+        btnChangePassword = findViewById(R.id.btnChangePassword);
+        oldPassword = findViewById(R.id.etLastPassword);
+        newPassword = findViewById(R.id.etNewPassword);
+        newPassword2 = findViewById(R.id.etNewPasswordAuth);
         btnChangePassword.setOnClickListener(this);
         ibEditNickname.setOnClickListener(this);
         ibEditRealName.setOnClickListener(this);
@@ -86,20 +79,11 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
                 String nick = etNickname.getText().toString().trim();
                 if (nick.isEmpty()) {
                     Toast.makeText(UserProfileActivity.this, "Nickname should not be empty", Toast.LENGTH_SHORT).show();
-                }
-                else if (nick.length() > 12) {
+                } else if (nick.length() > 12) {
                     Toast.makeText(UserProfileActivity.this, "Nickname too long", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     tvNickname.setText(etNickname.getText());
-                    Map<String,Object> m=new HashMap<>();
-                    m.put("nickname", nick);
-                    DB.getDB().getReference("Users").child(DB.getAU().getUid()).updateChildren(m).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(UserProfileActivity.this, "Nickname Successfully Modified", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    DB.update_attribute("nickname", nick, UserProfileActivity.this);
                 }
             }
         });
@@ -117,20 +101,12 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
                 String real = etRealName.getText().toString().trim();
                 if (real.isEmpty()) {
                     Toast.makeText(UserProfileActivity.this, "Name should not be empty", Toast.LENGTH_SHORT).show();
-                }
-                else if (real.length() > 16) {
+                } else if (real.length() > 16) {
                     Toast.makeText(UserProfileActivity.this, "Name too long", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     tvRealName.setText(etRealName.getText());
-                    Map<String,Object> m=new HashMap<>();
-                    m.put("name", real);
-                    DB.getDB().getReference("Users").child(DB.getAU().getUid()).updateChildren(m).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(UserProfileActivity.this, "Real Name Successfully Modified", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    Map<String, Object> m = new HashMap<>();
+                    DB.update_attribute("name", real, UserProfileActivity.this);
                 }
             }
         });
@@ -203,17 +179,15 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
             FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
             startActivity(intent);
-        }else if(view.getId()==btnChangePassword.getId())
-        {
-            Log.d("BUGG","??");
-            String old_pass=oldPassword.getText().toString();
-            String newPass=newPassword.getText().toString();
-            String newPass2=newPassword2.getText().toString();
-            if (newPass.isEmpty() || newPass2.isEmpty() || old_pass.isEmpty()){
+        } else if (view.getId() == btnChangePassword.getId()) {
+            String old_pass = oldPassword.getText().toString();
+            String newPass = newPassword.getText().toString();
+            String newPass2 = newPassword2.getText().toString();
+            if (newPass.isEmpty() || newPass2.isEmpty() || old_pass.isEmpty()) {
                 Toast.makeText(UserProfileActivity.this, "Please fill all the fields!", Toast.LENGTH_SHORT).show();
-            }else if(!newPass.equals(newPass2)){
+            } else if (!newPass.equals(newPass2)) {
                 Toast.makeText(UserProfileActivity.this, "Password's don't match!", Toast.LENGTH_SHORT).show();
-            }else{
+            } else {
                 DB.update_password(UserProfileActivity.this, old_pass, newPass);
             }
         }

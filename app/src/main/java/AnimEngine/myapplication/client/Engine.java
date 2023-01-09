@@ -9,7 +9,6 @@ import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,7 +20,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import AnimEngine.myapplication.R;
-import AnimEngine.myapplication.StorageConnection;
+import AnimEngine.myapplication.logics.StorageConnection;
+import AnimEngine.myapplication.logics.EngineController;
 import AnimEngine.myapplication.utils.Anime;
 
 public class Engine extends AppCompatActivity implements View.OnClickListener {
@@ -48,8 +48,6 @@ public class Engine extends AppCompatActivity implements View.OnClickListener {
         current_anime = controller.getCurrent_anime();
         controller.getUsers().observe(this, anime -> {
             current_anime = anime;
-            Log.d("MMAAA",anime.getAnime_id());
-            //update_views(anime);
         });
         update_views(current_anime);
         like.setOnClickListener(this);
@@ -64,8 +62,6 @@ public class Engine extends AppCompatActivity implements View.OnClickListener {
         controller.like_set(isLike);
         controller.getUsers().observe(this, anime -> {
             current_anime = anime;
-            Log.d("MMAAA",anime.getAnime_id());
-            //update_views(anime);
         });
         update_views(current_anime);
 

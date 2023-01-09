@@ -19,22 +19,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import AnimEngine.myapplication.CatalogActivity;
 import AnimEngine.myapplication.R;
-import AnimEngine.myapplication.StorageConnection;
-import AnimEngine.myapplication.utils.Anime;
-import AnimEngine.myapplication.utils.DB;
+import AnimEngine.myapplication.logics.StorageConnection;
+import AnimEngine.myapplication.logics.DB;
 
 public class UserSerieActivity extends AppCompatActivity {
     ImageView animeImage;

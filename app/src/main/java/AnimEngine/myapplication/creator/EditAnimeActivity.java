@@ -19,18 +19,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import AnimEngine.myapplication.R;
-import AnimEngine.myapplication.StorageConnection;
+import AnimEngine.myapplication.logics.StorageConnection;
 import AnimEngine.myapplication.utils.Anime;
-import AnimEngine.myapplication.utils.DB;
+import AnimEngine.myapplication.logics.DB;
 
 public class EditAnimeActivity extends AppCompatActivity implements View.OnClickListener {
     EditText name, seasons, episodes, des;

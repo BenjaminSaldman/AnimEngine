@@ -101,9 +101,5 @@ public class User {
         this.id = id;
     }
 
-    public void InsertUser() {
-        FirebaseDatabase db = DB.getDB();
-        DatabaseReference myRef = db.getReference("Users").child(id);
-        myRef.setValue(this);
-    }
+
 }

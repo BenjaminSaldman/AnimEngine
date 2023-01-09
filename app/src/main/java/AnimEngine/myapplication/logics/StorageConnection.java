@@ -1,4 +1,4 @@
-package AnimEngine.myapplication;
+package AnimEngine.myapplication.logics;
 
 import androidx.annotation.NonNull;
 
@@ -9,8 +9,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 
-
-public class StorageConnection implements storageInterface{
+public class StorageConnection implements storageInterface {
 
     final private StorageReference storageRef; //create refernce object
 

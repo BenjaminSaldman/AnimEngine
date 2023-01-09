@@ -140,7 +140,7 @@
 
     <fragment
         android:id="@+id/menu"
-        android:name="AnimEngine.myapplication.MenuFragment"
+        android:name="AnimEngine.myapplication.utils.MenuFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"

@@ -1,4 +1,4 @@
-package AnimEngine.myapplication.utils;
+package AnimEngine.myapplication.logics;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,10 +13,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -27,9 +24,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import AnimEngine.myapplication.StorageConnection;
-import AnimEngine.myapplication.client.UserProfileActivity;
 import AnimEngine.myapplication.creator.CreateActivity;
+import AnimEngine.myapplication.utils.Anime;
+import AnimEngine.myapplication.utils.User;
 
 public class DB {
     private static FirebaseDatabase db = null;
@@ -50,7 +47,7 @@ public class DB {
         return au;
     }
 
-    public void setUser(User user) {
+    public static void setUser(User user) {
         DB.getDB().getReference("Users").child(user.getId()).setValue(user);
     }
 
@@ -101,7 +98,7 @@ public class DB {
         }
         return byteBuffer.toByteArray();
     }
-    public static void upload(String anime_name, int ep, int se, String d, String creator_id, String gens, Uri picture_to_upload, Context context) {
+    public static void upload_anime(String anime_name, int ep, int se, String d, String creator_id, String gens, Uri picture_to_upload, Context context) {
         String[] splits = gens.trim().split(" ");
         List<String> to_send = new ArrayList<>();
         for (int i = 1; i < splits.length; i++) {
@@ -152,6 +149,16 @@ public class DB {
                 } else {
                     Toast.makeText(context, "Authentication Failed", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+    }
+    public static void update_attribute(String attribute,String name,Context context){
+        Map<String,Object> m=new HashMap<>();
+        m.put(attribute, name);
+        DB.getDB().getReference("Users").child(DB.getAU().getUid()).updateChildren(m).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Toast.makeText(context, "Real Name Successfully Modified", Toast.LENGTH_SHORT).show();
             }
         });
     }

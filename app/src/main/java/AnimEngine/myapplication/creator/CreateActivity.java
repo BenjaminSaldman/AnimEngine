@@ -1,20 +1,14 @@
 package AnimEngine.myapplication.creator;
 
-import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,25 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
-
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import AnimEngine.myapplication.R;
-import AnimEngine.myapplication.StorageConnection;
-import AnimEngine.myapplication.utils.Anime;
-import AnimEngine.myapplication.utils.DB;
+import AnimEngine.myapplication.logics.DB;
 
 public class CreateActivity extends AppCompatActivity implements View.OnClickListener {
     EditText name, seasons, episodes, des;
@@ -118,7 +95,7 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
             if (gens.equals("Selected: ") || d.isEmpty() || anime_name.isEmpty() || picture_to_upload == null) {
                 Toast.makeText(CreateActivity.this, "Please fill all fields.", Toast.LENGTH_SHORT).show();
             } else {
-                DB.upload(anime_name, ep, se, d, creator_id, gens, picture_to_upload, CreateActivity.this);
+                DB.upload_anime(anime_name, ep, se, d, creator_id, gens, picture_to_upload, CreateActivity.this);
             }
         }
 

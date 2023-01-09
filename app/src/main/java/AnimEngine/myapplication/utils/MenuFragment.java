@@ -1,4 +1,4 @@
-package AnimEngine.myapplication;
+package AnimEngine.myapplication.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import AnimEngine.myapplication.R;
 import AnimEngine.myapplication.client.Engine;
 import AnimEngine.myapplication.client.UserProfileActivity;
 import AnimEngine.myapplication.creator.CreateActivity;
@@ -66,7 +67,6 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             boolean isCreator = FirebaseAuth.getInstance().getCurrentUser().getDisplayName().equals("true");
-            //Toast.makeText(home_screen.this, "Welcome back, " + user.getNickname(), Toast.LENGTH_LONG).show();
             if (!isCreator) {
                 if (mCatalog.getId() == view.getId()) {
                     Intent intent = new Intent(view.getContext(), SearchActivity.class);
