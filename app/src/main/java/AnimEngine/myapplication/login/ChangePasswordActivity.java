@@ -10,7 +10,6 @@ import android.widget.EditText;
 
 import AnimEngine.myapplication.R;
 import AnimEngine.myapplication.logics.Server_logger;
-import AnimEngine.myapplication.login.SignInActivity;
 
 public class ChangePasswordActivity extends AppCompatActivity implements View.OnClickListener {
     Button change, go_back;

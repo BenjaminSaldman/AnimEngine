@@ -20,12 +20,13 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import AnimEngine.myapplication.creator.CreateActivity;
 import AnimEngine.myapplication.client.Engine;
 import AnimEngine.myapplication.R;
-import AnimEngine.myapplication.logics.Server_logger;
 import AnimEngine.myapplication.logics.DB;
+import AnimEngine.myapplication.logics.Server_logger;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -86,7 +87,16 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             if (pass.isEmpty() || email.isEmpty()) {
                 Toast.makeText(SignInActivity.this, "Please enter all the fields.", Toast.LENGTH_SHORT).show();
             } else {
-                new Server_logger().log_in(email, pass, this);
+                try {
+                    if(!(boolean) new Server_logger().execute(new Object[]{email, pass, this}).get()){
+                        Toast.makeText(SignInActivity.this,"Please check that the fields are correct",Toast.LENGTH_SHORT).show();
+                    }
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                //new Server_logger().log_in(email, pass, this);
             }
         } else if (view.getId() == tvSignUp.getId()) {
             Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);

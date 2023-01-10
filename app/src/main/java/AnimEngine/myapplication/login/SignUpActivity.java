@@ -14,8 +14,10 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.concurrent.ExecutionException;
+
 import AnimEngine.myapplication.R;
-import AnimEngine.myapplication.logics.Server_logger;
+import AnimEngine.myapplication.logics.Server_signer;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
     FirebaseDatabase root;
@@ -67,7 +69,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 Toast.makeText(SignUpActivity.this, "Name too long", Toast.LENGTH_SHORT).show();
             }
             else {
-                new Server_logger().sign_up(uname,email,pass,nick,isCreator,this);
+                try {
+                    if(!(boolean)new Server_signer().execute(new Object[]{uname,email,pass,nick,isCreator,this}).get()){
+                        Toast.makeText(SignUpActivity.this,"Error, this email already exists",Toast.LENGTH_SHORT).show();
+                    }
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                // new Server_signer().sign_up(uname,email,pass,nick,isCreator,this);
 
             }
 
