@@ -2,9 +2,7 @@ package AnimEngine.myapplication.utils;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.io.ByteArrayOutputStream;
@@ -13,8 +11,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import AnimEngine.myapplication.StorageConnection;
-import AnimEngine.myapplication.creator.CreateActivity;
 @IgnoreExtraProperties
 public class Anime implements Parcelable {
     private String name;
@@ -170,19 +166,7 @@ public class Anime implements Parcelable {
         this.genres = genres;
     }
 
-    public boolean upload_anime(InputStream input_stream){
-        try {
 
-            byte[]  inputData = getBytes(input_stream);
-            StorageConnection sc = new StorageConnection("images/");
-            sc.uploadImage(anime_id, inputData);
-            DB.getDB().getReference("Anime").child(anime_id).setValue(this);
-            DB.getDB().getReference("CreatorAnime").child(creator_id).child(anime_id).setValue(anime_id);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
 
     private byte[] getBytes(InputStream inputStream) throws IOException {
         ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
@@ -214,4 +198,6 @@ public class Anime implements Parcelable {
         parcel.writeInt(seasons);
         parcel.writeStringList(genres);
     }
+
+
 }

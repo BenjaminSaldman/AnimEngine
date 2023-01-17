@@ -1,4 +1,4 @@
-package AnimEngine.myapplication;
+package AnimEngine.myapplication.logics;
 
 import android.widget.ImageView;
 

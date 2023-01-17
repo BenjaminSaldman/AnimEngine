@@ -1,4 +1,4 @@
-package AnimEngine.myapplication;
+package AnimEngine.myapplication.utils;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,8 +22,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import AnimEngine.myapplication.R;
+import AnimEngine.myapplication.logics.SearchListAdapter;
 import AnimEngine.myapplication.utils.Anime;
-import AnimEngine.myapplication.utils.DB;
+import AnimEngine.myapplication.logics.DB;
 
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 

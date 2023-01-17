@@ -4,8 +4,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
+import AnimEngine.myapplication.logics.DB;
 
 public class Favorites {
     private List<String> favorites;

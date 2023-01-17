@@ -1,12 +1,10 @@
-package AnimEngine.myapplication;
+package AnimEngine.myapplication.logics;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,18 +15,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
-import AnimEngine.myapplication.client.UserSerieActivity;
+import AnimEngine.myapplication.R;
 import AnimEngine.myapplication.client.UserSerieActivity;
 import AnimEngine.myapplication.creator.CreatorSerieActivity;
 import AnimEngine.myapplication.utils.Anime;
-import AnimEngine.myapplication.utils.DB;
 
 public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.MyViewHolder> implements RecyclerView.OnItemTouchListener {
 

@@ -23,7 +23,7 @@ import java.util.Map;
 
 import AnimEngine.myapplication.R;
 import AnimEngine.myapplication.login.SignInActivity;
-import AnimEngine.myapplication.utils.DB;
+import AnimEngine.myapplication.logics.DB;
 
 public class SelectActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -143,9 +143,7 @@ public class SelectActivity extends AppCompatActivity implements View.OnClickLis
 
             }
         });
-//            anime_name.setText(anime[index]);
-//            description.setText(descriptions[index]);
-//            seasons.setText(len[index]);
+
 
     }
 }

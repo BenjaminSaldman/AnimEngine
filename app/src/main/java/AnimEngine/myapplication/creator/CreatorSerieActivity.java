@@ -19,8 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import AnimEngine.myapplication.R;
-import AnimEngine.myapplication.StorageConnection;
-import AnimEngine.myapplication.client.UserSerieActivity;
+import AnimEngine.myapplication.logics.StorageConnection;
 
 public class CreatorSerieActivity extends AppCompatActivity {
     ImageView animeImage;
