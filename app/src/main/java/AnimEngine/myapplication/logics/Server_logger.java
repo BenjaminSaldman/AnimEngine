@@ -251,8 +251,10 @@ public class Server_logger extends AsyncTask {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         } catch (JSONException e) {
             e.printStackTrace();
+            return false;
         }
 
         return true;
