@@ -38,7 +38,7 @@ public class Server_signer extends AsyncTask {
             "Sci-Fi", "Psychological", "Supernatural", "Romance", "Crime", "Superhero", "Martial-arts"};
     public synchronized boolean sign_up_with_server(String uname, String email, String pass, String nick, boolean isCreator, Context context) throws IOException, JSONException {
         //String endpoint = "http://172.20.10.2:8080/signup/";
-        String endpoint = "http://172.20.10.2:8000/signup/";
+        String endpoint = "http://10.12.12.199:8000/signup/";
         URL url = new URL(endpoint);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("POST");
