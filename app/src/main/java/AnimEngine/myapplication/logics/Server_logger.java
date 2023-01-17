@@ -49,7 +49,7 @@ public class Server_logger extends AsyncTask {
 
     public synchronized boolean log_in_with_server(String email, String pass, Context context) throws IOException, JSONException {
         //String endpoint = "http://172.20.10.2:8080/login";
-        String endpoint = "http://172.20.10.2:8000/login/";
+        String endpoint = "http://10.12.12.199:8000/login/";
         URL url = new URL(endpoint);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("POST");
@@ -251,8 +251,10 @@ public class Server_logger extends AsyncTask {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         } catch (JSONException e) {
             e.printStackTrace();
+            return false;
         }
 
         return true;
